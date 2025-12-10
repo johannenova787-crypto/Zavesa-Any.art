@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Завеса — Эни: Сквозь Тени</title>
+  <style>
+    /* --- Общие стили --- */
+    :root{
+      --bg:#0b0b0d;
+      --gold1: #ffd97a;
+      --gold2: #ffcf5c;
+      --veil-1: rgba(255,220,120,0.08);
+      --veil-2: rgba(255,200,80,0.06);
+      --card: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.04);
+      --text: #f6eee3;
+      --muted: #d8ccb4;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family: "Georgia", serif;background:var(--bg);color:var(--text);}
+
+    /* --- Фон: золотая завеса, мягкое движение --- */
+    body::before{
+      content:'';position:fixed;inset:0;z-index:-2;
+      background: radial-gradient(600px 400px at 20% 20%, rgba(255,230,160,0.06), transparent),
+                  radial-gradient(600px 400px at 80% 80%, rgba(255,210,120,0.05), transparent),
+                  linear-gradient(180deg, #061016 0%, #0b0b0d 100%);
+      filter: blur(30px);
+      animation: veilFlow 22s ease-in-out infinite alternate;
+    }
+    @keyframes veilFlow{
+      0%{transform:translate3d(0,0,0) scale(1);opacity:0.9}
+      50%{transform:translate3d(1%, -1%,0) scale(1.02);opacity:1}
+      100%{transform:translate3d(-1%, 1%,0) scale(1.01);opacity:0.92}
+    }
+
+    /* --- Контейнер --- */
+    .wrap{max-width:1100px;margin:40px auto;padding:28px}
+
+    /* --- Хедер / герой --- */
+    .hero{
+      display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;padding:28px;border-radius:16px;background:linear-gradient(180deg, rgba(255,245,220,0.03), rgba(255,235,180,0.01));box-shadow:0 8px 30px rgba(0,0,0,0.6);
+      border:1px solid rgba(255,200,80,0.04);
+    }
+    .hero-left h1{font-size:36px;margin:0 0 12px 0;letter-spacing:0.6px;color:var(--gold1)}
+    .subtitle{color:var(--muted);margin-bottom:18px}
+    .cta{display:flex;gap:12px}
+    .btn{background:linear-gradient(180deg,var(--gold1),var(--gold2));color:#1a1200;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 6px 18px rgba(255,184,60,0.18)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,210,120,0.12);color:var(--muted)}
+
+    .hero-right{position:relative}
+    .cover{width:100%;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.6);background:linear-gradient(180deg, rgba(255,250,230,0.03), rgba(255,230,180,0.01));padding:14px}
+    .cover img{width:100%;display:block;border-radius:8px}
+
+    /* --- Секции --- */
+    section{margin-top:28px;padding:20px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,200,80,0.03)}
+    h2{color:var(--gold1);margin:0 0 12px 0}
+    p{color:var(--muted);line-height:1.6}
+
+    /* --- Сетка героев --- */
+    .chars{display:flex;gap:18px;flex-wrap:wrap}
+    .card{flex:1 1 250px;background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(255,220,140,0.03)}
+    .card img{width:100%;height:220px;object-fit:cover;border-radius:8px;margin-bottom:10px}
+    .card h3{margin:0 0 6px 0;color:var(--gold2)}
+
+    /* --- Галерея --- */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .gallery img{width:100%;height:180px;object-fit:cover;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,0.6)}
+
+    /* --- Видео / клип --- */
+    .video{position:relative;padding-top:56.25%;overflow:hidden;border-radius:10px}
+    .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+    /* --- Footer --- */
+    footer{margin-top:40px;text-align:center;color:var(--muted);font-size:14px}
+
+    /* --- Адаптив --- */
+    @media (max-width:900px){.hero{grid-template-columns:1fr;}.hero-right{order:-1}.gallery{grid-template-columns:repeat(2,1fr)}.cover{max-width:320px;margin:0 auto}}
+    @media (max-width:520px){.gallery{grid-template-columns:1fr}.card img{height:160px}}
+
+    /* --- Лёгкое свечение обложки при наведении (завеса) --- */
+    .cover img:hover{transform:translateY(-6px);transition:transform .4s}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-left">
+        <h1>Эни: Акт 1. Сквозь Тени</h1>
+        <div class="subtitle">Мириэль Нова — мир, где Завеса звучит золотом. Книга, что возвращает свет.</div>
+        <div class="cta">
+          <a class="btn" href="#book">Купить / Подробнее</a>
+          <a class="btn secondary" href="#gallery">Галерея обложек</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="cover">
+          <!-- Заменить на свой файл обложки -->
+          <img src="cover-placeholder.jpg" alt="Обложка Эни">
+        </div>
+      </div>
+    </header>
+
+    <!-- О КНИГЕ -->
+    <section id="book">
+      <h2>О книге</h2>
+      <p>Короткое лирическое вступление. Отрывок или аннотация. Здесь можно поместить атмосферный текст, настроить кнопку покупки на Ridero/LitRes/другой сервис.</p>
+      <p style="margin-top:12px"><strong>Кнопки оплаты:</strong></p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+        <a class="btn" href="https://ridero.example">Купить: Ridero</a>
+        <a class="btn" href="https://litres.example">Купить: ЛитРес</a>
+        <a class="btn secondary" href="https://vk.com/donate.example">Пожертвовать / Поддержать</a>
+      </div>
+    </section>
+
+    <!-- ГЕРОИ -->
+    <section id="characters">
+      <h2>Герои</h2>
+      <div class="chars">
+        <article class="card">
+          <img src="eni.jpg" alt="Эни">
+          <h3>Эни</h3>
+          <p>Краткая подпись: утончённая, смелая, светлая. Ссылка на полную страницу.</p>
+        </article>
+
+        <article class="card">
+          <img src="jeremy.jpg" alt="Джереми">
+          <h3>Джереми</h3>
+          <p>Аристократичный, задумчивый. Длинные волосы, хвост. Его место в истории.</p>
+        </article>
+
+        <article class="card">
+          <img src="angelica.jpg" alt="Анджелика">
+          <h3>Анджелика</h3>
+          <p>Синеволосая с горящим кубком. Тёплая магия и свет.</p>
+        </article>
+
+        <article class="card">
+          <img src="cat.jpg" alt="Кот">
+          <h3>Кот</h3>
+          <p>Маленький хранитель у озера. Он знает секреты и не спешит.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ГАЛЕРЕЯ ОБЛОЖЕК -->
+    <section id="gallery">
+      <h2>Галерея обложек</h2>
+      <div class="gallery">
+        <img src="cover1.jpg" alt="Вариант 1">
+        <img src="cover2.jpg" alt="Вариант 2">
+        <img src="cover3.jpg" alt="Вариант 3">
+        <img src="cover4.jpg" alt="Вариант 4">
+        <img src="cover5.jpg" alt="Вариант 5">
+        <img src="cover6.jpg" alt="Вариант 6">
+      </div>
+    </section>
+
+    <!-- ВИДЕО / КЛИПЫ -->
+    <section id="media">
+      <h2>Клипы и трейлеры</h2>
+      <div class="video">
+        <!-- Вставь ссылку на YouTube / Vimeo -->
+        <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- БЛОГ / СТАТЬИ -->
+    <section id="blog">
+      <h2>Блог / Записи</h2>
+      <p>Небольшие статьи о символах, ритуалах, сценах и героях. Каждая запись имеет отдельную страницу.</p>
+    </section>
+
+    <footer>
+      © Мириэль Нова · Завеса — мир Эни · Все права защищены
+    </footer>
+  </div>
+
+  <script>
+    // Небольшой скрипт: плавная прокрутка по ссылкам
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+  </script>
+</body>
+</html>
