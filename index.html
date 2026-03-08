@@ -183,7 +183,7 @@ window.addEventListener('resize', resize);
 
 let particles = [];
 
-for (let i = 0; i < 260; i++)
+for (let i = 0; i < 260; i++) {
 
   const firefly = Math.random() < 0.08; // примерно 8% светлячков
 
@@ -191,7 +191,7 @@ for (let i = 0; i < 260; i++)
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
 
-r: firefly ? Math.random()*4 + 2 : Math.random()*2.6 + 1,
+    r: firefly ? Math.random()*4 + 2 : Math.random()*2.6 + 1,
 
     v: firefly ? Math.random()*0.15 + 0.05 : Math.random()*0.3 + 0.1,
 
@@ -201,7 +201,6 @@ r: firefly ? Math.random()*4 + 2 : Math.random()*2.6 + 1,
   });
 
 }
-  
 
 function draw() {
 
