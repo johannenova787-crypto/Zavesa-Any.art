@@ -65,12 +65,15 @@ background-size: 300% 300%;
   font-size: clamp(52px, 6vw, 88px);
   letter-spacing: 0.14em;
   color: #c9a14a;
+
   text-shadow:
     0 0 10px rgba(255,215,150,0.5),
     0 0 22px rgba(255,200,120,0.35);
+
   margin-bottom: 40px;
+
+  animation: titleGlow 6s ease-in-out infinite;
 }
-animation: titleGlow 6s ease-in-out infinite;
   
   @keyframes titleGlow{
 0%,100%{
@@ -178,26 +181,28 @@ resize();
 window.addEventListener('resize', resize);
 
 let particles = [];
-for (let i = 0; i < 120; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 1.8 + 0.6,
-    v: Math.random() * 0.3 + 0.1,
-    a: Math.random() * Math.PI * 2
-  });
+for (let i = 0; i < 180; i++)
+  
+particles.push({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 1.8 + 0.6,
+  v: Math.random() * 0.3 + 0.1,
+  a: Math.random() * Math.PI * 2,
+  glow: Math.random()
+});
 }
 
 function draw() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particles.forEach(p => {
     p.y -= p.v;
-    p.x += Math.sin(p.a) * 0.2;
+    p.x += Math.sin(p.a) * 0.6;
     p.a += 0.01;
     if (p.y < -10) p.y = canvas.height + 10;
     ctx.beginPath();
     
-const glow = Math.random();
+const glow = p.glow;
 
 if (glow < 0.3) {
   ctx.fillStyle = "rgba(255,220,160,0.9)";
