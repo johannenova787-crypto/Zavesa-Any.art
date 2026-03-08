@@ -32,10 +32,10 @@ html, body {
   background:
 linear-gradient(
 120deg,
+rgba(255,255,255,0.35),
+rgba(255,230,180,0.20),
 rgba(255,255,255,0.55),
-rgba(255,230,180,0.35),
-rgba(255,255,255,0.55),
-rgba(255,240,200,0.3)
+rgba(255,240,200,0.18)
 );
 
 background-size: 300% 300%;
@@ -172,6 +172,7 @@ function openVeil() {
 /* Частицы */
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
+  ctx.globalCompositeOperation = "lighter";
 
 function resize() {
   canvas.width = window.innerWidth;
@@ -182,7 +183,7 @@ window.addEventListener('resize', resize);
 
 let particles = [];
 
-for (let i = 0; i < 180; i++) {
+for (let i = 0; i < 260; i++)
 
   const firefly = Math.random() < 0.08; // примерно 8% светлячков
 
@@ -190,7 +191,7 @@ for (let i = 0; i < 180; i++) {
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
 
-    r: firefly ? Math.random()*3 + 2 : Math.random()*1.8 + 0.6,
+r: firefly ? Math.random()*4 + 2 : Math.random()*2.6 + 1,
 
     v: firefly ? Math.random()*0.15 + 0.05 : Math.random()*0.3 + 0.1,
 
@@ -219,7 +220,7 @@ function draw() {
     if (p.glow) {
 
       ctx.fillStyle = "rgba(255,235,170,0.95)";
-      ctx.shadowBlur = 22;
+      ctx.shadowBlur = 30;
       ctx.shadowColor = "rgba(255,230,170,0.9)";
 
     } else {
@@ -236,7 +237,7 @@ function draw() {
         ctx.fillStyle = "rgba(200,160,80,0.5)";
       }
 
-      ctx.shadowBlur = 10;
+      ctx.shadowBlur = 16;
       ctx.shadowColor = "rgba(255,220,150,0.8)";
     }
 
