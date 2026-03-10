@@ -397,7 +397,91 @@ transform:translate(-50%,-50%) scale(2.5);
 }
 
 }
+  
+.portal{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0.6);
+width:260px;
+height:260px;
+border-radius:50%;
+opacity:0;
+pointer-events:none;
+transition:opacity 1.6s ease, transform 1.6s ease;
+}
 
+.portal.open{
+opacity:1;
+transform:translate(-50%,-50%) scale(1);
+}
+
+.portal-ring{
+position:absolute;
+width:100%;
+height:100%;
+border-radius:50%;
+
+background:
+radial-gradient(circle,
+rgba(255,230,150,0.9) 0%,
+rgba(255,220,150,0.4) 40%,
+transparent 70%);
+
+box-shadow:
+0 0 60px rgba(255,220,140,0.8),
+0 0 140px rgba(255,220,140,0.4);
+
+animation: portalPulse 6s ease-in-out infinite;
+}
+
+.portal-text{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:18px;
+letter-spacing:0.2em;
+color:#8c6b2a;
+}
+
+@keyframes portalPulse{
+
+0%{transform:scale(1);}
+50%{transform:scale(1.08);}
+100%{transform:scale(1);}
+
+}
+
+.page-particle{
+position:absolute;
+width:10px;
+height:14px;
+
+background:
+linear-gradient(to bottom,
+rgba(255,240,200,0.9),
+rgba(255,210,120,0.3));
+
+border-radius:2px;
+
+animation:pageRise 3s ease forwards;
+}
+
+@keyframes pageRise{
+
+0%{
+transform:translateY(0) rotate(0deg);
+opacity:1;
+}
+
+100%{
+transform:translateY(-200px) rotate(360deg);
+opacity:0;
+}
+
+}
+  
 </style>
 
 </head>
@@ -440,7 +524,14 @@ transform:translate(-50%,-50%) scale(2.5);
 
 </div>
 
+<div class="portal" id="portal">
+    <div class="portal-ring"></div>
+    <div class="portal-text">Вход</div>
+</div>
+
+
 <div class="buttons">
+  
 
 <button class="button" onclick="scrollToAbout()">
 О книге
@@ -556,8 +647,41 @@ document.getElementById("about").scrollIntoView({behavior:"smooth"});
 }
 
 function goDeeper(){
+
+createPageParticles();
+
+const portal = document.getElementById("portal");
+
+setTimeout(()=>{
+portal.classList.add("open");
+},1200);
+
+setTimeout(()=>{
 window.location.href="rooms/index.html";
+},3000);
+
 }
+
+  function createPageParticles(){
+
+const slider = document.getElementById("slider");
+
+for(let i=0;i<20;i++){
+
+const p = document.createElement("div");
+p.className="page-particle";
+
+p.style.left=Math.random()*100+"%";
+p.style.bottom="40px";
+
+slider.appendChild(p);
+
+setTimeout(()=>p.remove(),3000);
+
+}
+
+}
+  
 
 function goBuy(){
 window.location.href="buy.html";
