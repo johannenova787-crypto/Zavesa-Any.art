@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joanna Nova</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+body{
+margin:0;
+font-family:'Cormorant Garamond',serif;
+background:radial-gradient(circle at top,#fffef8,#f2e4c5);
+color:#6e5a2e;
+text-align:center;
+padding:120px 20px;
+}
+
+.title{
+font-family:'Cinzel',serif;
+font-size:56px;
+letter-spacing:0.16em;
+color:#d6b45a;
+text-shadow:0 0 18px rgba(255,235,180,0.8);
+margin-bottom:20px;
+}
+
+.return{
+font-size:22px;
+opacity:0.8;
+margin-bottom:40px;
+}
+
+.text{
+max-width:700px;
+margin:auto;
+font-size:24px;
+line-height:1.6;
+}
+
+</style>
+</head>
+<body>
+
+<script>
+if(localStorage.getItem("eni_veil_opened")){
+  const r=document.createElement("div");
+  r.className="return";
+  r.innerText="с возвращением";
+  document.body.appendChild(r);
+}
+</script>
+
+<div class="title">Joanna Nova</div>
+
+<div class="text">
+Страница Джоанны Новы может стать тихим садом внутри мира Эни.
+Здесь могут появляться её записи, мысли, главы или световые фрагменты истории.
+</div>
+
+</body>
+</html>
+-->
+
+
+</body>
+</html>
