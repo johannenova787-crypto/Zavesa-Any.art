@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
-
 html,body{
 margin:0;
 padding:0;
@@ -123,7 +122,6 @@ position:absolute;
 inset:0;
 z-index:1;
 }
-
 </style>
 
 </head>
@@ -191,24 +189,47 @@ window.addEventListener("resize",resize);
 
 /* частицы */
 
-let particles=[];
+let dust=[];
+let sparks=[];
+let stars=[];
 
-for(let i=0;i<160;i++){
+/* золотая пыль */
 
-particles.push({
+for(let i=0;i<180;i++){
 
+dust.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-
-r:Math.random()*2+0.6,
-
+r:Math.random()*1.2+0.3,
 v:Math.random()*0.15+0.05,
+a:Math.random()*Math.PI*2
+});
 
+}
+
+/* искры */
+
+for(let i=0;i<40;i++){
+
+sparks.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2+0.8,
+v:Math.random()*0.12+0.04,
 a:Math.random()*Math.PI*2,
+pulse:Math.random()*Math.PI*2
+});
 
-pulse:Math.random()*Math.PI*2,
-pulseSpeed:Math.random()*0.02+0.01
+}
 
+/* звезды */
+
+for(let i=0;i<6;i++){
+
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+pulse:Math.random()*Math.PI*2
 });
 
 }
@@ -217,43 +238,68 @@ function draw(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
-particles.forEach(p=>{
+/* пыль */
+
+dust.forEach(p=>{
 
 p.x+=Math.cos(p.a)*p.v;
 p.y+=Math.sin(p.a)*p.v;
 
-p.pulse+=p.pulseSpeed;
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle="rgba(255,235,170,0.6)";
+ctx.fill();
 
-const glow=0.6+Math.sin(p.pulse)*0.5;
+});
 
-/* мягкое свечение */
+/* искры */
 
-const aura=ctx.createRadialGradient(
-p.x,p.y,0,
-p.x,p.y,p.r*glow*8
+sparks.forEach(s=>{
+
+s.x+=Math.cos(s.a)*s.v;
+s.y+=Math.sin(s.a)*s.v;
+
+s.pulse+=0.03;
+
+const glow=1+Math.sin(s.pulse)*0.6;
+
+const g=ctx.createRadialGradient(
+s.x,s.y,0,
+s.x,s.y,s.r*glow*5
 );
 
-aura.addColorStop(0,"rgba(255,255,230,0.9)");
-aura.addColorStop(0.3,"rgba(255,235,180,0.6)");
-aura.addColorStop(0.6,"rgba(255,210,140,0.25)");
-aura.addColorStop(1,"rgba(255,200,120,0)");
+g.addColorStop(0,"rgba(255,250,200,0.9)");
+g.addColorStop(0.4,"rgba(255,220,150,0.5)");
+g.addColorStop(1,"rgba(255,210,120,0)");
 
 ctx.beginPath();
-ctx.arc(p.x,p.y,p.r*glow*8,0,Math.PI*2);
-ctx.fillStyle=aura;
+ctx.arc(s.x,s.y,s.r*glow*5,0,Math.PI*2);
+ctx.fillStyle=g;
 ctx.fill();
 
-/* яркое ядро */
+});
+
+/* звезды */
+
+stars.forEach(st=>{
+
+st.pulse+=0.04;
+
+const glow=1+Math.sin(st.pulse)*0.8;
+
+const g=ctx.createRadialGradient(
+st.x,st.y,0,
+st.x,st.y,20*glow
+);
+
+g.addColorStop(0,"rgba(255,255,230,1)");
+g.addColorStop(0.2,"rgba(255,240,190,0.9)");
+g.addColorStop(1,"rgba(255,220,150,0)");
 
 ctx.beginPath();
-ctx.arc(p.x,p.y,p.r*glow*1.2,0,Math.PI*2);
-ctx.fillStyle="rgba(255,250,210,0.95)";
+ctx.arc(st.x,st.y,20*glow,0,Math.PI*2);
+ctx.fillStyle=g;
 ctx.fill();
-
-if(p.x<0)p.x=canvas.width;
-if(p.x>canvas.width)p.x=0;
-if(p.y<0)p.y=canvas.height;
-if(p.y>canvas.height)p.y=0;
 
 });
 
