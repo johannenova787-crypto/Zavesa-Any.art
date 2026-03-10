@@ -140,8 +140,6 @@ function draw(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
-/* золотая пыль */
-
 dust.forEach(p=>{
 
 if(!forming){
@@ -164,8 +162,6 @@ ctx.fill();
 
 });
 
-/* светлячки */
-
 fireflies.forEach(f=>{
 
 f.pulse+=0.03;
@@ -186,8 +182,6 @@ ctx.fill();
 
 });
 
-/* платиновые звезды */
-
 stars.forEach(s=>{
 
 s.pulse+=0.03;
@@ -206,7 +200,6 @@ requestAnimationFrame(draw);
 
 draw();
 
-
 function formText(){
 
 const temp=document.createElement("canvas");
@@ -222,11 +215,11 @@ tctx.textBaseline="middle";
 
 tctx.fillText("JOANNA NOVA",450,200);
 
-const data=tctx.getImageData(0,0,900,260).data;
+const data=tctx.getImageData(0,0,900,400).data;
 
 let points=[];
 
-for(let y=0;y<260;y+=4){
+for(let y=0;y<400;y+=4){
 for(let x=0;x<900;x+=4){
 
 let i=(y*900+x)*4;
@@ -235,7 +228,7 @@ if(data[i+3]>150){
 
 points.push({
 x:x+canvas.width/2-450,
-y:y+canvas.height/2-130
+y:y+canvas.height/2-200
 });
 
 }
