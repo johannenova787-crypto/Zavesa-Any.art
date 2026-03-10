@@ -26,21 +26,11 @@ animation: goldenBreath 18s ease-in-out infinite;
 
 @keyframes goldenBreath {
 
-0% {
-background-position: 50% 0%;
-}
-
-50% {
-background-position: 52% 6%;
-}
-
-100% {
-background-position: 50% 0%;
-}
+0% {background-position: 50% 0%;}
+50% {background-position: 52% 6%;}
+100% {background-position: 50% 0%;}
 
 }
-
-/* Плавное появление */
 
 body {
 opacity: 0;
@@ -48,14 +38,8 @@ animation: fadeIn 2.5s ease forwards;
 }
 
 @keyframes fadeIn {
-
-to {
-opacity: 1;
+to {opacity: 1;}
 }
-
-}
-
-/* HERO */
 
 .hero {
 min-height: 100vh;
@@ -83,8 +67,6 @@ opacity: 0.7;
 margin-bottom: 80px;
 }
 
-/* Слайдер */
-
 .slider {
 width: 420px;
 aspect-ratio: 3/4;
@@ -102,17 +84,16 @@ overflow: hidden;
 box-shadow: 0 30px 80px rgba(180,140,60,0.35);
 backface-visibility: hidden;
 transform-origin: left;
+transform-style: preserve-3d;
+background:#f4ead4;
 transition: transform 2s ease, opacity 2s ease;
 }
 
-.slide img {
+.slide img{
 width:100%;
 height:100%;
-object-fit:contain;
-}
-
-  .slide{
-background:#f4ead4;
+object-fit:cover;
+object-position:center;
 }
 
 .slide.active {
@@ -123,8 +104,6 @@ z-index: 2;
 transform: rotateY(-180deg);
 opacity: 0;
 }
-
-/* Кнопки */
 
 .buttons {
 display: flex;
@@ -149,8 +128,6 @@ transition: all 0.6s ease;
 transform: scale(1.07);
 box-shadow: 0 0 40px rgba(255,220,160,0.6);
 }
-
-/* О книге */
 
 .about-book {
 min-height: 100vh;
@@ -186,8 +163,6 @@ font-size: 18px;
 opacity: 0.7;
 line-height: 1.8;
 }
-
-/* Блок отрывка */
 
 .excerpt-section {
 min-height: 100vh;
@@ -257,86 +232,6 @@ transition: transform 1.5s ease;
 transform: rotateX(3deg);
 }
 
-/* Золотая пыль */
-
-.sparkle,
-.gold-particle {
-position: absolute;
-width: 6px;
-height: 6px;
-background: radial-gradient(circle, gold 0%, transparent 70%);
-border-radius: 50%;
-pointer-events: none;
-animation: float 2s ease forwards;
-}
-
-@keyframes float {
-
-from {
-transform: translateY(0);
-opacity: 1;
-}
-
-to {
-transform: translateY(-120px);
-opacity: 0;
-}
-
-}
-
-/* Пыль при прокрутке */
-
-.scroll-dust {
-position: fixed;
-width: 5px;
-height: 5px;
-background: radial-gradient(circle, gold 0%, transparent 70%);
-border-radius: 50%;
-pointer-events: none;
-animation: dustFloat 3s ease-out forwards;
-z-index: 999;
-}
-
-@keyframes dustFloat {
-
-from {
-transform: translateY(0) scale(1);
-opacity: 1;
-}
-
-to {
-transform: translateY(-120px) scale(0.4);
-opacity: 0;
-}
-
-}
-
-.cursor-glow {
-position: fixed;
-width: 12px;
-height: 12px;
-pointer-events: none;
-border-radius: 50%;
-background: radial-gradient(circle, rgba(255,220,140,0.8) 0%, rgba(255,220,140,0) 70%);
-transform: translate(-50%, -50%);
-animation: glowFade 0.8s ease-out forwards;
-z-index: 9999;
-}
-
-@keyframes glowFade {
-
-from {
-opacity: 0.9;
-transform: translate(-50%, -50%) scale(1);
-}
-
-to {
-opacity: 0;
-transform: translate(-50%, -50%) scale(2.5);
-}
-
-}
-
 </style>
 
 </head>
@@ -349,14 +244,12 @@ transform: translate(-50%, -50%) scale(2.5);
 
 <div class="subtitle">
 Акт I — Сквозь Тени
-  
 </div>
 
-<div class="slider" id="slider">
+<div class="slider">
 
 <div class="slide active">
 <img src="images/covers/cover1.jpg">
-  
 </div>
 
 <div class="slide">
@@ -377,205 +270,11 @@ transform: translate(-50%, -50%) scale(2.5);
 
 <div class="slide">
 <img src="images/covers/cover6.jpg">
-
-</div>
-
-</div>
-
-<div class="buttons">
-
-<button class="button" onclick="scrollToAbout()">
-О книге
-</button>
-
-<button class="button" onclick="goDeeper()">
-Нырнуть глубже
-</button>
-
-<button class="button" onclick="goBuy()">
-Взять книгу с собой
-</button>
-
-</div>
-
-</section>
-
-<section class="about-book" id="about">
-
-<div class="about-inner">
-
-<div class="about-title">
-О книге
-</div>
-
-<p>
-«Эни. Акт I — Сквозь Тени» — история о границе между светом и тем, что остаётся за пределами видимого.
-</p>
-
-<p>
-Здесь тени — не враги. Они память, глубина, отражение.
-</p>
-
-<div class="about-meta">
-Жанр: мистическая проза<br>
-Формат: цифровая книга (PDF)<br>
-Объём: 121 страница
 </div>
 
 </div>
 
 </section>
-
-<section class="excerpt-section">
-
-<div class="excerpt-inner">
-
-<div class="excerpt-title">
-Бесплатный отрывок
-</div>
-
-<button class="excerpt-toggle" onclick="toggleExcerpt()">
-Развернуть фрагмент
-</button>
-
-<div class="excerpt-wrapper" id="excerptWrapper">
-
-<div class="excerpt-text">
-
-<p>
-Она чувствовала дыхание теней. Они не были пустыми. Они ждали.
-</p>
-
-<p>
-И когда мир стал тише — начался её путь.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<script>
-
-const slides = document.querySelectorAll(".slide");
-let current = 0;
-let isAnimating = false;
-
-function nextSlide(){
-
-if (isAnimating) return;
-
-isAnimating = true;
-
-const currentSlide = slides[current];
-const nextIndex = (current + 1) % slides.length;
-const upcomingSlide = slides[nextIndex];
-
-currentSlide.classList.add("flip");
-
-setTimeout(() => {
-
-currentSlide.classList.remove("active","flip");
-upcomingSlide.classList.add("active");
-
-current = nextIndex;
-isAnimating = false;
-
-setTimeout(nextSlide, 7000);
-
-}, 2000);
-
-}
-
-setTimeout(nextSlide, 7000);
-
-function scrollToAbout(){
-document.getElementById("about").scrollIntoView({behavior:"smooth"});
-}
-
-function goDeeper(){
-window.location.href = "rooms/index.html";
-}
-
-function goBuy(){
-window.location.href = "buy.html";
-}
-
-function toggleExcerpt(){
-
-const wrapper = document.getElementById("excerptWrapper");
-wrapper.classList.toggle("open");
-
-createGoldDust();
-
-}
-
-function createGoldDust(){
-
-const container = document.querySelector(".excerpt-inner");
-
-for(let i=0;i<12;i++){
-
-const dust = document.createElement("div");
-
-dust.className="gold-particle";
-dust.style.left=Math.random()*100+"%";
-dust.style.bottom="40px";
-
-container.appendChild(dust);
-
-setTimeout(()=>dust.remove(),2000);
-
-}
-
-}
-
-/* Пыль при прокрутке страницы */
-
-window.addEventListener("scroll", createScrollDust);
-
-function createScrollDust(){
-
-if(Math.random() > 0.25) return;
-
-const dust = document.createElement("div");
-
-dust.className = "scroll-dust";
-dust.style.left = Math.random() * window.innerWidth + "px";
-dust.style.top = window.scrollY + window.innerHeight * Math.random() + "px";
-
-document.body.appendChild(dust);
-
-setTimeout(() => {
-
-dust.remove();
-
-}, 3000);
-
-}
-
-document.addEventListener("mousemove", (e) => {
-
-const glow = document.createElement("div");
-
-glow.className = "cursor-glow";
-glow.style.left = e.clientX + "px";
-glow.style.top = e.clientY + "px";
-
-document.body.appendChild(glow);
-
-setTimeout(() => {
-
-glow.remove();
-
-}, 800);
-
-});
-
-</script>
 
 </body>
 </html>
