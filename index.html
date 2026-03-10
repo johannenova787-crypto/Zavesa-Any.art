@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -102,7 +103,7 @@ to{opacity:1; transform:translateY(0);} }
 путь звучит и раскрывается где бы ты ни был...
 </div>
 
-<button class="open">ОТКРЫТЬ</button>
+<button class="open" onclick="openVeil()">ОТКРЫТЬ</button>
 
 </div>
 
@@ -291,6 +292,34 @@ f.y+=dy*0.02;
 });
 
 });
+
+
+// раскрытие Завесы
+function openVeil(){
+
+const portal=document.querySelector('.portal');
+
+portal.style.transition="opacity 2.5s ease";
+portal.style.opacity=0;
+
+// усиление света перед раскрытием
+let flash=0;
+
+const light=setInterval(()=>{
+flash+=0.03;
+ctx.fillStyle="rgba(255,245,210,"+flash+")";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+if(flash>=0.9){
+clearInterval(light);
+}
+
+},40);
+
+// через мгновение можно перейти дальше (если будет другая страница)
+// setTimeout(()=>{ window.location.href="home.html" },2600);
+
+}
 
 </script>
 
