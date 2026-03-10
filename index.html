@@ -232,6 +232,8 @@ for (let i = 0; i < 140; i++) {
 
 }
 
+  }
+
 /* крупные светлячки */
 
 for (let i = 0; i < 4; i++) {
@@ -267,7 +269,7 @@ r: Math.random()*20 + 16,
 
     ctx.beginPath();
     ctx.arc(p.x,p.y,p.r*glow,0,Math.PI*2);
-ctx.fillStyle="rgba(255,190,90,1)";
+ctx.fillStyle="rgba(255,170,60,1)";
     ctx.fill();
 
     if(p.x<0) p.x=canvas.width;
@@ -279,13 +281,16 @@ ctx.fillStyle="rgba(255,190,90,1)";
 
   bigLights.forEach(l=>{
 
+    l.x += Math.cos(l.pulse) * l.v;
+l.y += Math.sin(l.pulse) * l.v;
+
     l.pulse += l.pulseSpeed;
 
     const glow = 0.6 + Math.sin(l.pulse)*0.4;
 
     ctx.beginPath();
     ctx.arc(l.x,l.y,l.r*glow,0,Math.PI*2);
-ctx.fillStyle="rgba(255,210,120,0.75)";
+ctx.fillStyle="rgba(255,200,100,0.95)";
     ctx.fill();
 
   });
