@@ -207,8 +207,8 @@ let particles = [];
 let bigLights = [];
 
 /* обычные частицы */
-
-for (let i = 0; i < 90; i++)
+  
+for (let i = 0; i < 140; i++)
 
   const firefly = Math.random() < 0.12;
 
@@ -217,7 +217,7 @@ for (let i = 0; i < 90; i++)
     x: Math.random()*canvas.width,
     y: Math.random()*canvas.height,
 
-    r: firefly ? Math.random()*4 + 2 : Math.random()*1.8 + 0.8,
+    r: firefly ? Math.random()*6 + 3 : Math.random()*3 + 1.2,
 
     v: firefly ? Math.random()*0.05 + 0.02 : Math.random()*0.15 + 0.04,
 
@@ -241,7 +241,7 @@ for (let i = 0; i < 4; i++) {
     x: Math.random()*canvas.width,
     y: Math.random()*canvas.height,
 
-    r: Math.random()*12 + 10,
+r: Math.random()*20 + 16,
 
     v: Math.random()*0.05 + 0.02,
 
@@ -267,7 +267,7 @@ for (let i = 0; i < 4; i++) {
 
     ctx.beginPath();
     ctx.arc(p.x,p.y,p.r*glow,0,Math.PI*2);
-ctx.fillStyle="rgba(255,200,120,0.95)";
+ctx.fillStyle="rgba(255,190,90,1)";
     ctx.fill();
 
     if(p.x<0) p.x=canvas.width;
@@ -285,7 +285,7 @@ ctx.fillStyle="rgba(255,200,120,0.95)";
 
     ctx.beginPath();
     ctx.arc(l.x,l.y,l.r*glow,0,Math.PI*2);
- ctx.fillStyle="rgba(255,210,140,0.55)";
+ctx.fillStyle="rgba(255,210,120,0.75)";
     ctx.fill();
 
   });
