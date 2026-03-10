@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -33,7 +34,7 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 text-align:center;
-transition:opacity 1.2s ease;
+transition:opacity 1.5s ease;
 }
 
 .title{
@@ -106,13 +107,11 @@ let dust=[];
 let fireflies=[];
 let stars=[];
 
-/* больше частиц для читаемости имени */
-
 for(let i=0;i<520;i++){
 dust.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-r:Math.random()*1.8+0.4,
+r:Math.random()*1.8+0.5,
 tx:0,
 ty:0
 });
@@ -146,20 +145,16 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
 dust.forEach(p=>{
 
 if(!forming){
-
 p.x+=(Math.random()-0.5)*0.35;
 p.y+=(Math.random()-0.5)*0.35;
-
 }else{
-
-p.x+=(p.tx-p.x)*0.018;
-p.y+=(p.ty-p.y)*0.018;
-
+p.x+=(p.tx-p.x)*0.02;
+p.y+=(p.ty-p.y)*0.02;
 }
 
 if(breathing){
 let pulse=1+Math.sin(Date.now()*0.002)*0.6;
-p.r=1.8*pulse;
+p.r=1.7*pulse;
 }
 
 ctx.beginPath();
@@ -199,7 +194,7 @@ s.pulse+=0.03;
 let glow=1+Math.sin(s.pulse)*0.7;
 
 ctx.beginPath();
-ctx.arc(s.x,s.y,2.4*glow,0,Math.PI*2);
+ctx.arc(s.x,s.y,2.3*glow,0,Math.PI*2);
 ctx.fillStyle="rgba(240,245,255,0.9)";
 ctx.fill();
 
@@ -223,7 +218,9 @@ temp.height=260;
 tctx.fillStyle="white";
 tctx.font="bold 150px Cinzel";
 tctx.textAlign="center";
-tctx.fillText("JOANNA NOVA",450,160);
+tctx.textBaseline="middle";
+
+tctx.fillText("JOANNA NOVA",450,130);
 
 const data=tctx.getImageData(0,0,900,260).data;
 
@@ -259,7 +256,7 @@ forming=true;
 
 setTimeout(()=>{
 breathing=true;
-},5000);
+},4000);
 
 }
 
@@ -269,11 +266,11 @@ document.getElementById("portal").style.opacity=0;
 
 setTimeout(()=>{
 formText();
-},1200);
+},1000);
 
 setTimeout(()=>{
 window.location.href="johanna.html";
-},14000);
+},13000);
 
 }
 
