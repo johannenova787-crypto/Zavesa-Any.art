@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -34,7 +33,7 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 text-align:center;
-transition:opacity 2s ease;
+transition:opacity 1.2s ease;
 }
 
 .title{
@@ -107,11 +106,13 @@ let dust=[];
 let fireflies=[];
 let stars=[];
 
-for(let i=0;i<350;i++){
+/* больше частиц для читаемости имени */
+
+for(let i=0;i<520;i++){
 dust.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-r:Math.random()*1.4,
+r:Math.random()*1.8+0.4,
 tx:0,
 ty:0
 });
@@ -140,31 +141,35 @@ function draw(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
+/* золотая пыль */
+
 dust.forEach(p=>{
 
 if(!forming){
 
-p.x+=(Math.random()-0.5)*0.3;
-p.y+=(Math.random()-0.5)*0.3;
+p.x+=(Math.random()-0.5)*0.35;
+p.y+=(Math.random()-0.5)*0.35;
 
 }else{
 
-p.x+=(p.tx-p.x)*0.01;
-p.y+=(p.ty-p.y)*0.01;
+p.x+=(p.tx-p.x)*0.018;
+p.y+=(p.ty-p.y)*0.018;
 
 }
 
 if(breathing){
-let pulse=1+Math.sin(Date.now()*0.002)*0.5;
-p.r=1.4*pulse;
+let pulse=1+Math.sin(Date.now()*0.002)*0.6;
+p.r=1.8*pulse;
 }
 
 ctx.beginPath();
 ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fillStyle="rgba(250,225,160,0.95)";
+ctx.fillStyle="rgba(255,230,170,0.95)";
 ctx.fill();
 
 });
+
+/* светлячки */
 
 fireflies.forEach(f=>{
 
@@ -186,13 +191,15 @@ ctx.fill();
 
 });
 
+/* платиновые звезды */
+
 stars.forEach(s=>{
 
 s.pulse+=0.03;
 let glow=1+Math.sin(s.pulse)*0.7;
 
 ctx.beginPath();
-ctx.arc(s.x,s.y,2*glow,0,Math.PI*2);
+ctx.arc(s.x,s.y,2.4*glow,0,Math.PI*2);
 ctx.fillStyle="rgba(240,245,255,0.9)";
 ctx.fill();
 
@@ -204,25 +211,26 @@ requestAnimationFrame(draw);
 
 draw();
 
+
 function formText(){
 
 const temp=document.createElement("canvas");
 const tctx=temp.getContext("2d");
 
 temp.width=900;
-temp.height=250;
+temp.height=260;
 
 tctx.fillStyle="white";
-tctx.font="bold 140px Cinzel";
+tctx.font="bold 150px Cinzel";
 tctx.textAlign="center";
-tctx.fillText("JOANNA NOVA",450,150);
+tctx.fillText("JOANNA NOVA",450,160);
 
-const data=tctx.getImageData(0,0,900,250).data;
+const data=tctx.getImageData(0,0,900,260).data;
 
 let points=[];
 
-for(let y=0;y<250;y+=5){
-for(let x=0;x<900;x+=5){
+for(let y=0;y<260;y+=4){
+for(let x=0;x<900;x+=4){
 
 let i=(y*900+x)*4;
 
@@ -230,7 +238,7 @@ if(data[i+3]>150){
 
 points.push({
 x:x+canvas.width/2-450,
-y:y+canvas.height/2-120
+y:y+canvas.height/2-130
 });
 
 }
@@ -251,7 +259,7 @@ forming=true;
 
 setTimeout(()=>{
 breathing=true;
-},7000);
+},5000);
 
 }
 
@@ -261,11 +269,11 @@ document.getElementById("portal").style.opacity=0;
 
 setTimeout(()=>{
 formText();
-},2000);
+},1200);
 
 setTimeout(()=>{
 window.location.href="johanna.html";
-},15000);
+},14000);
 
 }
 
