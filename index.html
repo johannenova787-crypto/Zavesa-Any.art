@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+l>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -146,12 +145,12 @@ let dust=[];
 let fireflies=[];
 let stars=[];
 
-for(let i=0;i<220;i++){
+for(let i=0;i<240;i++){
 dust.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-r:Math.random()*1.3+0.4,
-v:Math.random()*0.3,
+r:Math.random()*1.2+0.4,
+v:Math.random()*0.25,
 a:Math.random()*Math.PI*2
 });
 }
@@ -160,7 +159,7 @@ for(let i=0;i<30;i++){
 fireflies.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-r:Math.random()*2.4+1.2,
+r:Math.random()*2+1,
 v:Math.random()*0.2,
 a:Math.random()*Math.PI*2,
 pulse:Math.random()*Math.PI*2
@@ -176,32 +175,39 @@ pulse:Math.random()*Math.PI*2
 }
 
 let forming=false;
+let breathing=false;
 
 function draw(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
-/* золотая пыль */
+/* пыль */
 
 dust.forEach(p=>{
 
 if(!forming){
+
 p.x+=Math.cos(p.a)*p.v;
 p.y+=Math.sin(p.a)*p.v;
+
 }else{
-p.x+=(p.tx-p.x)*0.05;
-p.y+=(p.ty-p.y)*0.05;
+
+p.x+=(p.tx-p.x)*0.015;
+p.y+=(p.ty-p.y)*0.015;
+
 }
 
-if(p.glow){
-p.glow+=0.08;
-let pulse=1+Math.sin(p.glow)*0.4;
-p.r=1.4*pulse;
+if(breathing){
+
+p.glow+=0.05;
+let pulse=1+Math.sin(p.glow)*0.6;
+p.r=1.6*pulse;
+
 }
 
 ctx.beginPath();
 ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fillStyle="rgba(250,225,160,0.9)";
+ctx.fillStyle="rgba(250,225,160,0.95)";
 ctx.fill();
 
 });
@@ -215,7 +221,7 @@ f.x+=Math.cos(f.a)*f.v;
 f.y+=Math.sin(f.a)*f.v;
 }
 
-f.pulse+=0.05;
+f.pulse+=0.04;
 let glow=1+Math.sin(f.pulse)*0.5;
 
 const g=ctx.createRadialGradient(
@@ -223,7 +229,7 @@ f.x,f.y,0,
 f.x,f.y,f.r*glow*7
 );
 
-g.addColorStop(0,"rgba(255,250,235,0.95)");
+g.addColorStop(0,"rgba(255,250,235,0.9)");
 g.addColorStop(1,"rgba(210,180,110,0)");
 
 ctx.beginPath();
@@ -233,7 +239,7 @@ ctx.fill();
 
 });
 
-/* платиновые звезды */
+/* звезды */
 
 stars.forEach(s=>{
 
@@ -261,32 +267,35 @@ requestAnimationFrame(draw);
 
 draw();
 
+
 function formText(){
 
 const temp=document.createElement("canvas");
 const tctx=temp.getContext("2d");
 
-temp.width=800;
-temp.height=200;
+temp.width=900;
+temp.height=220;
 
 tctx.font="bold 120px Cinzel";
 tctx.textAlign="center";
-tctx.fillText("JOANNA NOVA",400,130);
+tctx.fillText("JOANNA NOVA",450,140);
 
-const data=tctx.getImageData(0,0,800,200).data;
+const data=tctx.getImageData(0,0,900,220).data;
 
 let points=[];
 
-for(let y=0;y<200;y+=6){
-for(let x=0;x<800;x+=6){
+for(let y=0;y<220;y+=6){
+for(let x=0;x<900;x+=6){
 
-let i=(y*800+x)*4;
+let i=(y*900+x)*4;
 
 if(data[i+3]>150){
+
 points.push({
-x:x+canvas.width/2-400,
-y:y+canvas.height/2-100
+x:x+canvas.width/2-450,
+y:y+canvas.height/2-110
 });
+
 }
 
 }
@@ -304,11 +313,19 @@ p.glow=Math.random()*Math.PI*2;
 
 forming=true;
 
+setTimeout(()=>{
+breathing=true;
+},3500);
+
 }
+
+
 
 function openVeil(){
 
 formText();
+
+/* Завеса через 8 секунд */
 
 setTimeout(()=>{
 
@@ -324,17 +341,20 @@ document.body.appendChild(right);
 setTimeout(()=>{
 left.style.transform="translateX(-100%)";
 right.style.transform="translateX(100%)";
-},60);
+},80);
 
-},1800);
+},8000);
+
+
+/* переход */
 
 setTimeout(()=>{
 window.location.href="johanna.html";
-},3600);
+},10500);
 
 }
 
 </script>
-
+  
 </body>
 </html>
