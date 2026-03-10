@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -25,22 +26,19 @@ html, body {
   justify-content: center;
 }
 
-/* Завеса */
 .veil {
   position: absolute;
   inset: 0;
-    z-index: 2;
-}
   background:
-linear-gradient(
-120deg,
-rgba(255,255,255,0.35),
-rgba(255,230,180,0.20),
-rgba(255,255,255,0.55),
-rgba(255,240,200,0.18)
-);
+  linear-gradient(
+  120deg,
+  rgba(255,255,255,0.35),
+  rgba(255,230,180,0.20),
+  rgba(255,255,255,0.55),
+  rgba(255,240,200,0.18)
+  );
 
-background-size: 300% 300%;
+  background-size: 300% 300%;
   animation: veilFlow 18s ease-in-out infinite;
   z-index: 2;
   transition: transform 3s ease, opacity 3s ease;
@@ -76,8 +74,8 @@ background-size: 300% 300%;
 
   animation: titleGlow 6s ease-in-out infinite;
 }
-  
-  @keyframes titleGlow{
+
+@keyframes titleGlow{
 0%,100%{
 text-shadow:
 0 0 10px rgba(255,215,150,0.5),
@@ -90,12 +88,10 @@ text-shadow:
 0 0 36px rgba(255,210,140,0.6);
 }
 }
-  
 
-/* Шёпот */
 .whisper {
   margin-top: 34px;
-  font-size: 34px; /* чуть меньше, мягче */
+  font-size: 34px;
   letter-spacing: 0.14em;
   color: #c9a14a;
   opacity: 0;
@@ -124,11 +120,10 @@ text-shadow:
   box-shadow: 0 0 30px rgba(255,220,160,0.7);
 }
 
-/* Частицы */
 canvas {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 1;
 }
 </style>
 </head>
@@ -156,8 +151,9 @@ const sound = document.getElementById('veilSound');
 const veil = document.getElementById('veil');
 
 function openVeil() {
+
   sound.volume = 0.8;
-  sound.play();
+  sound.play().catch(()=>{});
 
   veil.classList.add('open');
 
@@ -171,102 +167,84 @@ function openVeil() {
   }, 5000);
 }
 
-/* Частицы */
+/* частицы */
+
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
-  ctx.globalCompositeOperation = "lighter";
 
-function resize() {
+ctx.globalCompositeOperation = "lighter";
+
+function resize(){
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
+
 resize();
 window.addEventListener('resize', resize);
 
 let particles = [];
 
-for (let i = 0; i < 90; i++){
+for (let i = 0; i < 55; i++) {
 
-  const firefly = Math.random() < 0.08; // примерно 8% светлячков
+  const firefly = Math.random() < 0.12;
 
   particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
 
-    r: firefly ? Math.random()*4 + 2 : Math.random()*2.6 + 1,
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
 
-    v: firefly ? Math.random()*0.15 + 0.05 : Math.random()*0.3 + 0.1,
+    r: firefly ? Math.random()*4 + 2 : Math.random()*1.8 + 0.8,
 
-    a: Math.random() * Math.PI * 2,
+    v: firefly ? Math.random()*0.05 + 0.02 : Math.random()*0.15 + 0.04,
 
-    glow: firefly
+    a: Math.random()*Math.PI*2,
+
+    glow: firefly,
+
+    pulse: Math.random()*Math.PI*2,
+    pulseSpeed: Math.random()*0.02 + 0.01
+
   });
-
 }
 
-function draw() {
+function draw(){
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  particles.forEach(p => {
+  particles.forEach(p=>{
 
     p.y -= p.v;
-    p.x += Math.sin(p.a) * (p.glow ? 0.6 : 0.3);
+    p.x += Math.sin(p.a)*0.3;
     p.a += 0.01;
 
-    if (p.y < -10) p.y = canvas.height + 10;
+    if(p.y < -10) p.y = canvas.height + 10;
+
+    p.pulse += p.pulseSpeed;
+
+    const breathe = (Math.sin(p.pulse)+1)/2;
+
+    ctx.globalAlpha = 0.25 + breathe*0.55;
 
     ctx.beginPath();
 
-    if (p.glow) {
+    ctx.fillStyle = "rgba(255,230,170,0.9)";
 
-      ctx.fillStyle = "rgba(255,230,170,0.65)";
-      ctx.shadowBlur = p.glow ? 20 : 10;
-      ctx.shadowColor = "rgba(240,200,120,0.5)";
+    ctx.shadowBlur = (p.glow ? 22 : 10) + breathe*12;
+    ctx.shadowColor = "rgba(255,220,160,0.9)";
 
-    } else {
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
 
-      const glow = Math.random();
-
-      if (glow < 0.3) {
-        ctx.fillStyle = "rgba(255,220,160,0.9)";
-      } 
-      else if (glow < 0.6) {
-        ctx.fillStyle = "rgba(230,190,110,0.7)";
-      } 
-      else {
-        ctx.fillStyle = "rgba(200,160,80,0.5)";
-      }
-
-      ctx.shadowBlur = 16;
-      ctx.shadowColor = "rgba(255,220,150,0.8)";
-    }
-
-    ctx.arc(p.x + Math.sin(p.a)*4, p.y, p.r, 0, Math.PI*2);
     ctx.fill();
-    
-color: Math.random()
-    
-    if (p.color < 0.33) {
-  ctx.fillStyle = "rgba(255,230,170,0.85)";
-} 
-else if (p.color < 0.66) {
-  ctx.fillStyle = "rgba(240,200,120,0.7)";
-} 
-else {
-  ctx.fillStyle = "rgba(210,170,90,0.55)";
-}
-    
+
   });
 
-  requestAnimationFrame(draw);
+  ctx.globalAlpha = 1;
 
+  requestAnimationFrame(draw);
 }
 
 draw();
 
-  v: firefly ? Math.random()*0.1 + 0.02 : Math.random()*0.25 + 0.08
-  
 </script>
 
 </body>
