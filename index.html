@@ -1,21 +1,20 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Завеса в Мир Эни</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
 html,body{
 margin:0;
 padding:0;
 height:100%;
-background:radial-gradient(circle at top,#fff7e0,#f0d8a8);
 overflow:hidden;
-font-family:'Cormorant Garamond',serif;
+background:radial-gradient(circle at top,#fffdf5,#f6e7c6);
 }
 
 canvas{
@@ -23,144 +22,60 @@ position:absolute;
 inset:0;
 z-index:1;
 }
-</style>
 
-</head>
-
-<body>
-
-<canvas id="particles"></canvas>
-
-<script>
-
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-
-ctx.globalCompositeOperation="lighter";
-
-function resize(){
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+.portal{
+position:relative;
+z-index:2;
+height:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
 }
 
-resize();
-window.addEventListener("resize",resize);
-
-let dust=[];
-let sparks=[];
-let stars=[];
-
-for(let i=0;i<220;i++){
-
-dust.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*1.4+0.5,
-v:Math.random()*0.2+0.05,
-a:Math.random()*Math.PI*2
-});
-
+.title{
+font-family:'Cinzel',serif;
+font-size:74px;
+letter-spacing:0.16em;
+color:#d4af37;
+text-shadow:
+0 0 14px rgba(255,220,150,0.9),
+0 0 34px rgba(255,200,120,0.55);
+margin-bottom:24px;
+animation:fadeTitle 2s ease forwards;
 }
 
-for(let i=0;i<60;i++){
-
-sparks.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2.2+0.8,
-v:Math.random()*0.15+0.04,
-a:Math.random()*Math.PI*2,
-pulse:Math.random()*Math.PI*2
-});
-
+.subtitle{
+font-family:'Cormorant Garamond',serif;
+font-size:30px;
+letter-spacing:0.08em;
+color:#b89b63;
+opacity:0;
+margin-bottom:60px;
+animation:fadeSubtitle 2.5s ease forwards;
+animation-delay:1.4s;
 }
 
-for(let i=0;i<10;i++){
-
-stars.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-pulse:Math.random()*Math.PI*2
-});
-
+.open-btn{
+font-family:'Cinzel',serif;
+font-size:20px;
+letter-spacing:0.12em;
+padding:16px 38px;
+color:#cfa437;
+background:rgba(255,255,255,0.15);
+border:1px solid rgba(212,175,55,0.6);
+border-radius:40px;
+backdrop-filter:blur(6px);
+cursor:pointer;
+transition:all 0.4s ease;
+animation:fadeSubtitle 2.5s ease forwards;
+animation-delay:2.2s;
+opacity:0;
 }
 
-function draw(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-dust.forEach(p=>{
-
-p.x+=Math.cos(p.a)*p.v;
-p.y+=Math.sin(p.a)*p.v;
-
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-
-ctx.fillStyle="rgba(255,200,80,0.95)";
-ctx.shadowColor="rgba(255,180,60,0.8)";
-ctx.shadowBlur=6;
-
-ctx.fill();
-
-});
-
-sparks.forEach(s=>{
-
-s.x+=Math.cos(s.a)*s.v;
-s.y+=Math.sin(s.a)*s.v;
-
-s.pulse+=0.04;
-
-const glow=1+Math.sin(s.pulse)*0.7;
-
-const g=ctx.createRadialGradient(
-s.x,s.y,0,
-s.x,s.y,s.r*glow*6
-);
-
-g.addColorStop(0,"rgba(255,255,200,1)");
-g.addColorStop(0.3,"rgba(255,215,120,0.95)");
-g.addColorStop(0.7,"rgba(255,180,70,0.7)");
-g.addColorStop(1,"rgba(255,160,50,0)");
-
-ctx.beginPath();
-ctx.arc(s.x,s.y,s.r*glow*6,0,Math.PI*2);
-ctx.fillStyle=g;
-ctx.fill();
-
-});
-
-stars.forEach(st=>{
-
-st.pulse+=0.05;
-
-const glow=1+Math.sin(st.pulse)*1;
-
-const g=ctx.createRadialGradient(
-st.x,st.y,0,
-st.x,st.y,28*glow
-);
-
-g.addColorStop(0,"rgba(255,255,220,1)");
-g.addColorStop(0.25,"rgba(255,220,120,1)");
-g.addColorStop(0.6,"rgba(255,180,70,0.8)");
-g.addColorStop(1,"rgba(255,150,40,0)");
-
-ctx.beginPath();
-ctx.arc(st.x,st.y,28*glow,0,Math.PI*2);
-ctx.fillStyle=g;
-ctx.fill();
-
-});
-
-requestAnimationFrame(draw);
-
+.open-btn:hover{
+color:#fff;
+background:rgba(212,175,55,0.35);
+box-shadow:0 0 18px rgba(212,175,55,0.6);
 }
-
-draw();
-
-</script>
-
-</body>
-</html>
