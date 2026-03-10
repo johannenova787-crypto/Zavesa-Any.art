@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -115,75 +116,47 @@ transition:all .6s ease;
 
 position:relative;
 
-/* дыхание света */
 animation:buttonBreath 6s ease-in-out infinite;
 }
 
 @keyframes buttonBreath{
-
-0%{
-box-shadow:0 0 6px rgba(212,175,55,0.2);
-}
-
-50%{
-box-shadow:0 0 14px rgba(212,175,55,0.45);
-}
-
-100%{
-box-shadow:0 0 6px rgba(212,175,55,0.2);
-}
-
+0%{box-shadow:0 0 6px rgba(212,175,55,0.2);}
+50%{box-shadow:0 0 14px rgba(212,175,55,0.45);}
+100%{box-shadow:0 0 6px rgba(212,175,55,0.2);}
 }
 
 .enter:hover{
-
 color:white;
-
 box-shadow:
 0 0 14px rgba(212,175,55,0.7),
 0 0 32px rgba(212,175,55,0.5);
-
 }
 
-/* мягкое проявление слова ЭНИ */
-
 .enter span{
-
 transition:all 4s ease;
 }
 
 .enter:hover span{
-
 text-shadow:
 0 0 10px rgba(255,220,120,0.7),
 0 0 20px rgba(255,220,120,0.5);
-
 }
 
 /* золотая пыль */
 
 .spark{
-
 position:fixed;
 width:6px;
 height:6px;
 background:#d4af37;
 border-radius:50%;
 pointer-events:none;
-
 box-shadow:0 0 12px rgba(212,175,55,0.8);
-
 animation:sparkFly 1.4s ease forwards;
-
 }
 
 @keyframes sparkFly{
-
-0%{
-opacity:1;
-transform:translate(0,0) scale(1);
-}
-
+0%{opacity:1; transform:translate(0,0) scale(1);}
 100%{
 opacity:0;
 transform:translate(
@@ -191,30 +164,23 @@ calc((var(--x) - 0.5) * 220px),
 calc((var(--y) - 0.5) * 220px)
 ) scale(0.2);
 }
-
 }
-
-/* светлячки вокруг кнопки */
 
 .enter::before,
 .enter::after{
-
 content:"";
 position:absolute;
 width:8px;
 height:8px;
 background:#ffe8a0;
 border-radius:50%;
-
 box-shadow:0 0 12px #ffe8a0;
-
 animation:firefly 4s infinite ease-in-out;
 }
 
 .enter::before{
 top:-10px;
 left:20%;
-animation-delay:0s;
 }
 
 .enter::after{
@@ -224,14 +190,10 @@ animation-delay:2s;
 }
 
 @keyframes firefly{
-
 0%{transform:translateY(0);opacity:0.3;}
 50%{transform:translateY(-6px);opacity:1;}
 100%{transform:translateY(0);opacity:0.3;}
-
 }
-
-/* светлячки фона */
 
 canvas{
 position:fixed;
@@ -239,19 +201,15 @@ inset:0;
 z-index:1;
 }
 
-/* анимации */
-
 @keyframes nameAppear{
 0%{opacity:0; transform:translateY(14px);}
 100%{opacity:1; transform:translateY(0);}
 }
 
 @keyframes nameGlow{
-
 0%{text-shadow:0 0 6px rgba(212,175,80,0.25);}
 50%{text-shadow:0 0 18px rgba(212,175,80,0.55);}
 100%{text-shadow:0 0 6px rgba(212,175,80,0.25);}
-
 }
 
 @keyframes lineAppear{
@@ -280,21 +238,15 @@ to{opacity:1; transform:translateY(0);}
 <div class="text">
 
 <p>Эта история писалась не как книга.</p>
-
 <p>Она возникала из тишины — строками, которые приходили тогда,
 когда мир становился слишком узким для внутреннего света.</p>
-
 <p>Эни — не персонаж и не маска.</p>
-
 <p>Это голос той части души,
 которая проходит сквозь тени,
 чтобы снова вспомнить свет.</p>
-
 <p>Я написала её не для того,
 чтобы рассказать историю.</p>
-
 <p>Я написала её,</p>
-
 <p><span class="last" id="door">чтобы открыть дверь.</span></p>
 
 </div>
@@ -307,23 +259,20 @@ to{opacity:1; transform:translateY(0);}
 
 <script>
 
-/* появление кнопки */
+window.onload=function(){
+
+const btn=document.getElementById("enterBtn")
 
 setTimeout(()=>{
-const btn=document.getElementById("enterBtn")
 btn.style.opacity=1
 btn.style.transform="translateY(0)"
 },12000)
-
-/* свечение последней строки */
 
 setTimeout(()=>{
 document.getElementById("door").classList.add("glow")
 },11000)
 
-/* золотая пыль при нажатии */
-
-document.getElementById("enterBtn").onclick=function(){
+btn.onclick=function(){
 
 const rect=this.getBoundingClientRect()
 
@@ -354,7 +303,9 @@ window.location.href="site/index.html"
 
 }
 
-/* светлячки фона */
+}
+
+/* светлячки */
 
 const canvas=document.getElementById("fireflies")
 const ctx=canvas.getContext("2d")
@@ -370,7 +321,6 @@ window.addEventListener("resize",resize)
 let flies=[]
 
 for(let i=0;i<5;i++){
-
 flies.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
@@ -378,7 +328,6 @@ vx:(Math.random()-0.5)*0.2,
 vy:(Math.random()-0.5)*0.2,
 pulse:Math.random()*Math.PI*2
 })
-
 }
 
 function draw(){
@@ -418,4 +367,3 @@ draw()
 
 </body>
 </html>
-
