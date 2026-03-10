@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -9,29 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
+
 html, body {
   margin: 0;
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   padding: 0;
   height: 100%;
   background: radial-gradient(circle at top, #fffaf0, #f2e3c6);
@@ -39,19 +20,18 @@ html, body {
   font-family: 'Cormorant Garamond', serif;
 }
 
-.veil-container {
+.veil-container{
   position: relative;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.veil {
-  position: absolute;
-  inset: 0;
-  background:
-  linear-gradient(
+.veil{
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
   120deg,
   rgba(255,255,255,0.35),
   rgba(255,230,180,0.20),
@@ -59,52 +39,42 @@ html, body {
   rgba(255,240,200,0.18)
   );
 
-  background-size: 300% 300%;
-  animation: veilFlow 18s ease-in-out infinite;
-  z-index: 2;
-  transition: transform 3s ease, opacity 3s ease;
+  background-size:300% 300%;
+  animation:veilFlow 18s ease-in-out infinite;
+  z-index:2;
+  transition:transform 3s ease, opacity 3s ease;
 }
 
-.veil.open {
-  transform: scaleX(0);
-  opacity: 0;
+.veil.open{
+  transform:scaleX(0);
+  opacity:0;
 }
 
-@keyframes veilFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes veilFlow{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
 
-.portal {
-  position: relative;
-  z-index: 3;
-  text-align: center;
+.portal{
+  position:relative;
+  z-index:3;
+  text-align:center;
 }
 
-.portal-title {
-  font-size: clamp(52px, 6vw, 88px);
-  letter-spacing: 0.14em;
-  color: #c9a14a;
+.portal-title{
+  font-size:clamp(52px,6vw,88px);
+  letter-spacing:0.14em;
+  color:#c9a14a;
 
   text-shadow:
-    0 0 10px rgba(255,215,150,0.5),
-    0 0 22px rgba(255,200,120,0.35);
+  0 0 10px rgba(255,215,150,0.5),
+  0 0 22px rgba(255,200,120,0.35);
 
-  margin-bottom: 40px;
-
-  animation: titleGlow 6s ease-in-out infinite;
+  margin-bottom:40px;
+  animation:titleGlow 6s ease-in-out infinite;
 }
 
-
-
-
-
-
-
-
-
-  
 @keyframes titleGlow{
 0%,100%{
 text-shadow:
@@ -119,43 +89,45 @@ text-shadow:
 }
 }
 
-.whisper {
-  margin-top: 34px;
-  font-size: 34px;
-  letter-spacing: 0.14em;
-  color: #c9a14a;
-  opacity: 0;
-  animation: whisperAppear 6s ease forwards;
-  animation-delay: 2s;
+.whisper{
+  margin-top:34px;
+  font-size:34px;
+  letter-spacing:0.14em;
+  color:#c9a14a;
+  opacity:0;
+  animation:whisperAppear 6s ease forwards;
+  animation-delay:2s;
 }
 
-@keyframes whisperAppear {
-  to { opacity: 1; }
+@keyframes whisperAppear{
+to{opacity:1;}
 }
 
-.open-button {
-  font-size: 26px;
-  letter-spacing: 0.15em;
-  padding: 18px 48px;
-  border-radius: 60px;
-  border: 1px solid rgba(200,160,80,0.6);
-  background: rgba(255,245,220,0.7);
-  color: #9c7a2f;
-  cursor: pointer;
-  transition: all 0.6s ease;
+.open-button{
+  font-size:26px;
+  letter-spacing:0.15em;
+  padding:18px 48px;
+  border-radius:60px;
+  border:1px solid rgba(200,160,80,0.6);
+  background:rgba(255,245,220,0.7);
+  color:#9c7a2f;
+  cursor:pointer;
+  transition:all 0.6s ease;
 }
 
-.open-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(255,220,160,0.7);
+.open-button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 30px rgba(255,220,160,0.7);
 }
 
-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
+canvas{
+  position:absolute;
+  inset:0;
+  z-index:1;
 }
+
 </style>
+
 </head>
 
 <body>
@@ -163,163 +135,179 @@ canvas {
 <audio id="veilSound" src="sound/veil.mp3" preload="auto"></audio>
 
 <div class="veil-container">
-  <canvas id="particles"></canvas>
-  <div class="veil" id="veil"></div>
 
-  <div class="portal">
-    <div class="portal-title">Завеса в Мир Эни</div>
-    <button class="open-button" onclick="openVeil()">Открыть</button>
-    <div class="whisper">
-      Пусть звучит и раскрывается,<br>
-      где бы ты ни был…
-    </div>
-  </div>
+<canvas id="particles"></canvas>
+
+<div class="veil" id="veil"></div>
+
+<div class="portal">
+<div class="portal-title">Завеса в Мир Эни</div>
+
+<button class="open-button" onclick="openVeil()">Открыть</button>
+
+<div class="whisper">
+Пусть звучит и раскрывается,<br>
+где бы ты ни был…
+</div>
+
+</div>
 </div>
 
 <script>
-const sound = document.getElementById('veilSound');
-const veil = document.getElementById('veil');
 
-function openVeil() {
+const sound=document.getElementById('veilSound');
+const veil=document.getElementById('veil');
 
-  sound.volume = 0.8;
-  sound.play().catch(()=>{});
+function openVeil(){
 
-  veil.classList.add('open');
+sound.volume=0.8;
+sound.play().catch(()=>{});
 
-  setTimeout(() => {
-    document.body.style.transition = "opacity 2.5s ease";
-    document.body.style.opacity = "0";
-  }, 2500);
+veil.classList.add('open');
 
-  setTimeout(() => {
-    window.location.href = "home.html";
-  }, 5000);
+setTimeout(()=>{
+document.body.style.transition="opacity 2.5s ease";
+document.body.style.opacity="0";
+},2500);
+
+setTimeout(()=>{
+window.location.href="home.html";
+},5000);
+
 }
 
-/* частицы */
+/* canvas */
 
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
 
-ctx.globalCompositeOperation = "lighter";
+ctx.globalCompositeOperation="lighter";
 
 function resize(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 }
 
 resize();
-window.addEventListener('resize', resize);
+window.addEventListener("resize",resize);
 
-  
-let particles = [];
-let bigLights = [];
+/* частицы */
 
-/* обычные частицы */
-  
-for (let i = 0; i < 140; i++) {
+let particles=[];
+let bigLights=[];
 
-  const firefly = Math.random() < 0.12;
+for(let i=0;i<140;i++){
 
-  particles.push({
+const firefly=Math.random()<0.12;
 
-    x: Math.random()*canvas.width,
-    y: Math.random()*canvas.height,
+particles.push({
 
-    r: firefly ? Math.random()*6 + 3 : Math.random()*3 + 1.2,
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
 
-    v: firefly ? Math.random()*0.05 + 0.02 : Math.random()*0.15 + 0.04,
+r:firefly?Math.random()*5+2:Math.random()*2+1,
 
-    a: Math.random()*Math.PI*2,
+v:firefly?Math.random()*0.05+0.02:Math.random()*0.15+0.04,
 
-    glow: firefly,
+a:Math.random()*Math.PI*2,
 
-    pulse: Math.random()*Math.PI*2,
-    pulseSpeed: Math.random()*0.02 + 0.01
+pulse:Math.random()*Math.PI*2,
+pulseSpeed:Math.random()*0.02+0.01
 
-  });
+});
 
 }
 
-  
+/* большие огни */
+
+for(let i=0;i<4;i++){
+
+bigLights.push({
+
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+
+r:Math.random()*12+8,
+
+v:Math.random()*0.05+0.02,
+
+pulse:Math.random()*Math.PI*2,
+pulseSpeed:Math.random()*0.01+0.005
+
+});
+
+}
+
+/* отрисовка */
+
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+/* обычные частицы */
+
+particles.forEach(p=>{
+
+p.x+=Math.cos(p.a)*p.v;
+p.y+=Math.sin(p.a)*p.v;
+
+p.pulse+=p.pulseSpeed;
+
+const glow=0.6+Math.sin(p.pulse)*0.4;
+
+const gradient=ctx.createRadialGradient(
+p.x,p.y,0,
+p.x,p.y,p.r*glow*3
+);
+
+gradient.addColorStop(0,"rgba(255,230,150,0.9)");
+gradient.addColorStop(0.4,"rgba(255,190,100,0.5)");
+gradient.addColorStop(1,"rgba(255,170,60,0)");
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r*glow*3,0,Math.PI*2);
+ctx.fillStyle=gradient;
+ctx.fill();
+
+if(p.x<0)p.x=canvas.width;
+if(p.x>canvas.width)p.x=0;
+if(p.y<0)p.y=canvas.height;
+if(p.y>canvas.height)p.y=0;
+
+});
 
 /* крупные светлячки */
 
-for (let i = 0; i < 4; i++) {
+bigLights.forEach(l=>{
 
-  bigLights.push({
+l.x+=Math.cos(l.pulse)*l.v;
+l.y+=Math.sin(l.pulse)*l.v;
 
-    x: Math.random()*canvas.width,
-    y: Math.random()*canvas.height,
+l.pulse+=l.pulseSpeed;
 
-r: Math.random()*12 + 8,
+const glow=0.6+Math.sin(l.pulse)*0.4;
 
-    v: Math.random()*0.05 + 0.02,
-
-    pulse: Math.random()*Math.PI*2,
-    pulseSpeed: Math.random()*0.01 + 0.005
-
-  });
-
-}
-
-  function draw(){
-
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  particles.forEach(p=>{
-
-    p.x += Math.cos(p.a)*p.v;
-    p.y += Math.sin(p.a)*p.v;
-
-    p.pulse += p.pulseSpeed;
-
-    const glow = 0.5 + Math.sin(p.pulse)*0.5;
-
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r*glow,0,Math.PI*2);
-ctx.fillStyle="rgba(255,170,60,1)";
-    ctx.fill();
-
-    if(p.x<0) p.x=canvas.width;
-    if(p.x>canvas.width) p.x=0;
-    if(p.y<0) p.y=canvas.height;
-    if(p.y>canvas.height) p.y=0;
-
-  });
-
-  bigLights.forEach(l=>{
-
-    l.x += Math.cos(l.pulse) * l.v;
-l.y += Math.sin(l.pulse) * l.v;
-
-    l.pulse += l.pulseSpeed;
-
-    const glow = 0.6 + Math.sin(l.pulse)*0.4;
-
-const gradient = ctx.createRadialGradient(
-  l.x, l.y, 0,
-  l.x, l.y, l.r*glow
+const gradient=ctx.createRadialGradient(
+l.x,l.y,0,
+l.x,l.y,l.r*glow
 );
 
-gradient.addColorStop(0, "rgba(255,240,180,0.9)");
-gradient.addColorStop(0.3, "rgba(255,210,120,0.6)");
-gradient.addColorStop(1, "rgba(255,200,100,0)");
+gradient.addColorStop(0,"rgba(255,240,180,0.9)");
+gradient.addColorStop(0.3,"rgba(255,210,120,0.6)");
+gradient.addColorStop(1,"rgba(255,200,100,0)");
 
 ctx.beginPath();
-ctx.arc(l.x, l.y, l.r*glow, 0, Math.PI*2);
-ctx.fillStyle = gradient;
+ctx.arc(l.x,l.y,l.r*glow,0,Math.PI*2);
+ctx.fillStyle=gradient;
 ctx.fill();
 
-  });
+});
 
-  requestAnimationFrame(draw);
+requestAnimationFrame(draw);
+
 }
-  
-draw();
-  
 
+draw();
 
 </script>
 
