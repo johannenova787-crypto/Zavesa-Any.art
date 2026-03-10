@@ -13,108 +13,9 @@ html,body{
 margin:0;
 padding:0;
 height:100%;
-background:radial-gradient(circle at top,#fffaf0,#f2e3c6);
+background:radial-gradient(circle at top,#fff7e0,#f0d8a8);
 overflow:hidden;
 font-family:'Cormorant Garamond',serif;
-}
-
-.veil-container{
-position:relative;
-height:100%;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.veil{
-position:absolute;
-inset:0;
-background:linear-gradient(
-120deg,
-rgba(255,255,255,0.35),
-rgba(255,230,170,0.22),
-rgba(255,255,255,0.55),
-rgba(255,240,190,0.2)
-);
-background-size:300% 300%;
-animation:veilFlow 18s ease-in-out infinite;
-z-index:2;
-transition:transform 3s ease,opacity 3s ease;
-}
-
-.veil.open{
-transform:scaleX(0);
-opacity:0;
-}
-
-@keyframes veilFlow{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
-
-.portal{
-position:relative;
-z-index:3;
-text-align:center;
-}
-
-.portal-title{
-font-size:clamp(52px,6vw,88px);
-letter-spacing:0.14em;
-color:#cfa437;
-
-text-shadow:
-0 0 14px rgba(255,210,120,0.8),
-0 0 32px rgba(255,200,110,0.6);
-
-margin-bottom:40px;
-animation:titleGlow 6s ease-in-out infinite;
-}
-
-@keyframes titleGlow{
-0%,100%{
-text-shadow:
-0 0 14px rgba(255,210,120,0.8),
-0 0 32px rgba(255,200,110,0.6);
-}
-
-50%{
-text-shadow:
-0 0 26px rgba(255,230,150,1),
-0 0 60px rgba(255,210,120,0.9);
-}
-}
-
-.whisper{
-margin-top:34px;
-font-size:34px;
-letter-spacing:0.14em;
-color:#cfa437;
-opacity:0;
-animation:whisperAppear 6s ease forwards;
-animation-delay:2s;
-}
-
-@keyframes whisperAppear{
-to{opacity:1;}
-}
-
-.open-button{
-font-size:26px;
-letter-spacing:0.15em;
-padding:18px 48px;
-border-radius:60px;
-border:1px solid rgba(200,160,80,0.7);
-background:rgba(255,245,215,0.85);
-color:#9c7a2f;
-cursor:pointer;
-transition:all 0.6s ease;
-}
-
-.open-button:hover{
-transform:scale(1.05);
-box-shadow:0 0 36px rgba(255,220,140,0.8);
 }
 
 canvas{
@@ -128,39 +29,139 @@ z-index:1;
 
 <body>
 
-<audio id="veilSound" src="sound/veil.mp3" preload="auto"></audio>
-
-<div class="veil-container">
-
 <canvas id="particles"></canvas>
-
-<div class="veil" id="veil"></div>
-
-<div class="portal">
-<div class="portal-title">Завеса в Мир Эни</div>
-
-<button class="open-button" onclick="openVeil()">Открыть</button>
-
-<div class="whisper">
-Пусть звучит и раскрывается,<br>
-где бы ты ни был…
-</div>
-
-</div>
-</div>
 
 <script>
 
-const sound=document.getElementById('veilSound');
-const veil=document.getElementById('veil');
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
 
-function openVeil(){
+ctx.globalCompositeOperation="lighter";
 
-sound.volume=0.8;
-sound.play().catch(()=>{});
+function resize(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
 
-veil.classList.add('open');
+resize();
+window.addEventListener("resize",resize);
 
-setTimeout(()=>{
-document.body.st
+let dust=[];
+let sparks=[];
+let stars=[];
+
+for(let i=0;i<220;i++){
+
+dust.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*1.4+0.5,
+v:Math.random()*0.2+0.05,
+a:Math.random()*Math.PI*2
+});
+
+}
+
+for(let i=0;i<60;i++){
+
+sparks.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2.2+0.8,
+v:Math.random()*0.15+0.04,
+a:Math.random()*Math.PI*2,
+pulse:Math.random()*Math.PI*2
+});
+
+}
+
+for(let i=0;i<10;i++){
+
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+pulse:Math.random()*Math.PI*2
+});
+
+}
+
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+dust.forEach(p=>{
+
+p.x+=Math.cos(p.a)*p.v;
+p.y+=Math.sin(p.a)*p.v;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+
+ctx.fillStyle="rgba(255,200,80,0.95)";
+ctx.shadowColor="rgba(255,180,60,0.8)";
+ctx.shadowBlur=6;
+
+ctx.fill();
+
+});
+
+sparks.forEach(s=>{
+
+s.x+=Math.cos(s.a)*s.v;
+s.y+=Math.sin(s.a)*s.v;
+
+s.pulse+=0.04;
+
+const glow=1+Math.sin(s.pulse)*0.7;
+
+const g=ctx.createRadialGradient(
+s.x,s.y,0,
+s.x,s.y,s.r*glow*6
+);
+
+g.addColorStop(0,"rgba(255,255,200,1)");
+g.addColorStop(0.3,"rgba(255,215,120,0.95)");
+g.addColorStop(0.7,"rgba(255,180,70,0.7)");
+g.addColorStop(1,"rgba(255,160,50,0)");
+
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.r*glow*6,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
+
+});
+
+stars.forEach(st=>{
+
+st.pulse+=0.05;
+
+const glow=1+Math.sin(st.pulse)*1;
+
+const g=ctx.createRadialGradient(
+st.x,st.y,0,
+st.x,st.y,28*glow
+);
+
+g.addColorStop(0,"rgba(255,255,220,1)");
+g.addColorStop(0.25,"rgba(255,220,120,1)");
+g.addColorStop(0.6,"rgba(255,180,70,0.8)");
+g.addColorStop(1,"rgba(255,150,40,0)");
+
+ctx.beginPath();
+ctx.arc(st.x,st.y,28*glow,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
+
+});
+
+requestAnimationFrame(draw);
+
+}
+
+draw();
+
+</script>
+
+</body>
+</html>
 
