@@ -182,7 +182,6 @@ function resize(){
 resize();
 window.addEventListener('resize', resize);
 
-=
   
 let particles = [];
 let bigLights = [];
@@ -233,6 +232,47 @@ for (let i = 0; i < 4; i++) {
 
 }
 
+  function draw(){
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  particles.forEach(p=>{
+
+    p.x += Math.cos(p.a)*p.v;
+    p.y += Math.sin(p.a)*p.v;
+
+    p.pulse += p.pulseSpeed;
+
+    const glow = 0.5 + Math.sin(p.pulse)*0.5;
+
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r*glow,0,Math.PI*2);
+    ctx.fillStyle="rgba(255,220,140,0.7)";
+    ctx.fill();
+
+    if(p.x<0) p.x=canvas.width;
+    if(p.x>canvas.width) p.x=0;
+    if(p.y<0) p.y=canvas.height;
+    if(p.y>canvas.height) p.y=0;
+
+  });
+
+  bigLights.forEach(l=>{
+
+    l.pulse += l.pulseSpeed;
+
+    const glow = 0.6 + Math.sin(l.pulse)*0.4;
+
+    ctx.beginPath();
+    ctx.arc(l.x,l.y,l.r*glow,0,Math.PI*2);
+    ctx.fillStyle="rgba(255,230,170,0.25)";
+    ctx.fill();
+
+  });
+
+  requestAnimationFrame(draw);
+}
+  
 draw();
   
 
