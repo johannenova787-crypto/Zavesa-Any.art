@@ -1,4 +1,4 @@
-l>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -181,8 +181,6 @@ function draw(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
-/* пыль */
-
 dust.forEach(p=>{
 
 if(!forming){
@@ -192,8 +190,8 @@ p.y+=Math.sin(p.a)*p.v;
 
 }else{
 
-p.x+=(p.tx-p.x)*0.015;
-p.y+=(p.ty-p.y)*0.015;
+p.x+=(p.tx-p.x)*0.006;
+p.y+=(p.ty-p.y)*0.006;
 
 }
 
@@ -211,8 +209,6 @@ ctx.fillStyle="rgba(250,225,160,0.95)";
 ctx.fill();
 
 });
-
-/* светлячки */
 
 fireflies.forEach(f=>{
 
@@ -238,8 +234,6 @@ ctx.fillStyle=g;
 ctx.fill();
 
 });
-
-/* звезды */
 
 stars.forEach(s=>{
 
@@ -315,7 +309,7 @@ forming=true;
 
 setTimeout(()=>{
 breathing=true;
-},3500);
+},6000);
 
 }
 
@@ -324,8 +318,6 @@ breathing=true;
 function openVeil(){
 
 formText();
-
-/* Завеса через 8 секунд */
 
 setTimeout(()=>{
 
@@ -343,18 +335,16 @@ left.style.transform="translateX(-100%)";
 right.style.transform="translateX(100%)";
 },80);
 
-},8000);
+},12000);
 
-
-/* переход */
 
 setTimeout(()=>{
 window.location.href="johanna.html";
-},10500);
+},15500);
 
 }
 
 </script>
-  
+
 </body>
 </html>
