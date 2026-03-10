@@ -1,81 +1,87 @@
 
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Завеса в Мир Эни</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
-
-<style>
-html,body{
-margin:0;
-padding:0;
-height:100%;
-overflow:hidden;
-background:radial-gradient(circle at top,#fffdf5,#f6e7c6);
+});
 }
 
-canvas{
-position:absolute;
-inset:0;
-z-index:1;
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+// золотая пыль
+
+dust.forEach(p=>{
+
+p.x+=Math.cos(p.a)*p.v;
+p.y+=Math.sin(p.a)*p.v;
+
+ctx.shadowBlur=10;
+ctx.shadowColor="rgba(235,210,140,0.65)";
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle="rgba(245,215,140,0.9)";
+ctx.fill();
+
+});
+
+ctx.shadowBlur=0;
+
+// светлячки — мягкое приглушённое золото
+
+fireflies.forEach(f=>{
+
+f.x+=Math.cos(f.a)*f.v;
+f.y+=Math.sin(f.a)*f.v;
+f.pulse+=0.05;
+
+let glow=1+Math.sin(f.pulse)*0.6;
+
+const g=ctx.createRadialGradient(
+f.x,f.y,0,
+f.x,f.y,f.r*glow*6
+);
+
+g.addColorStop(0,"rgba(255,250,235,0.95)");
+g.addColorStop(0.45,"rgba(235,205,120,0.55)");
+g.addColorStop(1,"rgba(190,160,90,0)");
+
+ctx.beginPath();
+ctx.arc(f.x,f.y,f.r*glow*6,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
+
+});
+
+// платиновые звезды — холодное мягкое сияние
+
+stars.forEach(s=>{
+
+s.pulse+=0.04;
+let glow=1+Math.sin(s.pulse)*0.8;
+
+const g=ctx.createRadialGradient(
+s.x,s.y,0,
+s.x,s.y,22*glow
+);
+
+g.addColorStop(0,"rgba(255,255,255,0.95)");
+g.addColorStop(0.3,"rgba(235,240,245,0.6)");
+g.addColorStop(1,"rgba(200,210,220,0)");
+
+ctx.beginPath();
+ctx.arc(s.x,s.y,22*glow,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
+
+});
+
+requestAnimationFrame(draw);
+
 }
 
-.portal{
-position:relative;
-z-index:2;
-height:100%;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-}
+draw();
 
-.title{
-font-family:'Cinzel',serif;
-font-size:74px;
-letter-spacing:0.16em;
-color:#d4af37;
-text-shadow:
-0 0 14px rgba(255,220,150,0.9),
-0 0 34px rgba(255,200,120,0.55);
-margin-bottom:24px;
-animation:fadeTitle 2s ease forwards;
-}
+</script>
 
-.subtitle{
-font-family:'Cormorant Garamond',serif;
-font-size:30px;
-letter-spacing:0.08em;
-color:#b89b63;
-opacity:0;
-margin-bottom:60px;
-animation:fadeSubtitle 2.5s ease forwards;
-animation-delay:1.4s;
-}
-
-.open-btn{
-font-family:'Cinzel',serif;
-font-size:20px;
-letter-spacing:0.12em;
-padding:16px 38px;
-color:#cfa437;
-background:rgba(255,255,255,0.15);
-border:1px solid rgba(212,175,55,0.6);
-border-radius:40px;
-backdrop-filter:blur(6px);
-cursor:pointer;
-transition:all 0.4s ease;
-animation:fadeSubtitle 2.5s ease forwards;
-animation-delay:2.2s;
-opacity:0;
-}
-
-.open-btn:hover{
-color:#fff;
-background:rgba(212,175,55,0.35);
-box-shadow:0 0 18px rgba(212,175,55,0.6);
-}
+</body>
+</html>
