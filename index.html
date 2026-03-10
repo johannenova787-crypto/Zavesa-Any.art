@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Завеса в Мир Эни</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
 
 <style>
+
 html,body{
 margin:0;
 padding:0;
@@ -80,14 +81,17 @@ box-shadow:0 0 20px rgba(212,175,55,0.65);
 }
 
 @keyframes fadeTitle{
-from{opacity:0; transform:translateY(-12px);} 
-to{opacity:1; transform:translateY(0);} }
+from{opacity:0; transform:translateY(-12px);}
+to{opacity:1; transform:translateY(0);}
+}
 
 @keyframes fadeSubtitle{
-from{opacity:0; transform:translateY(10px);} 
-to{opacity:1; transform:translateY(0);} }
+from{opacity:0; transform:translateY(10px);}
+to{opacity:1; transform:translateY(0);}
+}
 
-/* световой занавес */
+/* занавес света */
+
 .veil{
 position:fixed;
 top:0;
@@ -100,8 +104,8 @@ box-shadow:0 0 80px rgba(255,220,150,0.9);
 transition:transform 2.6s cubic-bezier(.7,0,.2,1);
 }
 
-.veil.left{left:0; transform:translateX(0);} 
-.veil.right{right:0; transform:translateX(0);} 
+.veil.left{left:0;}
+.veil.right{right:0;}
 
 </style>
 </head>
@@ -118,7 +122,7 @@ transition:transform 2.6s cubic-bezier(.7,0,.2,1);
 путь звучит и раскрывается где бы ты ни был...
 </div>
 
-<button class="open" onclick="openVeil()">ОТКРЫТЬ</button>
+<button class="open" onclick="openVeil()">ВОЙТИ</button>
 
 </div>
 
@@ -132,6 +136,7 @@ function resize(){
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 }
+
 resize();
 window.addEventListener("resize",resize);
 
@@ -139,7 +144,6 @@ let dust=[];
 let fireflies=[];
 let stars=[];
 
-// золотая пыль
 for(let i=0;i<220;i++){
 
 dust.push({
@@ -148,12 +152,10 @@ y:Math.random()*canvas.height,
 r:Math.random()*1.3+0.4,
 v:Math.random()*0.18+0.04,
 a:Math.random()*Math.PI*2
-
 });
 
 }
 
-// светлячки
 for(let i=0;i<28;i++){
 
 fireflies.push({
@@ -163,19 +165,16 @@ r:Math.random()*2.4+1.2,
 v:Math.random()*0.22+0.05,
 a:Math.random()*Math.PI*2,
 pulse:Math.random()*Math.PI*2
-
 });
 
 }
 
-// платиновые звезды
 for(let i=0;i<10;i++){
 
 stars.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 pulse:Math.random()*Math.PI*2
-
 });
 
 }
@@ -183,8 +182,6 @@ pulse:Math.random()*Math.PI*2
 function draw(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
-
-// золотая пыль
 
 dust.forEach(p=>{
 
@@ -203,8 +200,6 @@ ctx.fill();
 });
 
 ctx.shadowBlur=0;
-
-// светлячки
 
 fireflies.forEach(f=>{
 
@@ -229,8 +224,6 @@ ctx.fillStyle=g;
 ctx.fill();
 
 });
-
-// платиновые звезды
 
 stars.forEach(s=>{
 
@@ -260,32 +253,6 @@ requestAnimationFrame(draw);
 
 draw();
 
-// реакция на курсор
-
-canvas.addEventListener("mousemove",e=>{
-
-let mx=e.clientX;
-let my=e.clientY;
-
-fireflies.forEach(f=>{
-
-let dx=f.x-mx;
-let dy=f.y-my;
-let dist=Math.sqrt(dx*dx+dy*dy);
-
-if(dist<120){
-
-f.x+=dx*0.02;
-f.y+=dy*0.02;
-
-}
-
-});
-
-});
-
-// раскрытие занавеса
-
 function openVeil(){
 
 const left=document.createElement("div");
@@ -297,7 +264,6 @@ right.className="veil right";
 document.body.appendChild(left);
 document.body.appendChild(right);
 
-// щель света как в ранних версиях
 const line=document.createElement("div");
 line.style.position="fixed";
 line.style.left="50%";
@@ -307,6 +273,7 @@ line.style.height="100%";
 line.style.background="linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,250,220,0.9), rgba(255,255,255,0))";
 line.style.boxShadow="0 0 20px rgba(255,240,190,0.9)";
 line.style.zIndex="5";
+
 document.body.appendChild(line);
 
 setTimeout(()=>{
@@ -314,6 +281,10 @@ left.style.transform="translateX(-100%)";
 right.style.transform="translateX(100%)";
 line.style.opacity="0";
 },60);
+
+setTimeout(()=>{
+window.location.href="johana.html";
+},2400);
 
 }
 
