@@ -114,6 +114,25 @@ transform:translateY(10px);
 transition:all .6s ease;
 
 position:relative;
+
+/* дыхание света */
+animation:buttonBreath 6s ease-in-out infinite;
+}
+
+@keyframes buttonBreath{
+
+0%{
+box-shadow:0 0 6px rgba(212,175,55,0.2);
+}
+
+50%{
+box-shadow:0 0 14px rgba(212,175,55,0.45);
+}
+
+100%{
+box-shadow:0 0 6px rgba(212,175,55,0.2);
+}
+
 }
 
 .enter:hover{
@@ -123,6 +142,55 @@ color:white;
 box-shadow:
 0 0 14px rgba(212,175,55,0.7),
 0 0 32px rgba(212,175,55,0.5);
+
+}
+
+/* мягкое проявление слова ЭНИ */
+
+.enter span{
+
+transition:all 4s ease;
+}
+
+.enter:hover span{
+
+text-shadow:
+0 0 10px rgba(255,220,120,0.7),
+0 0 20px rgba(255,220,120,0.5);
+
+}
+
+/* золотая пыль */
+
+.spark{
+
+position:fixed;
+width:6px;
+height:6px;
+background:#d4af37;
+border-radius:50%;
+pointer-events:none;
+
+box-shadow:0 0 12px rgba(212,175,55,0.8);
+
+animation:sparkFly 1.4s ease forwards;
+
+}
+
+@keyframes sparkFly{
+
+0%{
+opacity:1;
+transform:translate(0,0) scale(1);
+}
+
+100%{
+opacity:0;
+transform:translate(
+calc((var(--x) - 0.5) * 220px),
+calc((var(--y) - 0.5) * 220px)
+) scale(0.2);
+}
 
 }
 
@@ -231,7 +299,9 @@ to{opacity:1; transform:translateY(0);}
 
 </div>
 
-<button class="enter" id="enterBtn">ОТКРЫТЬ МИР ЭНИ</button>
+<button class="enter" id="enterBtn">
+ОТКРЫТЬ МИР <span>ЭНИ</span>
+</button>
 
 </div>
 
@@ -251,15 +321,36 @@ setTimeout(()=>{
 document.getElementById("door").classList.add("glow")
 },11000)
 
-/* мягкое растворение страницы */
+/* золотая пыль при нажатии */
 
 document.getElementById("enterBtn").onclick=function(){
 
+const rect=this.getBoundingClientRect()
+
+for(let i=0;i<24;i++){
+
+const s=document.createElement("div")
+s.className="spark"
+
+s.style.left=(rect.left+rect.width/2)+"px"
+s.style.top=(rect.top+rect.height/2)+"px"
+
+s.style.setProperty("--x",Math.random())
+s.style.setProperty("--y",Math.random())
+
+document.body.appendChild(s)
+
+setTimeout(()=>s.remove(),1400)
+
+}
+
+setTimeout(()=>{
 document.body.style.opacity="0"
+},300)
 
 setTimeout(()=>{
 window.location.href="index.html"
-},1600)
+},1700)
 
 }
 
@@ -323,21 +414,6 @@ requestAnimationFrame(draw)
 
 draw()
 
-  /* светлячок реагирует на кнопку */
-
-const btn=document.getElementById("enterBtn")
-
-btn.addEventListener("mouseenter",()=>{
-
-flies.push({
-x:btn.getBoundingClientRect().left + btn.offsetWidth/2,
-y:btn.getBoundingClientRect().top,
-vx:(Math.random()-0.5)*0.4,
-vy:-0.4,
-pulse:0
-})
-
-})
 </script>
 
 </body>
