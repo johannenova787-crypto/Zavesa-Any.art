@@ -26,11 +26,9 @@ animation:goldenBreath 18s ease-in-out infinite;
 }
 
 @keyframes goldenBreath{
-
 0%{background-position:50% 0%;}
 50%{background-position:52% 6%;}
 100%{background-position:50% 0%;}
-
 }
 
 /* Плавное появление */
@@ -61,7 +59,11 @@ font-size:clamp(64px,6vw,96px);
 letter-spacing:0.14em;
 font-weight:600;
 color:#c6a048;
-text-shadow:0 0 30px rgba(255,215,150,0.4);
+
+text-shadow:
+0 0 30px rgba(255,215,150,0.4),
+0 0 60px rgba(255,215,150,0.2);
+
 margin-bottom:20px;
 }
 
@@ -143,10 +145,8 @@ transition:all .6s ease;
 }
 
 .button:hover{
-
 transform:scale(1.07);
 box-shadow:0 0 40px rgba(255,220,160,0.6);
-
 }
 
 /* О книге */
@@ -295,7 +295,6 @@ transition:transform 1.5s ease;
 }
 
 .excerpt-wrapper.open .excerpt-text{
-
 transform:rotateX(3deg);
 }
 
@@ -531,9 +530,7 @@ if(isAnimating)return;
 isAnimating=true;
 
 const currentSlide=slides[current];
-
 const nextIndex=(current+1)%slides.length;
-
 const upcomingSlide=slides[nextIndex];
 
 currentSlide.classList.add("flip");
@@ -541,11 +538,9 @@ currentSlide.classList.add("flip");
 setTimeout(()=>{
 
 currentSlide.classList.remove("active","flip");
-
 upcomingSlide.classList.add("active");
 
 current=nextIndex;
-
 isAnimating=false;
 
 setTimeout(nextSlide,7000);
@@ -589,7 +584,6 @@ const dust=document.createElement("div");
 dust.className="gold-particle";
 
 dust.style.left=Math.random()*100+"%";
-
 dust.style.bottom="40px";
 
 container.appendChild(dust);
@@ -611,7 +605,6 @@ const dust=document.createElement("div");
 dust.className="scroll-dust";
 
 dust.style.left=Math.random()*window.innerWidth+"px";
-
 dust.style.top=window.scrollY+window.innerHeight*Math.random()+"px";
 
 document.body.appendChild(dust);
@@ -627,7 +620,6 @@ const glow=document.createElement("div");
 glow.className="cursor-glow";
 
 glow.style.left=e.clientX+"px";
-
 glow.style.top=e.clientY+"px";
 
 document.body.appendChild(glow);
@@ -640,4 +632,3 @@ setTimeout(()=>glow.remove(),800);
 
 </body>
 </html>
-
