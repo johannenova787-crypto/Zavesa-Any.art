@@ -1,26 +1,19 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Завеса в Мир Эни</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
 
 <style>
-
 html,body{
 margin:0;
 padding:0;
 height:100%;
 overflow:hidden;
-
-background:radial-gradient(circle at top,#fffdf7,#f3e6c9);
-
-font-smoothing:antialiased;
+background:radial-gradient(circle at 50% 0%,#fffef8 0%,#f7e9c9 55%,#efdcb3 100%);
 }
 
 canvas{
@@ -30,370 +23,279 @@ z-index:1;
 }
 
 .portal{
-
 position:relative;
 z-index:2;
-
 height:100%;
-
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-
 text-align:center;
-
-transition:2.5s opacity ease;
-
 }
 
 .title{
-
 font-family:'Cinzel',serif;
-
-font-size:72px;
-letter-spacing:0.18em;
-
-color:#d8b96a;
-
+font-size:74px;
+letter-spacing:0.17em;
+color:#d6b45a;
 text-shadow:
-0 0 25px rgba(255,230,170,0.9),
-0 0 60px rgba(255,220,150,0.4);
-
-opacity:0;
-animation:fadeTitle 2.8s forwards;
-
+0 0 18px rgba(255,235,180,0.95),
+0 0 42px rgba(255,210,140,0.65);
+margin-bottom:26px;
+animation:fadeTitle 2.2s ease forwards;
 }
 
 .subtitle{
-
 font-family:'Cormorant Garamond',serif;
-
-font-size:28px;
-
-margin-top:24px;
-
+font-size:30px;
+letter-spacing:0.08em;
 color:#b79a63;
-
 opacity:0;
-
-animation:fadeSubtitle 3s forwards;
-animation-delay:2.6s;
-
+margin-bottom:55px;
+animation:fadeSubtitle 2.4s ease forwards;
+animation-delay:1.6s;
 }
 
 .open{
-
-margin-top:50px;
-
 font-family:'Cinzel',serif;
-
 font-size:18px;
-letter-spacing:0.12em;
-
-padding:14px 36px;
-
-border-radius:40px;
-
+letter-spacing:0.13em;
+padding:15px 40px;
+color:#cfa437;
+background:rgba(255,255,255,0.18);
 border:1px solid rgba(212,175,55,0.6);
-
-background:rgba(255,255,255,0.15);
-
-color:#cda74e;
-
+border-radius:42px;
+backdrop-filter:blur(6px);
 cursor:pointer;
-
+transition:all .45s ease;
 opacity:0;
-
-animation:fadeSubtitle 3s forwards;
-animation-delay:4.2s;
-
-transition:0.4s;
-
+animation:fadeSubtitle 2.6s ease forwards;
+animation-delay:2.4s;
 }
 
 .open:hover{
-
-background:rgba(212,175,55,0.25);
-box-shadow:0 0 20px rgba(212,175,55,0.6);
-
+color:#fff;
+background:rgba(212,175,55,0.35);
+box-shadow:0 0 20px rgba(212,175,55,0.65);
 }
 
 @keyframes fadeTitle{
-to{opacity:1}
-}
+from{opacity:0; transform:translateY(-12px);} 
+to{opacity:1; transform:translateY(0);} }
 
 @keyframes fadeSubtitle{
-to{opacity:1}
-}
+from{opacity:0; transform:translateY(10px);} 
+to{opacity:1; transform:translateY(0);} }
 
 </style>
-
 </head>
 
 <body>
 
-<canvas id="veil"></canvas>
+<canvas id="particles"></canvas>
 
-<div class="portal" id="portal">
+<div class="portal">
 
-<div class="title">
-Завеса в Мир Эни
-</div>
+<div class="title">Завеса в Мир Эни</div>
 
 <div class="subtitle">
-путь звучит и раскрывается где бы ты ни был…
+путь звучит и раскрывается где бы ты ни был...
 </div>
 
-<button class="open" onclick="openVeil()">
-ОТКРЫТЬ
-</button>
+<button class="open">ОТКРЫТЬ</button>
 
 </div>
 
 <script>
 
-const canvas=document.getElementById("veil")
-const ctx=canvas.getContext("2d")
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+ctx.globalCompositeOperation="lighter";
 
 function resize(){
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 }
+resize();
+window.addEventListener("resize",resize);
 
-resize()
-window.addEventListener("resize",resize)
+let dust=[];
+let fireflies=[];
+let stars=[];
 
-let mouse={x:0,y:0}
+// золотая пыль (основа Завесы)
 
-window.addEventListener("mousemove",e=>{
-mouse.x=e.clientX
-mouse.y=e.clientY
-})
-
-ctx.globalCompositeOperation="lighter"
-
-let fireflies=[]
-let stars=[]
-let dust=[]
-let shootingStar=null
-
-
-
-for(let i=0;i<180;i++){
+for(let i=0;i<220;i++){
 
 dust.push({
-
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-
-r:Math.random()*1.2+0.3,
-
-a:Math.random()*Math.PI*2,
-v:Math.random()*0.1+0.02
-
-})
+r:Math.random()*1.3+0.4,
+v:Math.random()*0.18+0.04,
+a:Math.random()*Math.PI*2
+});
 
 }
 
+// светлячки
 
-
-for(let i=0;i<24;i++){
+for(let i=0;i<28;i++){
 
 fireflies.push({
-
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-
-r:Math.random()*2+0.8,
-
+r:Math.random()*2.4+1.2,
+v:Math.random()*0.22+0.05,
 a:Math.random()*Math.PI*2,
-v:Math.random()*0.15+0.04,
-
 pulse:Math.random()*Math.PI*2
-
-})
+});
 
 }
 
-
+// платиновые звезды
 
 for(let i=0;i<10;i++){
 
 stars.push({
-
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 pulse:Math.random()*Math.PI*2
-
-})
-
-}
-
-
-
-function createShootingStar(){
-
-shootingStar={
-
-x:Math.random()*canvas.width,
-y:-20,
-
-vx:-6,
-vy:6,
-
-life:0
+});
 
 }
-
-}
-
-
-
-setInterval(()=>{
-
-createShootingStar()
-
-},20000)
-
-
 
 function draw(){
 
-ctx.clearRect(0,0,canvas.width,canvas.height)
+ctx.clearRect(0,0,canvas.width,canvas.height);
 
-
+// золотая пыль
 
 dust.forEach(p=>{
 
-p.x+=Math.cos(p.a)*p.v
-p.y+=Math.sin(p.a)*p.v
+p.x+=Math.cos(p.a)*p.v;
+p.y+=Math.sin(p.a)*p.v;
 
-let dx=p.x-mouse.x
-let dy=p.y-mouse.y
+ctx.shadowBlur=12;
+ctx.shadowColor="rgba(240,215,150,0.65)";
 
-let dist=Math.sqrt(dx*dx+dy*dy)
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
 
-if(dist<120){
+ctx.fillStyle="rgba(250,225,160,0.92)";
+ctx.fill();
 
-p.x+=dx*0.02
-p.y+=dy*0.02
+});
 
-}
+ctx.shadowBlur=0;
 
-ctx.beginPath()
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
-
-ctx.fillStyle="rgba(235,210,150,0.8)"
-ctx.fill()
-
-})
-
-
+// светлячки (очень мягкие)
 
 fireflies.forEach(f=>{
 
-f.x+=Math.cos(f.a)*f.v
-f.y+=Math.sin(f.a)*f.v
+f.x+=Math.cos(f.a)*f.v;
+f.y+=Math.sin(f.a)*f.v;
+f.pulse+=0.045;
 
-f.pulse+=0.05
-
-let glow=1+Math.sin(f.pulse)*0.4
+let glow=1+Math.sin(f.pulse)*0.55;
 
 const g=ctx.createRadialGradient(
 f.x,f.y,0,
-f.x,f.y,f.r*glow*6
-)
+f.x,f.y,f.r*glow*7
+);
 
-g.addColorStop(0,"rgba(255,250,235,0.95)")
-g.addColorStop(0.4,"rgba(235,210,140,0.55)")
-g.addColorStop(1,"rgba(215,185,110,0)")
+g.addColorStop(0,"rgba(255,250,235,0.95)");
+g.addColorStop(0.4,"rgba(235,205,125,0.45)");
+g.addColorStop(1,"rgba(210,180,110,0)");
 
-ctx.beginPath()
-ctx.arc(f.x,f.y,f.r*glow*6,0,Math.PI*2)
+ctx.beginPath();
+ctx.arc(f.x,f.y,f.r*glow*7,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
 
-ctx.fillStyle=g
-ctx.fill()
+});
 
-})
-
-
+// платиновые звезды
 
 stars.forEach(s=>{
 
-s.pulse+=0.04
+s.pulse+=0.035;
 
-let glow=1+Math.sin(s.pulse)*0.6
+let glow=1+Math.sin(s.pulse)*0.9;
 
 const g=ctx.createRadialGradient(
 s.x,s.y,0,
-s.x,s.y,20*glow
-)
+s.x,s.y,26*glow
+);
 
-g.addColorStop(0,"rgba(255,255,255,0.95)")
-g.addColorStop(0.3,"rgba(235,240,245,0.6)")
-g.addColorStop(1,"rgba(200,210,220,0)")
+g.addColorStop(0,"rgba(255,255,255,0.96)");
+g.addColorStop(0.25,"rgba(235,240,248,0.75)");
+g.addColorStop(1,"rgba(210,220,230,0)");
 
-ctx.beginPath()
-ctx.arc(s.x,s.y,20*glow,0,Math.PI*2)
+ctx.beginPath();
+ctx.arc(s.x,s.y,26*glow,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
 
-ctx.fillStyle=g
-ctx.fill()
+});
 
-})
-
-
-
-if(shootingStar){
-
-shootingStar.x+=shootingStar.vx
-shootingStar.y+=shootingStar.vy
-
-shootingStar.life++
-
-ctx.beginPath()
-ctx.moveTo(shootingStar.x,shootingStar.y)
-ctx.lineTo(shootingStar.x+60,shootingStar.y-60)
-
-ctx.strokeStyle="rgba(255,255,255,0.8)"
-ctx.lineWidth=2
-ctx.stroke()
-
-if(shootingStar.life>60){
-
-shootingStar=null
+requestAnimationFrame(draw);
 
 }
 
-}
+draw();
 
-
-
-requestAnimationFrame(draw)
-
-}
-
-draw()
-
-
-
-function openVeil(){
-
-const portal=document.getElementById("portal")
-
-portal.style.opacity=0
-
+// вспышка светлячков вокруг фразы когда она появляется
 setTimeout(()=>{
 
-window.location.href="home.html"
+const cx=canvas.width/2;
+const cy=canvas.height/2+20;
 
-},2200)
+for(let i=0;i<12;i++){
+
+fireflies.push({
+
+x:cx+(Math.random()-0.5)*220,
+y:cy+(Math.random()-0.5)*120,
+
+r:Math.random()*2.2+1,
+v:Math.random()*0.25+0.05,
+a:Math.random()*Math.PI*2,
+pulse:Math.random()*Math.PI*2
+
+});
 
 }
+
+},1800);
+
+// лёгкая реакция Завесы на курсор
+
+canvas.addEventListener("mousemove",e=>{
+
+let mx=e.clientX;
+let my=e.clientY;
+
+fireflies.forEach(f=>{
+
+let dx=f.x-mx;
+let dy=f.y-my;
+let dist=Math.sqrt(dx*dx+dy*dy);
+
+if(dist<120){
+
+f.x+=dx*0.02;
+f.y+=dy*0.02;
+
+}
+
+});
+
+});
 
 </script>
 
 </body>
 </html>
+
 
 
