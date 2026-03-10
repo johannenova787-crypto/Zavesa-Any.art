@@ -13,6 +13,7 @@ html, body {
   margin: 0;
 
 
+  
 
 
 
@@ -243,7 +244,7 @@ for (let i = 0; i < 4; i++) {
     x: Math.random()*canvas.width,
     y: Math.random()*canvas.height,
 
-r: Math.random()*20 + 16,
+r: Math.random()*12 + 8,
 
     v: Math.random()*0.05 + 0.02,
 
@@ -288,10 +289,19 @@ l.y += Math.sin(l.pulse) * l.v;
 
     const glow = 0.6 + Math.sin(l.pulse)*0.4;
 
-    ctx.beginPath();
-    ctx.arc(l.x,l.y,l.r*glow,0,Math.PI*2);
-ctx.fillStyle="rgba(255,200,100,0.95)";
-    ctx.fill();
+const gradient = ctx.createRadialGradient(
+  l.x, l.y, 0,
+  l.x, l.y, l.r*glow
+);
+
+gradient.addColorStop(0, "rgba(255,240,180,0.9)");
+gradient.addColorStop(0.3, "rgba(255,210,120,0.6)");
+gradient.addColorStop(1, "rgba(255,200,100,0)");
+
+ctx.beginPath();
+ctx.arc(l.x, l.y, l.r*glow, 0, Math.PI*2);
+ctx.fillStyle = gradient;
+ctx.fill();
 
   });
 
