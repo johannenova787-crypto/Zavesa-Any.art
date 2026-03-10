@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -108,6 +107,7 @@ window.addEventListener("resize",resize);
 let dust=[];
 let fireflies=[];
 let stars=[];
+let glowLetters=false;
 
 for(let i=0;i<4000;i++){
 dust.push({
@@ -149,8 +149,8 @@ if(!forming){
 p.x+=(Math.random()-0.5)*0.25;
 p.y+=(Math.random()-0.5)*0.25;
 }else{
-p.x+=(p.tx-p.x)*0.04;
-p.y+=(p.ty-p.y)*0.04;
+p.x+=(p.tx-p.x)*0.045;
+p.y+=(p.ty-p.y)*0.045;
 }
 
 ctx.beginPath();
@@ -195,6 +195,26 @@ ctx.fillStyle="rgba(240,245,255,0.9)";
 ctx.fill();
 
 });
+
+/* платиновый контур имени */
+
+if(glowLetters){
+
+ctx.font="bold 150px Cinzel";
+ctx.textAlign="center";
+ctx.textBaseline="middle";
+
+ctx.strokeStyle="rgba(255,255,255,0.9)";
+ctx.lineWidth=2;
+
+ctx.shadowColor="rgba(255,255,255,0.8)";
+ctx.shadowBlur=25;
+
+ctx.strokeText("JOANNA NOVA",canvas.width/2,canvas.height/2);
+
+ctx.shadowBlur=0;
+
+}
 
 requestAnimationFrame(draw);
 
@@ -246,25 +266,35 @@ p.ty=point.y;
 
 forming=true;
 
+/* включаем платиновый контур */
+
+setTimeout(()=>{
+glowLetters=true;
+},1500);
+
+setTimeout(()=>{
+glowLetters=false;
+},3500);
+
 }
 
 function openVeil(){
 
 document.querySelector(".open").style.display="none";
 
-/* сначала появляется строка */
+/* появляется строка */
 
 setTimeout(()=>{
 document.getElementById("subtitle").style.opacity=1;
-},400);
+},500);
 
-/* завеса исчезает позже */
+/* исчезает завеса */
 
 setTimeout(()=>{
 document.getElementById("portal").style.opacity=0;
 },4500);
 
-/* частицы собираются */
+/* собирается имя */
 
 setTimeout(()=>{
 formText();
