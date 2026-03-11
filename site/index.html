@@ -455,6 +455,7 @@ color:#8c6b2a;
 
 }
 
+  
 .page-particle{
 position:absolute;
 width:10px;
@@ -484,6 +485,54 @@ opacity:0;
 
 }
 
+  /* золотые птицы */
+
+.bird{
+position:absolute;
+width:26px;
+height:18px;
+
+background:linear-gradient(
+45deg,
+rgba(255,230,150,0.95),
+rgba(255,200,90,0.5)
+);
+
+clip-path:polygon(
+0% 50%,
+30% 20%,
+50% 40%,
+70% 20%,
+100% 50%,
+70% 60%,
+50% 45%,
+30% 60%
+);
+
+animation:birdFly 4s ease forwards;
+
+filter:drop-shadow(0 0 6px rgba(255,220,120,.8));
+}
+
+@keyframes birdFly{
+
+0%{
+transform:translateY(0) scale(.6) rotate(0deg);
+opacity:1;
+}
+
+60%{
+transform:translateY(-180px) scale(1.1) rotate(10deg);
+opacity:1;
+}
+
+100%{
+transform:translateY(-260px) scale(.8) rotate(20deg);
+opacity:0;
+}
+
+}
+  
   .pdf-room{
 position:fixed;
 top:0;
@@ -717,12 +766,13 @@ const slider = document.getElementById("slider");
 slider.classList.add("flash");
 
 createPageParticles();
-
+createBirds();
+  
 const portal = document.getElementById("portal");
 
 setTimeout(()=>{
 portal.classList.add("open");
-},1200);
+},2200);
 
 setTimeout(()=>{
 window.location.href="../rooms/";
@@ -731,6 +781,26 @@ window.location.href="../rooms/";
 }
 
   function createPageParticles(){
+
+    function createBirds(){
+
+const slider = document.getElementById("slider");
+
+for(let i=0;i<14;i++){
+
+const bird=document.createElement("div");
+bird.className="bird";
+
+bird.style.left=Math.random()*100+"%";
+bird.style.bottom="40px";
+
+slider.appendChild(bird);
+
+setTimeout(()=>bird.remove(),4000);
+
+}
+
+}
 
 const slider = document.getElementById("slider");
 
