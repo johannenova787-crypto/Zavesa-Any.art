@@ -494,61 +494,51 @@ position:absolute;
 z-index:10;
 
 width:60px;
-height:30px;
+height:40px;
+
+background:linear-gradient(
+to bottom,
+rgba(255,230,160,0.95),
+rgba(255,200,110,0.6)
+);
+
+clip-path:polygon(
+50% 0%,
+65% 25%,
+90% 35%,
+70% 45%,
+80% 65%,
+55% 55%,
+50% 70%,
+45% 55%,
+20% 65%,
+30% 45%,
+10% 35%,
+35% 25%
+);
+
+filter:drop-shadow(0 0 12px rgba(255,220,130,0.9));
 
 animation:birdFly 4.5s ease-out forwards;
 }
 
-/* крылья */
-
-.bird::before,
-.bird::after{
-content:"";
-position:absolute;
-top:0;
-
-width:30px;
-height:30px;
-
-border-top:4px solid rgba(255,220,140,0.95);
-border-radius:60% 60% 0 0;
-
-filter:drop-shadow(0 0 10px rgba(255,220,120,0.9));
-}
-
-/* левое крыло */
-
-.bird::before{
-left:0;
-transform:rotate(-40deg);
-}
-
-/* правое крыло */
-
-.bird::after{
-right:0;
-transform:rotate(40deg);
-}
-
-/* полёт */
-
 @keyframes birdFly{
 
 0%{
-transform:translateY(0) scale(.7);
+transform:translateY(0) scale(.6) rotate(-10deg);
 opacity:1;
 }
 
 40%{
-transform:translateY(-120px) scale(1.2);
+transform:translateY(-120px) scale(1.1) rotate(0deg);
 }
 
 70%{
-transform:translateY(-220px) scale(1.1);
+transform:translateY(-240px) scale(1) rotate(10deg);
 }
 
 100%{
-transform:translateY(-360px) scale(.9);
+transform:translateY(-380px) scale(.8) rotate(15deg);
 opacity:0;
 }
 
@@ -811,24 +801,27 @@ window.location.href="../rooms/";
 function createBirds(){
 
 const slider = document.getElementById("slider");
+const center = slider.offsetWidth/2;
 
-const centerX = slider.offsetWidth / 2;
-
-for(let i=0;i<14;i++){
+for(let i=0;i<16;i++){
 
 const bird = document.createElement("div");
 bird.className = "bird";
 
-/* веерный разлёт */
+/* веер */
 
-const spread = (i - 7) * 18;
+const spread = (i-8)*25;
+bird.style.left = center + spread + "px";
+bird.style.bottom = "70px";
 
-bird.style.left = centerX + spread + "px";
-bird.style.bottom = "80px";
+/* разные размеры */
 
-/* небольшая задержка для живости */
+const scale = 0.7 + Math.random()*0.6;
+bird.style.transform = "scale("+scale+")";
 
-bird.style.animationDelay = (i * 0.12) + "s";
+/* задержка */
+
+bird.style.animationDelay = (i*0.12)+"s";
 
 slider.appendChild(bird);
 
