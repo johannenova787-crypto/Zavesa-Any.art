@@ -665,89 +665,7 @@ pointer-events:none;
 transform:rotateY(0deg);
 }
 
-/* комната книги */
 
-.pdf-room{
-
-position:fixed;
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:radial-gradient(circle at center,#fffdf9,#f2e6cf);
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-opacity:0;
-pointer-events:none;
-
-transform:scale(0.96);
-
-transition:
-opacity 1.2s ease,
-transform 1.2s ease;
-
-z-index:9999;
-
-}
-
-.pdf-room.open{
-
-opacity:1;
-pointer-events:auto;
-
-transform:scale(1);
-
-}
-
-.pdf-room iframe{
-
-width:80%;
-height:90%;
-
-border:none;
-
-border-radius:18px;
-
-box-shadow:
-0 40px 120px rgba(180,140,60,0.4);
-
-}
-
-/* кнопка закрытия */
-
-.close-pdf{
-
-position:absolute;
-
-top:30px;
-right:40px;
-
-background:rgba(0,0,0,0.6);
-
-color:white;
-
-border:none;
-
-padding:12px 18px;
-
-border-radius:20px;
-
-font-size:16px;
-
-cursor:pointer;
-
-}
-
-.close-pdf:hover{
-
-background:black;
-
-}
   
 </style>
 
@@ -792,7 +710,9 @@ background:black;
 </div>
 
 <div class="portal" id="portal">
+  
     <div class="portal-ring"></div>
+  
     <div class="portal-text">Переступить Завесу</div>
 </div>
 
