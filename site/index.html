@@ -487,16 +487,16 @@ opacity:0;
 
 }
 
-/* золотые птицы */
+/* птицы */
 
 .bird{
 position:absolute;
 z-index:10;
 
-width:70px;
-height:50px;
+width:80px;
+height:60px;
 
-animation:birdFly 7s ease-out forwards;
+animation:birdFly 9s ease-out forwards;
 }
 
 .bird svg{
@@ -504,26 +504,28 @@ width:100%;
 height:100%;
 fill:rgba(255,220,140,0.95);
 
-filter:drop-shadow(0 0 10px rgba(255,220,140,0.9));
+filter:
+drop-shadow(0 0 10px rgba(255,220,140,0.9))
+drop-shadow(0 0 20px rgba(255,220,140,0.6));
 }
 
 @keyframes birdFly{
 
 0%{
-transform:translateY(0) scale(.7) rotate(-8deg);
+transform:translateY(0) scale(.7) rotate(-6deg);
 opacity:1;
 }
 
-40%{
-transform:translateY(-140px) scale(1.1) rotate(-2deg);
+30%{
+transform:translateY(-120px) scale(1);
 }
 
-70%{
-transform:translateY(-260px) scale(1) rotate(6deg);
+60%{
+transform:translateY(-260px) scale(1.1) rotate(4deg);
 }
 
 100%{
-transform:translateY(-420px) scale(.9) rotate(10deg);
+transform:translateY(-520px) scale(.9) rotate(8deg);
 opacity:0;
 }
 
@@ -786,19 +788,19 @@ window.location.href="../rooms/";
 function createBirds(){
 
 const slider = document.getElementById("slider");
-const center = slider.offsetWidth/2;
+const center = slider.offsetWidth / 2;
 
 const birdSVG = `
-<svg viewBox="0 0 120 80">
-<path d="M10 50 
-Q40 10 60 40 
-Q80 10 110 50 
-Q80 35 60 55 
-Q40 35 10 50 Z"/>
+<svg viewBox="0 0 512 512">
+<path d="M0 256 
+Q140 80 256 220 
+Q372 80 512 256
+Q372 200 256 300
+Q140 200 0 256 Z"/>
 </svg>
 `;
 
-for(let i=0;i<14;i++){
+for(let i=0;i<12;i++){
 
 const bird=document.createElement("div");
 bird.className="bird";
@@ -807,27 +809,27 @@ bird.innerHTML=birdSVG;
 
 /* веер */
 
-const spread=(i-7)*35;
+const spread=(i-6)*45;
 bird.style.left=center+spread+"px";
-bird.style.bottom="80px";
+bird.style.bottom="60px";
 
 /* разные размеры */
 
-const scale=0.7+Math.random()*0.8;
+const scale=0.8+Math.random()*0.7;
 bird.style.transform="scale("+scale+")";
 
 /* задержка */
 
-bird.style.animationDelay=(i*0.18)+"s";
+bird.style.animationDelay=(i*0.35)+"s";
 
 slider.appendChild(bird);
 
-setTimeout(()=>bird.remove(),7000);
+setTimeout(()=>bird.remove(),9000);
 
 }
 
 }
-
+  
 function createPageParticles(){
 
 const slider = document.getElementById("slider");
