@@ -404,7 +404,7 @@ transform:translate(-50%,-50%) scale(2.5);
 
 position:fixed;
 left:50%;
-top:35%;
+top:50%;
 
 width:10px;
 height:10px;
@@ -505,14 +505,11 @@ opacity:0;
 
 }
 .book-portal{
-  
 
 position:fixed;
 left:50%;
 top:50%;
-  
-visibility:hidden;
-  
+
 width:10px;
 height:10px;
 
@@ -538,9 +535,8 @@ z-index:9997;
 }
 
 .book-portal.open{
-visibility:visible;
 opacity:1;
-transform:translate(-50%,-50%) scale(30);
+transform:translate(-50%,-50%) scale(60);
 }
   
 /* стая птиц */
@@ -905,16 +901,16 @@ const center = slider.offsetWidth / 2;
 const birdSVG = `
 <svg viewBox="0 0 200 120">
 <path d="
-M5 80
-Q60 20 100 60
-Q140 20 195 80
-Q150 55 100 75
-Q50 55 5 80
+M10 70
+Q70 10 100 55
+Q130 10 190 70
+Q140 55 100 85
+Q60 55 10 70
 Z"/>
 </svg>
 `;
 
-for(let i=0;i<9;i++){
+for(let i=0;i<14;i++){
 
 const bird=document.createElement("div");
 bird.className="bird";
@@ -923,7 +919,7 @@ bird.innerHTML=birdSVG;
 
 /* веер */
 
-const spread=(i-4)*55;
+const spread=(i-7)*55;
 
 bird.style.left=center+spread+"px";
 bird.style.bottom="70px";
@@ -935,13 +931,11 @@ bird.style.transform="scale("+scale+")";
 
 /* задержка */
 
-bird.style.animationDelay=(i*0.6)+"s";
+bird.style.animationDelay=(i*0.35)+"s";
 
 slider.appendChild(bird);
 
-setTimeout(()=>{
-bird.remove();
-},10000);
+setTimeout(()=>bird.remove(),10000);
 
 }
 
@@ -1077,3 +1071,6 @@ frame.src="";
   
 </body>
 </html>
+
+
+Почему до сих пор 2 стиля эффектов "дерутся" между собой - птицы не сами по себе а с вспышкой пдф ?
