@@ -401,21 +401,39 @@ transform:translate(-50%,-50%) scale(2.5);
 }
   
 .portal{
-position:absolute;
-top:50%;
+
+position:fixed;
 left:50%;
-transform:translate(-50%,-50%) scale(0.6);
-width:260px;
-height:260px;
+top:50%;
+
+width:10px;
+height:10px;
+
 border-radius:50%;
+
+background:
+radial-gradient(circle,
+rgba(255,230,160,0.9),
+rgba(255,200,120,0.6),
+rgba(255,180,90,0.2),
+transparent 70%);
+
+transform:translate(-50%,-50%) scale(0);
+
 opacity:0;
+
 pointer-events:none;
-transition:opacity 1.6s ease, transform 1.6s ease;
+
+transition:
+transform 1.6s cubic-bezier(.2,.8,.2,1),
+opacity 0.6s ease;
+
+z-index:9998;
 }
 
 .portal.open{
 opacity:1;
-transform:translate(-50%,-50%) scale(1);
+transform:translate(-50%,-50%) scale(120);
 }
 
 .portal-ring{
@@ -842,15 +860,6 @@ background:black;
 </section>
 
 
-<div class="pdf-room" id="pdfRoom">
-
-<button class="close-pdf" onclick="closeExcerpt()">
-Закрыть
-</button>
-
-<iframe id="pdfFrame"></iframe>
-
-</div>
   
 <div class="pdf-room" id="pdfRoom">
 
@@ -864,16 +873,7 @@ background:black;
 
 
 
-function closeExcerpt(){
 
-const room = document.getElementById("pdfRoom");
-const frame = document.getElementById("pdfFrame");
-
-room.classList.remove("open");
-
-frame.src="";
-
-}
 
 const slides=document.querySelectorAll(".slide");
 
@@ -1071,20 +1071,23 @@ setTimeout(()=>glow.remove(),800);
 
 function openExcerpt(){
 
-const page = document.getElementById("pageTurn");
+const portal = document.getElementById("portal");
 const room = document.getElementById("pdfRoom");
 const frame = document.getElementById("pdfFrame");
 
-/* перелистываем страницу */
+/* открывается портал */
 
-page.classList.add("open");
+portal.classList.add("open");
 
-/* после перелистывания появляется PDF */
+/* затем появляется книга */
 
 setTimeout(()=>{
+
 frame.src="../excerpt/excerpt.pdf";
+
 room.classList.add("open");
-},1500);
+
+},900);
 
 }
 
@@ -1103,8 +1106,12 @@ frame.src="";
 }
 
 </script>
-  
+
+
 <div class="page-turn" id="pageTurn"></div>
+
+<div class="portal" id="portal"></div>
+
   
 </body>
 </html>
