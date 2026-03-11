@@ -487,17 +487,19 @@ opacity:0;
 
 }
 
-  /* золотые птицы */
+/* золотые птицы */
 
 .bird{
 position:absolute;
 z-index:10;
 
-width:40px;
-height:20px;
+width:60px;
+height:30px;
 
-animation:birdFly 4s ease forwards;
+animation:birdFly 4.5s ease-out forwards;
 }
+
+/* крылья */
 
 .bird::before,
 .bird::after{
@@ -505,44 +507,52 @@ content:"";
 position:absolute;
 top:0;
 
-width:20px;
-height:20px;
+width:30px;
+height:30px;
 
-border-top:3px solid rgba(255,215,130,0.95);
-border-radius:50%;
+border-top:4px solid rgba(255,220,140,0.95);
+border-radius:60% 60% 0 0;
 
-filter:drop-shadow(0 0 8px rgba(255,220,120,0.9));
+filter:drop-shadow(0 0 10px rgba(255,220,120,0.9));
 }
+
+/* левое крыло */
 
 .bird::before{
 left:0;
-transform:rotate(-35deg);
+transform:rotate(-40deg);
 }
+
+/* правое крыло */
 
 .bird::after{
 right:0;
-transform:rotate(35deg);
+transform:rotate(40deg);
 }
+
+/* полёт */
 
 @keyframes birdFly{
 
 0%{
-transform:translateY(0) scale(.6);
+transform:translateY(0) scale(.7);
 opacity:1;
 }
 
-60%{
-transform:translateY(-200px) scale(1.2);
-opacity:1;
+40%{
+transform:translateY(-120px) scale(1.2);
+}
+
+70%{
+transform:translateY(-220px) scale(1.1);
 }
 
 100%{
-transform:translateY(-320px) scale(.8);
+transform:translateY(-360px) scale(.9);
 opacity:0;
 }
 
 }
-  
   
   .pdf-room{
 position:fixed;
@@ -802,22 +812,31 @@ function createBirds(){
 
 const slider = document.getElementById("slider");
 
+const centerX = slider.offsetWidth / 2;
+
 for(let i=0;i<14;i++){
 
-const bird=document.createElement("div");
-bird.className="bird";
+const bird = document.createElement("div");
+bird.className = "bird";
 
-bird.style.left=Math.random()*100+"%";
-bird.style.bottom="120px";
+/* веерный разлёт */
+
+const spread = (i - 7) * 18;
+
+bird.style.left = centerX + spread + "px";
+bird.style.bottom = "80px";
+
+/* небольшая задержка для живости */
+
+bird.style.animationDelay = (i * 0.12) + "s";
 
 slider.appendChild(bird);
 
-setTimeout(()=>bird.remove(),4000);
+setTimeout(()=>bird.remove(),5000);
 
 }
 
 }
-
 
 function createPageParticles(){
 
