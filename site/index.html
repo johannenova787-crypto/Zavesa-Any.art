@@ -648,6 +648,9 @@ document.getElementById("about").scrollIntoView({behavior:"smooth"});
 
 function goDeeper(){
 
+const slider = document.getElementById("slider");
+slider.classList.add("flash");
+
 createPageParticles();
 
 const portal = document.getElementById("portal");
@@ -657,7 +660,7 @@ portal.classList.add("open");
 },1200);
 
 setTimeout(()=>{
-window.location.href="rooms/";
+window.location.href="/Zavesa-Any.art/rooms/";
 },3000);
 
 }
