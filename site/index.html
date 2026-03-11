@@ -493,14 +493,11 @@ opacity:0;
 position:absolute;
 z-index:10;
 
-width:28px;
-height:16px;
+width:40px;
+height:20px;
 
-background:transparent;
-
-animation:birdFly 4s ease forwards, wingFlap 0.7s infinite;
-
-/* крылья */
+animation:birdFly 4s ease forwards;
+}
 
 .bird::before,
 .bird::after{
@@ -508,52 +505,41 @@ content:"";
 position:absolute;
 top:0;
 
-width:14px;
-height:16px;
+width:20px;
+height:20px;
 
-border-top:3px solid rgba(255,215,130,0.9);
-border-radius:100% 100% 0 0;
+border-top:3px solid rgba(255,215,130,0.95);
+border-radius:50%;
 
-filter:drop-shadow(0 0 6px rgba(255,220,120,.8));
+filter:drop-shadow(0 0 8px rgba(255,220,120,0.9));
 }
 
 .bird::before{
 left:0;
-transform:rotate(-25deg);
+transform:rotate(-35deg);
 }
 
 .bird::after{
 right:0;
-transform:rotate(25deg);
+transform:rotate(35deg);
 }
-
-
-
 
 @keyframes birdFly{
 
 0%{
-transform:translateY(0) scale(.6) rotate(0deg);
+transform:translateY(0) scale(.6);
 opacity:1;
 }
 
 60%{
-transform:translateY(-180px) scale(1.1) rotate(10deg);
+transform:translateY(-200px) scale(1.2);
 opacity:1;
 }
 
 100%{
-transform:translateY(-260px) scale(.8) rotate(20deg);
+transform:translateY(-320px) scale(.8);
 opacity:0;
 }
-
-}
-  
-@keyframes wingFlap{
-
-0%{transform:scaleY(1)}
-50%{transform:scaleY(0.7)}
-100%{transform:scaleY(1)}
 
 }
   
