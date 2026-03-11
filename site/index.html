@@ -914,7 +914,7 @@ Z"/>
 </svg>
 `;
 
-for(let i=0;i<9;i++)
+for(let i=0;i<9;i++){
 
 const bird=document.createElement("div");
 bird.className="bird";
@@ -923,7 +923,7 @@ bird.innerHTML=birdSVG;
 
 /* веер */
 
-const spread=(i-7)*55;
+const spread=(i-4)*55;
 
 bird.style.left=center+spread+"px";
 bird.style.bottom="70px";
@@ -939,7 +939,9 @@ bird.style.animationDelay=(i*0.6)+"s";
 
 slider.appendChild(bird);
 
-setTimeout(()=>bird.remove(),10000);
+setTimeout(()=>{
+bird.remove();
+},10000);
 
 }
 
