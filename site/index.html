@@ -513,6 +513,34 @@ pointer-events:auto;
 transform:scale(1);
 }
 
+  .close-pdf{
+
+position:absolute;
+top:30px;
+right:40px;
+
+font-size:16px;
+letter-spacing:0.15em;
+
+padding:10px 22px;
+
+border-radius:40px;
+
+border:1px solid rgba(190,150,80,.5);
+background:rgba(255,248,230,.9);
+
+color:#8c6b2a;
+
+cursor:pointer;
+
+transition:.4s;
+}
+
+.close-pdf:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px rgba(255,220,140,.6);
+}
+
 .pdf-room iframe{
 width:80%;
 height:90%;
@@ -635,6 +663,12 @@ box-shadow:
 </section>
 
 <div class="pdf-room" id="pdfRoom">
+
+<button class="close-pdf" onclick="closeExcerpt()">✕ Закрыть</button>
+
+<iframe src="../excerpt/excerpt.pdf"></iframe>
+
+</div>
   
  <iframe src="../excerpt/excerpt.pdf"></iframe>
   
