@@ -1071,7 +1071,7 @@ setTimeout(()=>glow.remove(),800);
 
 function openExcerpt(){
 
-const portal = document.getElementById("portal");
+const portal = document.getElementById("bookPortal");
 const room = document.getElementById("pdfRoom");
 const frame = document.getElementById("pdfFrame");
 
@@ -1096,7 +1096,7 @@ function closeExcerpt(){
 
 const room = document.getElementById("pdfRoom");
 const frame = document.getElementById("pdfFrame");
-const page = document.getElementById("pageTurn");
+const portal = document.getElementById("bookPortal");
 
 room.classList.remove("open");
 page.classList.remove("open");
@@ -1110,8 +1110,7 @@ frame.src="";
 
 <div class="page-turn" id="pageTurn"></div>
 
-<div class="portal" id="portal"></div>
-
+<div class="portal" id="bookPortal"></div>
   
 </body>
 </html>
