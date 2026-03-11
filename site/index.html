@@ -538,17 +538,19 @@ z-index:9997;
 opacity:1;
 transform:translate(-50%,-50%) scale(60);
 }
-  
 /* стая птиц */
 
 .bird{
 position:absolute;
-z-index:10;
+
+z-index:5; /* ниже всех порталов */
 
 width:80px;
 height:60px;
 
-animation:birdFly 10s ease-out forwards;
+pointer-events:none;
+
+animation:birdFly 9s ease-out forwards;
 }
 
 /* сам силуэт */
@@ -556,13 +558,15 @@ animation:birdFly 10s ease-out forwards;
 .bird svg{
 width:100%;
 height:100%;
+
 fill:rgba(255,220,150,0.95);
 
 filter:
 drop-shadow(0 0 10px rgba(255,220,150,0.9))
 drop-shadow(0 0 25px rgba(255,220,150,0.5));
 
-animation:wingFlap 0.8s ease-in-out infinite;
+animation:wingFlap 0.9s ease-in-out infinite;
+
 transform-origin:center;
 }
 
@@ -588,26 +592,29 @@ opacity:1;
 }
 
 30%{
-transform:translateY(-120px) scale(1);
+transform:translateY(-140px) scale(1);
 }
 
 60%{
-transform:translateY(-260px) scale(1.1) rotate(6deg);
+transform:translateY(-300px) scale(1.1) rotate(6deg);
 }
 
 100%{
-transform:translateY(-520px) scale(.9) rotate(10deg);
+transform:translateY(-580px) scale(.9) rotate(10deg);
 opacity:0;
 }
 
 }
 
   .pdf-room{
+    
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
+
+z-index:10000;   
 
 background:radial-gradient(circle at center,#fffdf9,#f2e6cf);
 
@@ -910,16 +917,16 @@ Z"/>
 </svg>
 `;
 
-for(let i=0;i<14;i++){
+for(let i=0;i<12;i++){
 
 const bird=document.createElement("div");
 bird.className="bird";
 
 bird.innerHTML=birdSVG;
 
-/* веер */
+/* веер птиц */
 
-const spread=(i-7)*55;
+const spread=(i-6)*55;
 
 bird.style.left=center+spread+"px";
 bird.style.bottom="70px";
@@ -935,12 +942,15 @@ bird.style.animationDelay=(i*0.35)+"s";
 
 slider.appendChild(bird);
 
-setTimeout(()=>bird.remove(),10000);
+/* удаление */
+
+setTimeout(()=>{
+bird.remove();
+},9000);
 
 }
 
 }
-
   
 function createPageParticles(){
 
@@ -1029,11 +1039,17 @@ const portal = document.getElementById("bookPortal");
 const room = document.getElementById("pdfRoom");
 const frame = document.getElementById("pdfFrame");
 
+/* сначала блокируем все птицы */
+
+const birds=document.querySelectorAll(".bird");
+birds.forEach(b=>b.remove());
+
 /* открывается портал */
 
 portal.classList.add("open");
-  
+
 createGoldDust();
+
 /* затем появляется книга */
 
 setTimeout(()=>{
@@ -1042,10 +1058,9 @@ frame.src="../excerpt/excerpt.pdf";
 
 room.classList.add("open");
 
-},900);
+},1000);
 
 }
-
 
 function closeExcerpt(){
 
