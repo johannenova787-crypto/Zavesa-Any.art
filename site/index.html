@@ -977,7 +977,7 @@ page.classList.add("open");
 setTimeout(()=>{
 frame.src="../excerpt/excerpt.pdf";
 room.classList.add("open");
-},900);
+},1500);
 
 }
 
@@ -986,13 +986,15 @@ function closeExcerpt(){
 
 const room = document.getElementById("pdfRoom");
 const frame = document.getElementById("pdfFrame");
+const page = document.getElementById("pageTurn");
 
 room.classList.remove("open");
+page.classList.remove("open");
 
 frame.src="";
 
 }
-  
+
 </script>
   
 <div class="page-turn" id="pageTurn"></div>
