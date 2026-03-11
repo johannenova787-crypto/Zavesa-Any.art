@@ -402,33 +402,22 @@ transform:translate(-50%,-50%) scale(2.5);
   
 .portal{
 
-position:fixed;
+position:absolute;
 left:50%;
-top:50%;
+top:78%;
 
-width:10px;
-height:10px;
+width:160px;
+height:160px;
 
 border-radius:50%;
 
-background:
-radial-gradient(circle,
-rgba(255,230,160,0.9),
-rgba(255,200,120,0.6),
-rgba(255,180,90,0.2),
-transparent 70%);
+transform:translate(-50%,-50%) scale(1);
 
-transform:translate(-50%,-50%) scale(0);
-
-opacity:0;
+opacity:1;
 
 pointer-events:none;
 
-transition:
-transform 1.6s cubic-bezier(.2,.8,.2,1),
-opacity 0.6s ease;
-
-z-index:9998;
+z-index:20;
 }
 
 .portal.open{
@@ -504,40 +493,7 @@ opacity:0;
 }
 
 }
-.book-portal{
 
-position:fixed;
-left:50%;
-top:50%;
-
-width:10px;
-height:10px;
-
-border-radius:50%;
-
-background:
-radial-gradient(circle,
-rgba(255,240,200,0.9),
-rgba(255,220,170,0.6),
-transparent 70%);
-
-transform:translate(-50%,-50%) scale(0);
-
-opacity:0;
-
-pointer-events:none;
-
-transition:
-transform 1.2s ease,
-opacity 0.6s ease;
-
-z-index:9997;
-}
-
-.book-portal.open{
-opacity:1;
-transform:translate(-50%,-50%) scale(60);
-}
 /* стая птиц */
 
 .bird{
@@ -876,29 +832,28 @@ document.getElementById("about").scrollIntoView({behavior:"smooth"});
 function goDeeper(){
 
 const slider = document.getElementById("slider");
-slider.classList.add("flash");
-
-
 
 createPageParticles();
 
 setTimeout(()=>{
 createBirds();
 },400);
-  
+
+/* открываем портал */
+
 const portal = document.getElementById("portal");
-  
+
 setTimeout(()=>{
 portal.classList.add("open");
-},3500);
+},2500);
+
+/* переход */
 
 setTimeout(()=>{
 window.location.href="../rooms/";
-},11000);
-
+},9000);
 
 }
-
   
 function createBirds(){
 
@@ -1080,9 +1035,7 @@ frame.src="";
 
 <div class="page-turn" id="pageTurn"></div>
   
-<div class="book-portal" id="bookPortal">
-<div class="portal-ring"></div>
-</div>
+
   
 </body>
 </html>
