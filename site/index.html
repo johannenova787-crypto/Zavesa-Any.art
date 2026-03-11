@@ -998,7 +998,8 @@ const frame = document.getElementById("pdfFrame");
 /* открывается портал */
 
 portal.classList.add("open");
-
+  
+createGoldDust();
 /* затем появляется книга */
 
 setTimeout(()=>{
@@ -1019,7 +1020,7 @@ const frame = document.getElementById("pdfFrame");
 const portal = document.getElementById("bookPortal");
 
 room.classList.remove("open");
-page.classList.remove("open");
+portal.classList.remove("open");
 
 frame.src="";
 
@@ -1029,8 +1030,10 @@ frame.src="";
 
 
 <div class="page-turn" id="pageTurn"></div>
-
-<div class="portal" id="bookPortal"></div>
+  
+<div class="portal" id="bookPortal">
+<div class="portal-ring"></div>
+</div>
   
 </body>
 </html>
