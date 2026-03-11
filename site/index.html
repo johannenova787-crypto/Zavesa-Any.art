@@ -493,30 +493,42 @@ opacity:0;
 position:absolute;
 z-index:10;
 
-width:26px;
-height:18px;
+width:28px;
+height:16px;
 
-background:linear-gradient(
-45deg,
-rgba(255,230,150,0.95),
-rgba(255,200,90,0.5)
-);
+background:transparent;
 
-clip-path:polygon(
-0% 50%,
-30% 20%,
-50% 40%,
-70% 20%,
-100% 50%,
-70% 60%,
-50% 45%,
-30% 60%
-);
+animation:birdFly 4s ease forwards, wingFlap 0.7s infinite;
 
-animation:birdFly 4s ease forwards;
+/* крылья */
+
+.bird::before,
+.bird::after{
+content:"";
+position:absolute;
+top:0;
+
+width:14px;
+height:16px;
+
+border-top:3px solid rgba(255,215,130,0.9);
+border-radius:100% 100% 0 0;
 
 filter:drop-shadow(0 0 6px rgba(255,220,120,.8));
 }
+
+.bird::before{
+left:0;
+transform:rotate(-25deg);
+}
+
+.bird::after{
+right:0;
+transform:rotate(25deg);
+}
+
+
+
 
 @keyframes birdFly{
 
@@ -536,6 +548,15 @@ opacity:0;
 }
 
 }
+  
+@keyframes wingFlap{
+
+0%{transform:scaleY(1)}
+50%{transform:scaleY(0.7)}
+100%{transform:scaleY(1)}
+
+}
+  
   
   .pdf-room{
 position:fixed;
