@@ -487,7 +487,7 @@ opacity:0;
 
 }
 
-/* птицы */
+/* стая птиц */
 
 .bird{
 position:absolute;
@@ -496,18 +496,37 @@ z-index:10;
 width:80px;
 height:60px;
 
-animation:birdFly 9s ease-out forwards;
+animation:birdFly 10s ease-out forwards;
 }
+
+/* сам силуэт */
 
 .bird svg{
 width:100%;
 height:100%;
-fill:rgba(255,220,140,0.95);
+fill:rgba(255,220,150,0.95);
 
 filter:
-drop-shadow(0 0 10px rgba(255,220,140,0.9))
-drop-shadow(0 0 20px rgba(255,220,140,0.6));
+drop-shadow(0 0 10px rgba(255,220,150,0.9))
+drop-shadow(0 0 25px rgba(255,220,150,0.5));
+
+animation:wingFlap 0.8s ease-in-out infinite;
+transform-origin:center;
 }
+
+/* мах крыльев */
+
+@keyframes wingFlap{
+
+0%{ transform:scaleY(1); }
+
+50%{ transform:scaleY(0.75); }
+
+100%{ transform:scaleY(1); }
+
+}
+
+/* полёт */
 
 @keyframes birdFly{
 
@@ -521,16 +540,16 @@ transform:translateY(-120px) scale(1);
 }
 
 60%{
-transform:translateY(-260px) scale(1.1) rotate(4deg);
+transform:translateY(-260px) scale(1.1) rotate(6deg);
 }
 
 100%{
-transform:translateY(-520px) scale(.9) rotate(8deg);
+transform:translateY(-520px) scale(.9) rotate(10deg);
 opacity:0;
 }
 
 }
-  
+
   .pdf-room{
 position:fixed;
 top:0;
@@ -784,23 +803,24 @@ window.location.href="../rooms/";
 }
 
   
-  
 function createBirds(){
 
 const slider = document.getElementById("slider");
 const center = slider.offsetWidth / 2;
 
 const birdSVG = `
-<svg viewBox="0 0 512 512">
-<path d="M0 256 
-Q140 80 256 220 
-Q372 80 512 256
-Q372 200 256 300
-Q140 200 0 256 Z"/>
+<svg viewBox="0 0 200 120">
+<path d="
+M10 70
+Q70 10 100 55
+Q130 10 190 70
+Q140 55 100 85
+Q60 55 10 70
+Z"/>
 </svg>
 `;
 
-for(let i=0;i<12;i++){
+for(let i=0;i<14;i++){
 
 const bird=document.createElement("div");
 bird.className="bird";
@@ -809,13 +829,14 @@ bird.innerHTML=birdSVG;
 
 /* веер */
 
-const spread=(i-6)*45;
+const spread=(i-7)*55;
+
 bird.style.left=center+spread+"px";
-bird.style.bottom="60px";
+bird.style.bottom="70px";
 
 /* разные размеры */
 
-const scale=0.8+Math.random()*0.7;
+const scale=0.7+Math.random()*0.8;
 bird.style.transform="scale("+scale+")";
 
 /* задержка */
@@ -824,11 +845,12 @@ bird.style.animationDelay=(i*0.35)+"s";
 
 slider.appendChild(bird);
 
-setTimeout(()=>bird.remove(),9000);
+setTimeout(()=>bird.remove(),10000);
 
 }
 
 }
+
   
 function createPageParticles(){
 
