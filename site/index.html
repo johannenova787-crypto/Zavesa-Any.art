@@ -990,30 +990,21 @@ setTimeout(()=>glow.remove(),800);
 
 function openExcerpt(){
 
-const portal = document.getElementById("bookPortal");
 const room = document.getElementById("pdfRoom");
 const frame = document.getElementById("pdfFrame");
 
-/* сначала блокируем все птицы */
-
-const birds=document.querySelectorAll(".bird");
-birds.forEach(b=>b.remove());
-
-/* открывается портал */
-
-portal.classList.add("open");
+/* золотая пыль */
 
 createGoldDust();
 
-/* затем появляется книга */
+/* открываем книгу */
 
 setTimeout(()=>{
 
 frame.src="../excerpt/excerpt.pdf";
-
 room.classList.add("open");
 
-},1000);
+},500);
 
 }
 
