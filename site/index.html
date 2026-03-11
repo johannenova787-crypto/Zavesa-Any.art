@@ -666,7 +666,7 @@ box-shadow:
 
 <button class="close-pdf" onclick="closeExcerpt()">✕ Закрыть</button>
 
-<iframe src="../excerpt/excerpt.pdf"></iframe>
+<iframe id="pdfFrame"></iframe>
 
 </div>
   
@@ -814,19 +814,25 @@ setTimeout(()=>glow.remove(),800);
 
 });
 
- function openExcerpt(){
+function openExcerpt(){
 
 const room = document.getElementById("pdfRoom");
+const frame = document.getElementById("pdfFrame");
+
+frame.src="../excerpt/excerpt.pdf";
 
 room.classList.add("open");
 
 }
 
-  function closeExcerpt(){
+function closeExcerpt(){
 
 const room = document.getElementById("pdfRoom");
+const frame = document.getElementById("pdfFrame");
 
 room.classList.remove("open");
+
+frame.src="";
 
 }
   
