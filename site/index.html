@@ -401,8 +401,10 @@ transform:translate(-50%,-50%) scale(2.5);
 }
   
 .portal{
+
+position:fixed;
+left:50%;
 top:35%;
-}
 
 width:10px;
 height:10px;
@@ -503,11 +505,14 @@ opacity:0;
 
 }
 .book-portal{
+  
 
 position:fixed;
 left:50%;
 top:50%;
-
+  
+visibility:hidden;
+  
 width:10px;
 height:10px;
 
@@ -533,6 +538,8 @@ z-index:9997;
 }
 
 .book-portal.open{
+visibility:visible;
+opacity:1;
 transform:translate(-50%,-50%) scale(30);
 }
   
@@ -898,16 +905,16 @@ const center = slider.offsetWidth / 2;
 const birdSVG = `
 <svg viewBox="0 0 200 120">
 <path d="
-M10 70
-Q70 10 100 55
-Q130 10 190 70
-Q140 55 100 85
-Q60 55 10 70
+M5 80
+Q60 20 100 60
+Q140 20 195 80
+Q150 55 100 75
+Q50 55 5 80
 Z"/>
 </svg>
 `;
 
-for(let i=0;i<14;i++){
+for(let i=0;i<9;i++)
 
 const bird=document.createElement("div");
 bird.className="bird";
