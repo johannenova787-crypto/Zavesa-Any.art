@@ -458,6 +458,8 @@ color:#8c6b2a;
   
 .page-particle{
 position:absolute;
+z-index:9;
+
 width:10px;
 height:14px;
 
@@ -489,6 +491,8 @@ opacity:0;
 
 .bird{
 position:absolute;
+z-index:10;
+
 width:26px;
 height:18px;
 
@@ -765,8 +769,13 @@ function goDeeper(){
 const slider = document.getElementById("slider");
 slider.classList.add("flash");
 
+
+
 createPageParticles();
+
+setTimeout(()=>{
 createBirds();
+},400);
   
 const portal = document.getElementById("portal");
 
@@ -781,6 +790,7 @@ window.location.href="../rooms/";
 }
 
   
+  
 function createBirds(){
 
 const slider = document.getElementById("slider");
@@ -791,7 +801,7 @@ const bird=document.createElement("div");
 bird.className="bird";
 
 bird.style.left=Math.random()*100+"%";
-bird.style.bottom="40px";
+bird.style.bottom="120px";
 
 slider.appendChild(bird);
 
