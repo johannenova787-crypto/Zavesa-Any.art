@@ -587,7 +587,7 @@ transition:
 opacity 1.2s ease,
 transform 1.2s ease;
 
-z-index:9999;
+
 }
 
 .pdf-room.open{
@@ -1012,10 +1012,8 @@ function closeExcerpt(){
 
 const room = document.getElementById("pdfRoom");
 const frame = document.getElementById("pdfFrame");
-const portal = document.getElementById("bookPortal");
 
 room.classList.remove("open");
-portal.classList.remove("open");
 
 frame.src="";
 
@@ -1032,4 +1030,4 @@ frame.src="";
 </html>
 
 
-Почему до сих пор 2 стиля эффектов "дерутся" между собой - птицы не сами по себе а с вспышкой пдф ?
+
