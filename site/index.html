@@ -15,7 +15,6 @@ font-family:'Cormorant Garamond',serif;
 color:#5a4723;
 overflow-x:hidden;
 scroll-behavior:smooth;
-
 background:radial-gradient(circle at 50% 0%,#fffdf9,#f2e6cf);
 background-size:120% 120%;
 animation:goldenBreath 18s ease-in-out infinite;
@@ -30,7 +29,6 @@ animation:goldenBreath 18s ease-in-out infinite;
 body{opacity:0;animation:fadeIn 2.5s ease forwards;}
 @keyframes fadeIn{to{opacity:1;}}
 
-/* HERO */
 .hero{
 min-height:100vh;
 display:flex;
@@ -58,6 +56,7 @@ margin-bottom:80px;
 }
 
 /* СЛАЙДЕР */
+
 .slider{
 width:420px;
 aspect-ratio:2/3;
@@ -84,6 +83,7 @@ transition:transform 2s ease,opacity 2s ease;
 .slide.flip{transform:rotateY(-180deg);opacity:0;}
 
 /* КНОПКИ */
+
 .buttons{display:flex;gap:40px;flex-wrap:wrap;justify-content:center;}
 
 .button{
@@ -100,7 +100,8 @@ transition:all .6s ease;
 
 .button:hover{transform:scale(1.07);box-shadow:0 0 40px rgba(255,220,160,0.6);} 
 
-/* ПОРТАЛ */
+/* ПОРТАЛ (СНАЧАЛА СКРЫТ) */
+
 .portal{
 position:absolute;
 left:50%;
@@ -109,7 +110,14 @@ width:180px;
 height:180px;
 transform:translate(-50%,-50%);
 cursor:pointer;
-z-index:20;
+opacity:0;
+pointer-events:none;
+transition:opacity 1.6s ease;
+}
+
+.portal.visible{
+opacity:1;
+pointer-events:auto;
 }
 
 .portal-ring{
@@ -133,10 +141,10 @@ color:#8c6b2a;
 text-align:center;
 }
 
-@keyframes portalPulse{
-0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);} }
+@keyframes portalPulse{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);} }
 
 /* ПТИЦЫ */
+
 .bird{
 position:absolute;
 width:90px;
@@ -147,8 +155,7 @@ animation:birdFly 8s ease-out forwards;
 
 .bird svg{width:100%;height:100%;fill:rgba(255,220,150,0.95);
 filter:drop-shadow(0 0 12px rgba(255,220,150,0.9));
-animation:wingFlap .9s ease-in-out infinite;
-}
+animation:wingFlap .9s ease-in-out infinite;}
 
 @keyframes wingFlap{0%{transform:scaleY(1);}50%{transform:scaleY(.75);}100%{transform:scaleY(1);} }
 
@@ -160,6 +167,7 @@ animation:wingFlap .9s ease-in-out infinite;
 }
 
 /* ЧАСТИЦЫ СТРАНИЦ */
+
 .page-particle{
 position:absolute;
 width:10px;height:14px;
@@ -173,18 +181,32 @@ animation:pageRise 3s ease forwards;
 100%{transform:translateY(-200px) rotate(360deg);opacity:0;}
 }
 
+/* ЗОЛОТАЯ ПЫЛЬ */
+
+.gold-particle{
+position:absolute;width:6px;height:6px;border-radius:50%;
+background:radial-gradient(circle,gold 0%,transparent 70%);
+animation:goldFloat 2s ease forwards;
+}
+
+@keyframes goldFloat{
+from{transform:translateY(0);opacity:1}
+to{transform:translateY(-120px);opacity:0}
+}
+
 /* СВЕТ КУРСОРА */
+
 .cursor-glow{
 position:fixed;width:12px;height:12px;pointer-events:none;border-radius:50%;
 background:radial-gradient(circle,rgba(255,220,140,.8) 0%,rgba(255,220,140,0) 70%);
 transform:translate(-50%,-50%);
-animation:glowFade .8s ease-out forwards;
-z-index:9999;
+animation:glowFade .8s ease-out forwards;z-index:9999;
 }
 
 @keyframes glowFade{from{opacity:.9;transform:translate(-50%,-50%) scale(1);}to{opacity:0;transform:translate(-50%,-50%) scale(2.5);} }
 
-/* PDF КОМНАТА */
+/* PDF */
+
 .pdf-room{
 position:fixed;top:0;left:0;width:100%;height:100%;
 background:radial-gradient(circle at center,#fffdf9,#f2e6cf);
@@ -196,10 +218,8 @@ transition:opacity 1.2s ease,transform 1.2s ease;z-index:10000;
 .pdf-room.open{opacity:1;pointer-events:auto;transform:scale(1);} 
 
 .close-pdf{
-position:absolute;top:30px;right:40px;
-font-size:16px;padding:10px 22px;border-radius:40px;
-border:1px solid rgba(190,150,80,.5);
-background:rgba(255,248,230,.9);cursor:pointer;color:#8c6b2a;
+position:absolute;top:30px;right:40px;font-size:16px;padding:10px 22px;border-radius:40px;
+border:1px solid rgba(190,150,80,.5);background:rgba(255,248,230,.9);cursor:pointer;color:#8c6b2a;
 }
 
 .pdf-room iframe{width:80%;height:90%;border:none;border-radius:18px;box-shadow:0 40px 120px rgba(180,140,60,0.4);} 
@@ -225,19 +245,21 @@ background:rgba(255,248,230,.9);cursor:pointer;color:#8c6b2a;
 
 </div>
 
-<div class="portal" onclick="enterPortal()">
+<!-- ПОРТАЛ ПОЯВЛЯЕТСЯ ПОСЛЕ ПТИЦ -->
+<div class="portal" id="portal" onclick="enterPortal()">
 <div class="portal-ring"></div>
 <div class="portal-text">Переступить<br>Завесу</div>
 </div>
 
 <div class="buttons">
 <button class="button" onclick="scrollToAbout()">О книге</button>
-<button class="button" onclick="enterPortal()">Нырнуть глубже</button>
+<button class="button" onclick="goDeeper()">Нырнуть глубже</button>
 <button class="button" onclick="goBuy()">Взять книгу с собой</button>
 </div>
 
 </section>
 
+<!-- PDF -->
 <div class="pdf-room" id="pdfRoom">
 <button class="close-pdf" onclick="closeExcerpt()">✕ Закрыть</button>
 <iframe id="pdfFrame"></iframe>
@@ -246,67 +268,87 @@ background:rgba(255,248,230,.9);cursor:pointer;color:#8c6b2a;
 <script>
 
 /* СЛАЙДЕР */
-const slides=document.querySelectorAll(".slide");
+
+const slides=document.querySelectorAll('.slide');
 let current=0;
 let anim=false;
 
 function nextSlide(){
 if(anim)return;
 anim=true;
+
 const c=slides[current];
 const next=(current+1)%slides.length;
 const n=slides[next];
 
-c.classList.add("flip");
+c.classList.add('flip');
 
 setTimeout(()=>{
-c.classList.remove("active","flip");
-n.classList.add("active");
+
+c.classList.remove('active','flip');
+n.classList.add('active');
 current=next;
 anim=false;
+
 setTimeout(nextSlide,7000);
+
 },2000);
+
 }
 
 setTimeout(nextSlide,7000);
 
-/* ПОРТАЛ И ПТИЦЫ */
+/* КНОПКА НЫРНУТЬ ГЛУБЖЕ */
 
-function enterPortal(){
+function goDeeper(){
 
+createGoldDust();
 createPageParticles();
 
 setTimeout(createBirds,300);
 
+/* портал появляется только после полета птиц */
+
 setTimeout(()=>{
-window.location.href="../rooms/";
-},9000);
+
+const portal=document.getElementById('portal');
+portal.classList.add('visible');
+
+},4200);
 
 }
 
+/* ПОРТАЛ */
+
+function enterPortal(){
+
+window.location.href='../rooms/';
+
+}
+
+/* ПТИЦЫ */
+
 function createBirds(){
 
-const portal=document.querySelector(".portal");
-const rect=portal.getBoundingClientRect();
-
-const centerX=rect.left+rect.width/2;
-const bottom=window.innerHeight-rect.top;
+const slider=document.getElementById('slider');
+const rect=slider.getBoundingClientRect();
+const center=rect.left+rect.width/2;
 
 const birdSVG=`<svg viewBox="0 0 200 120"><path d="M10 70 Q70 10 100 55 Q130 10 190 70 Q140 55 100 85 Q60 55 10 70 Z"/></svg>`;
 
 for(let i=0;i<14;i++){
 
-const bird=document.createElement("div");
-bird.className="bird";
+const bird=document.createElement('div');
+bird.className='bird';
 bird.innerHTML=birdSVG;
 
-bird.style.left=(centerX+(i-7)*60)+"px";
-bird.style.bottom=bottom+"px";
+bird.style.left=(center+(i-7)*60)+'px';
+bird.style.bottom='120px';
 
 const scale=0.6+Math.random()*0.7;
-bird.style.transform="scale("+scale+")";
+bird.style.transform='scale('+scale+')';
 
-bird.style.animationDelay=(i*0.3)+"s";
+bird.style.animationDelay=(i*0.3)+'s';
 
 document.body.appendChild(bird);
 
@@ -316,51 +358,83 @@ setTimeout(()=>bird.remove(),9000);
 
 }
 
-/* ЧАСТИЦЫ */
+/* ЧАСТИЦЫ СТРАНИЦ */
+
 function createPageParticles(){
+
 for(let i=0;i<20;i++){
-const p=document.createElement("div");
-p.className="page-particle";
-p.style.left=Math.random()*100+"%";
-p.style.bottom="120px";
+
+const p=document.createElement('div');
+p.className='page-particle';
+
+p.style.left=Math.random()*100+'%';
+p.style.bottom='120px';
+
 document.body.appendChild(p);
+
 setTimeout(()=>p.remove(),3000);
+
 }
+
+}
+
+/* ЗОЛОТАЯ ПЫЛЬ */
+
+function createGoldDust(){
+
+for(let i=0;i<15;i++){
+
+const dust=document.createElement('div');
+dust.className='gold-particle';
+
+dust.style.left=Math.random()*window.innerWidth+'px';
+dust.style.top=(window.innerHeight*0.7)+'px';
+
+document.body.appendChild(dust);
+
+setTimeout(()=>dust.remove(),2000);
+
+}
+
 }
 
 /* СВЕТ КУРСОРА */
 
-document.addEventListener("mousemove",e=>{
-const g=document.createElement("div");
-g.className="cursor-glow";
-g.style.left=e.clientX+"px";
-g.style.top=e.clientY+"px";
+document.addEventListener('mousemove',e=>{
+
+const g=document.createElement('div');
+g.className='cursor-glow';
+
+g.style.left=e.clientX+'px';
+g.style.top=e.clientY+'px';
+
 document.body.appendChild(g);
+
 setTimeout(()=>g.remove(),800);
+
 });
 
 /* PDF */
 
 function openExcerpt(){
-const room=document.getElementById("pdfRoom");
-const frame=document.getElementById("pdfFrame");
-frame.src="../excerpt/excerpt.pdf";
-room.classList.add("open");
+const room=document.getElementById('pdfRoom');
+const frame=document.getElementById('pdfFrame');
+frame.src='../excerpt/excerpt.pdf';
+room.classList.add('open');
 }
 
 function closeExcerpt(){
-const room=document.getElementById("pdfRoom");
-const frame=document.getElementById("pdfFrame");
-room.classList.remove("open");
-frame.src="";
+const room=document.getElementById('pdfRoom');
+const frame=document.getElementById('pdfFrame');
+room.classList.remove('open');
+frame.src='';
 }
 
-function goBuy(){window.location.href="buy.html";}
+function goBuy(){window.location.href='buy.html';}
 
-function scrollToAbout(){document.getElementById("about")?.scrollIntoView({behavior:"smooth"});}
+function scrollToAbout(){document.getElementById('about')?.scrollIntoView({behavior:'smooth'});} 
 
 </script>
 
 </body>
 </html>
-
