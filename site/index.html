@@ -401,39 +401,21 @@ transform:translate(-50%,-50%) scale(2.5);
 }
   
 .portal{
-
-position:fixed;
-left:50%;
+position:absolute;
 top:50%;
-
-width:10px;
-height:10px;
-
+left:50%;
+transform:translate(-50%,-50%) scale(0.6);
+width:260px;
+height:260px;
 border-radius:50%;
-
-background:
-radial-gradient(circle,
-rgba(255,230,160,0.9),
-rgba(255,200,120,0.6),
-rgba(255,180,90,0.2),
-transparent 70%);
-
-transform:translate(-50%,-50%) scale(0);
-
 opacity:0;
-
 pointer-events:none;
-
-transition:
-transform 1.6s cubic-bezier(.2,.8,.2,1),
-opacity 0.6s ease;
-
-z-index:9998;
+transition:opacity 1.6s ease, transform 1.6s ease;
 }
 
 .portal.open{
 opacity:1;
-transform:translate(-50%,-50%) scale(120);
+transform:translate(-50%,-50%) scale(1);
 }
 
 .portal-ring{
@@ -665,7 +647,89 @@ pointer-events:none;
 transform:rotateY(0deg);
 }
 
+/* комната книги */
 
+.pdf-room{
+
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:radial-gradient(circle at center,#fffdf9,#f2e6cf);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+opacity:0;
+pointer-events:none;
+
+transform:scale(0.96);
+
+transition:
+opacity 1.2s ease,
+transform 1.2s ease;
+
+z-index:9999;
+
+}
+
+.pdf-room.open{
+
+opacity:1;
+pointer-events:auto;
+
+transform:scale(1);
+
+}
+
+.pdf-room iframe{
+
+width:80%;
+height:90%;
+
+border:none;
+
+border-radius:18px;
+
+box-shadow:
+0 40px 120px rgba(180,140,60,0.4);
+
+}
+
+/* кнопка закрытия */
+
+.close-pdf{
+
+position:absolute;
+
+top:30px;
+right:40px;
+
+background:rgba(0,0,0,0.6);
+
+color:white;
+
+border:none;
+
+padding:12px 18px;
+
+border-radius:20px;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+.close-pdf:hover{
+
+background:black;
+
+}
   
 </style>
 
@@ -710,9 +774,7 @@ transform:rotateY(0deg);
 </div>
 
 <div class="portal" id="portal">
-  
     <div class="portal-ring"></div>
-  
     <div class="portal-text">Переступить Завесу</div>
 </div>
 
@@ -780,6 +842,15 @@ transform:rotateY(0deg);
 </section>
 
 
+<div class="pdf-room" id="pdfRoom">
+
+<button class="close-pdf" onclick="closeExcerpt()">
+Закрыть
+</button>
+
+<iframe id="pdfFrame"></iframe>
+
+</div>
   
 <div class="pdf-room" id="pdfRoom">
 
@@ -793,7 +864,16 @@ transform:rotateY(0deg);
 
 
 
+function closeExcerpt(){
 
+const room = document.getElementById("pdfRoom");
+const frame = document.getElementById("pdfFrame");
+
+room.classList.remove("open");
+
+frame.src="";
+
+}
 
 const slides=document.querySelectorAll(".slide");
 
@@ -991,23 +1071,20 @@ setTimeout(()=>glow.remove(),800);
 
 function openExcerpt(){
 
-const portal = document.getElementById("bookPortal");
+const page = document.getElementById("pageTurn");
 const room = document.getElementById("pdfRoom");
 const frame = document.getElementById("pdfFrame");
 
-/* открывается портал */
+/* перелистываем страницу */
 
-portal.classList.add("open");
+page.classList.add("open");
 
-/* затем появляется книга */
+/* после перелистывания появляется PDF */
 
 setTimeout(()=>{
-
 frame.src="../excerpt/excerpt.pdf";
-
 room.classList.add("open");
-
-},900);
+},1500);
 
 }
 
@@ -1016,7 +1093,7 @@ function closeExcerpt(){
 
 const room = document.getElementById("pdfRoom");
 const frame = document.getElementById("pdfFrame");
-const portal = document.getElementById("bookPortal");
+const page = document.getElementById("pageTurn");
 
 room.classList.remove("open");
 page.classList.remove("open");
@@ -1026,11 +1103,7 @@ frame.src="";
 }
 
 </script>
-
-
+  
 <div class="page-turn" id="pageTurn"></div>
 
-<div class="portal" id="bookPortal"></div>
-  
-</body>
-</html>
+
