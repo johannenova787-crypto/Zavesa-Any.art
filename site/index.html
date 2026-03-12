@@ -434,9 +434,10 @@ box-shadow:
 0 0 60px rgba(255,220,140,0.8),
 0 0 140px rgba(255,220,140,0.4);
 
-animation: portalPulse 6s ease-in-out infinite;
-}
+animation: portalPulse 6s ease-in-out infinite,
+           portalGlow 4s ease-in-out infinite;
 
+  
 .portal-text{
 position:absolute;
 top:50%;
@@ -447,14 +448,12 @@ letter-spacing:0.2em;
 color:#8c6b2a;
 }
 
-@keyframes portalPulse{
-
-0%{transform:scale(1);}
-50%{transform:scale(1.08);}
-100%{transform:scale(1);}
-
+@keyframes portalGlow{
+  
+0%{box-shadow:0 0 60px rgba(255,220,140,0.6);}
+50%{box-shadow:0 0 120px rgba(255,220,140,1);}
+100%{box-shadow:0 0 60px rgba(255,220,140,0.6);}
 }
-
   
 .page-particle{
 position:absolute;
@@ -852,7 +851,7 @@ background:black;
 
 </div>
   
-<div class="pdf-room" id="pdfRoom">
+
 
 <button class="close-pdf" onclick="closeExcerpt()">✕ Закрыть</button>
 
@@ -864,16 +863,7 @@ background:black;
 
 
 
-function closeExcerpt(){
 
-const room = document.getElementById("pdfRoom");
-const frame = document.getElementById("pdfFrame");
-
-room.classList.remove("open");
-
-frame.src="";
-
-}
 
 const slides=document.querySelectorAll(".slide");
 
@@ -915,7 +905,7 @@ document.getElementById("about").scrollIntoView({behavior:"smooth"});
 function goDeeper(){
 
 const slider = document.getElementById("slider");
-slider.classList.add("flash");
+
 
 
 
@@ -931,9 +921,9 @@ setTimeout(()=>{
 portal.classList.add("open");
 },3500);
 
-setTimeout(()=>{
+document.getElementById("portal").onclick = function(){
 window.location.href="../rooms/";
-},11000);
+}
 
 
 }
@@ -941,8 +931,7 @@ window.location.href="../rooms/";
   
 function createBirds(){
 
-const slider = document.getElementById("slider");
-const center = slider.offsetWidth / 2;
+bird.style.left=(180 + spread) + "px";
 
 const birdSVG = `
 <svg viewBox="0 0 200 120">
