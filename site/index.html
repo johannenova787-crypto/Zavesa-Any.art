@@ -436,7 +436,7 @@ box-shadow:
 
 animation: portalPulse 6s ease-in-out infinite,
            portalGlow 4s ease-in-out infinite;
-
+}
   
 .portal-text{
 position:absolute;
@@ -853,11 +853,7 @@ background:black;
   
 
 
-<button class="close-pdf" onclick="closeExcerpt()">✕ Закрыть</button>
 
-<iframe id="pdfFrame"></iframe>
-
-</div>
   
 <script>
 
@@ -921,17 +917,18 @@ setTimeout(()=>{
 portal.classList.add("open");
 },3500);
 
-document.getElementById("portal").onclick = function(){
-window.location.href="../rooms/";
-}
-
 
 }
 
+
+}
+
+ document.getElementById("portal").onclick = function(){
+window.location.href="../rooms/"; 
   
 function createBirds(){
 
-bird.style.left=(180 + spread) + "px";
+const slider = document.getElementById("slider");
 
 const birdSVG = `
 <svg viewBox="0 0 200 120">
@@ -952,19 +949,13 @@ bird.className="bird";
 
 bird.innerHTML=birdSVG;
 
-/* веер */
-
 const spread=(i-7)*55;
 
-bird.style.left=center+spread+"px";
+bird.style.left=(180 + spread)+"px";
 bird.style.bottom="70px";
-
-/* разные размеры */
 
 const scale=0.7+Math.random()*0.8;
 bird.style.transform="scale("+scale+")";
-
-/* задержка */
 
 bird.style.animationDelay=(i*0.35)+"s";
 
