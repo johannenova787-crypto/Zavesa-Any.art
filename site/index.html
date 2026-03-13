@@ -934,93 +934,92 @@ window.location.href="../rooms/";
 function createBirds(){
 
 const slider = document.getElementById("slider");
+const eni = document.getElementById("eniWord");
 const portal = document.getElementById("portal");
 
-const birdSVG = `
-<svg viewBox="0 0 200 120">
-<path d="
-M10 70
-Q70 10 100 55
-Q130 10 190 70
-Q140 55 100 85
-Q60 55 10 70
-Z"/>
-</svg>
-`;
+const birds=[];
 
-const centerX = slider.offsetWidth / 2;
-const centerY = 130;
-
-for(let i=0;i<16;i++){
+for(let i=0;i<18;i++){
 
 const bird=document.createElement("div");
 bird.className="bird";
 
-bird.innerHTML=birdSVG;
-
-/* начальный веер из книги */
-
-const spread=(i-8)*40;
-
-bird.style.left=(centerX + spread)+"px";
+bird.style.left=(slider.offsetWidth/2 + (i-9)*30)+"px";
 bird.style.bottom="70px";
-
-/* случайный размер */
-
-const scale=0.5 + Math.random()*0.9;
-bird.style.transform="scale("+scale+")";
-
-/* задержка вылета */
-
-bird.style.animationDelay=(i*0.25)+"s";
 
 slider.appendChild(bird);
 
-/* через время птицы начинают кружить */
-
-setTimeout(()=>{
-
-bird.style.transition="all 2.5s ease";
-
-const angle = (i/16) * Math.PI * 2;
-const radius = 120;
-
-bird.style.left = (centerX + Math.cos(angle)*radius)+"px";
-bird.style.bottom = (centerY + Math.sin(angle)*radius)+"px";
-
-},2500 + i*120);
-
-/* исчезновение */
-
-setTimeout(()=>{
-bird.remove();
-},8000);
+birds.push(bird);
 
 }
 
-/* после того как птицы сформировали круг — появляется портал */
+/* птицы летят вверх */
 
-const eni = document.getElementById("eniWord");
+setTimeout(()=>{
 
-/* птицы сформировали круг */
+birds.forEach((bird,i)=>{
+
+bird.style.transition="all 2.5s ease";
+
+const angle=(i/18)*Math.PI*2;
+const radius=120;
+
+bird.style.left=(slider.offsetWidth/2 + Math.cos(angle)*radius)+"px";
+bird.style.bottom=(150 + Math.sin(angle)*radius)+"px";
+
+});
+
+},1500);
+
+
+/* птицы формируют слово */
+
+setTimeout(()=>{
+
+birds.forEach((bird,i)=>{
+
+bird.style.transition="all 2s ease";
+
+const x = (i%6)*40 - 120;
+const y = Math.floor(i/6)*40;
+
+bird.style.left=(slider.offsetWidth/2 + x)+"px";
+bird.style.bottom=(220 + y)+"px";
+
+});
+
+},4200);
+
+
+/* появляется слово */
 
 setTimeout(()=>{
 eni.classList.add("show");
 },5200);
 
-/* слово начинает растворяться */
+
+/* слово растворяется */
 
 setTimeout(()=>{
 eni.classList.remove("show");
 },6600);
 
-/* портал появляется из слова */
+
+/* птицы исчезают */
+
+setTimeout(()=>{
+birds.forEach(b=>b.remove());
+},7000);
+
+
+/* открывается портал */
 
 setTimeout(()=>{
 portal.classList.add("open");
-},6900);
+},7200);
 
 }
+  
   
 function createPageParticles(){
 
