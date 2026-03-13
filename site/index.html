@@ -435,8 +435,15 @@ box-shadow:
 0 0 60px rgba(255,220,140,0.8),
 0 0 140px rgba(255,220,140,0.4);
 
-animation: portalPulse 6s ease-in-out infinite,
-           portalGlow 4s ease-in-out infinite;
+animation:
+portalPulse 6s ease-in-out infinite,
+portalGlow 4s ease-in-out infinite,
+portalSpin 14s linear infinite;
+
+  
+  @keyframes portalSpin{
+from{ transform:rotate(0deg); }
+to{ transform:rotate(360deg); }
 }
   
 .portal-text{
@@ -863,9 +870,6 @@ createBirds();
   
 const portal = document.getElementById("portal");
   
-setTimeout(()=>{
-portal.classList.add("open");
-},3500);
 
 
 }
@@ -878,6 +882,7 @@ window.location.href="../rooms/";
 function createBirds(){
 
 const slider = document.getElementById("slider");
+const portal = document.getElementById("portal");
 
 const birdSVG = `
 <svg viewBox="0 0 200 120">
@@ -891,28 +896,61 @@ Z"/>
 </svg>
 `;
 
-for(let i=0;i<14;i++){
+const centerX = slider.offsetWidth / 2;
+const centerY = 130;
+
+for(let i=0;i<16;i++){
 
 const bird=document.createElement("div");
 bird.className="bird";
 
 bird.innerHTML=birdSVG;
 
-const spread=(i-7)*55;
+/* начальный веер из книги */
+
+const spread=(i-8)*40;
 
 bird.style.left=(180 + spread)+"px";
 bird.style.bottom="70px";
 
-const scale=0.7+Math.random()*0.8;
+/* случайный размер */
+
+const scale=0.6+Math.random()*0.7;
 bird.style.transform="scale("+scale+")";
 
-bird.style.animationDelay=(i*0.35)+"s";
+/* задержка вылета */
+
+bird.style.animationDelay=(i*0.25)+"s";
 
 slider.appendChild(bird);
 
-setTimeout(()=>bird.remove(),10000);
+/* через время птицы начинают кружить */
+
+setTimeout(()=>{
+
+bird.style.transition="all 2.5s ease";
+
+const angle = (i/16) * Math.PI * 2;
+const radius = 120;
+
+bird.style.left = (centerX + Math.cos(angle)*radius)+"px";
+bird.style.bottom = (centerY + Math.sin(angle)*radius)+"px";
+
+},2500 + i*120);
+
+/* исчезновение */
+
+setTimeout(()=>{
+bird.remove();
+},8000);
 
 }
+
+/* после того как птицы сформировали круг — появляется портал */
+
+setTimeout(()=>{
+portal.classList.add("open");
+},4200);
 
 }
 
