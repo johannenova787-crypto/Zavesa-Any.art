@@ -1,5 +1,9 @@
 
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -904,7 +908,20 @@ function scrollToAbout(){
 document.getElementById("about").scrollIntoView({behavior:"smooth"});
 }
 
+let deeperStarted=false;
+
 function goDeeper(){
+
+if(deeperStarted) return;
+deeperStarted=true;
+
+createPageParticles();
+
+setTimeout(()=>{
+createBirds();
+},400);
+
+}
 
 const slider = document.getElementById("slider");
 
@@ -943,6 +960,10 @@ for(let i=0;i<18;i++){
 
 const bird=document.createElement("div");
 bird.className="bird";
+  
+bird.style.transform="scale("+(0.7+Math.random()*0.6)+") rotate("+(-8+Math.random()*16)+"deg)";
+bird.style.animationDelay=(Math.random()*0.8)+"s";
+  
   
 bird.innerHTML = `
 <svg viewBox="0 0 64 32">
@@ -1006,6 +1027,7 @@ bird.style.bottom=(220 + y)+"px";
 
 setTimeout(()=>{
 eni.classList.add("show");
+createGoldDust();
 },5200);
 
 
