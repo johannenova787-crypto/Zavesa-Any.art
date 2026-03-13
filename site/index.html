@@ -604,15 +604,13 @@ opacity:0;
 }
 
 }
-
-  .pdf-room{
+.pdf-room{
 position:fixed;
-top:0;
 left:0;
+top:0;
 width:100%;
 height:100%;
-
-background:radial-gradient(circle at center,#fffdf9,#f2e6cf);
+background:radial-gradient(circle,#fffdf9,#f2e6cf);
 
 display:flex;
 align-items:center;
@@ -621,13 +619,14 @@ justify-content:center;
 opacity:0;
 pointer-events:none;
 
-transform:scale(0.96);
-
-transition:
-opacity 1.2s ease,
-transform 1.2s ease;
+transition:opacity 1.5s ease;
 
 z-index:9999;
+}
+
+.pdf-room.open{
+opacity:1;
+pointer-events:auto;
 }
 
 .pdf-room.open{
@@ -665,15 +664,42 @@ box-shadow:0 0 20px rgba(255,220,140,.6);
 }
 
 .pdf-room iframe{
-width:80%;
-height:90%;
+width:70vw;
+height:85vh;
+
 border:none;
 
-border-radius:18px;
+border-radius:14px;
 
 box-shadow:
-0 40px 120px rgba(180,140,60,0.4);
+0 0 80px rgba(255,210,120,0.25),
+0 0 160px rgba(255,200,90,0.15);
+
+animation:bookBreath 7s ease-in-out infinite;
 }
+
+  @keyframes bookBreath{
+
+0%{
+box-shadow:
+0 0 60px rgba(255,210,120,0.15),
+0 0 120px rgba(255,200,90,0.08);
+}
+
+50%{
+box-shadow:
+0 0 100px rgba(255,220,140,0.35),
+0 0 220px rgba(255,210,110,0.2);
+}
+
+100%{
+box-shadow:
+0 0 60px rgba(255,210,120,0.15),
+0 0 120px rgba(255,200,90,0.08);
+}
+
+}
+  
 .page-turn{
 position:fixed;
 top:0;
