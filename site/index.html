@@ -814,7 +814,7 @@ background:black;
 </div>
   
 
-
+<div class="page-turn" id="pageTurn"></div>
 
   
 <script>
@@ -866,7 +866,6 @@ const slider = document.getElementById("slider");
 
 
 
-
 createPageParticles();
 
 setTimeout(()=>{
@@ -881,7 +880,11 @@ createBirds();
 
 
 document.getElementById("portal").onclick = function(){
+
+if(!this.classList.contains("open")) return;
+
 window.location.href="../rooms/";
+
 }
   
 function createBirds(){
@@ -915,7 +918,7 @@ bird.innerHTML=birdSVG;
 
 const spread=(i-8)*40;
 
-bird.style.left=(180 + spread)+"px";
+bird.style.left=(centerX + spread)+"px";
 bird.style.bottom="70px";
 
 /* случайный размер */
@@ -973,36 +976,6 @@ setTimeout(()=>{
 portal.classList.add("open");
 },7000);
 
-  .eni-word{
-
-position:absolute;
-top:50%;
-left:50%;
-
-transform:translate(-50%,-50%) scale(0.6);
-
-font-size:72px;
-letter-spacing:0.3em;
-
-color:#d6b15a;
-
-text-shadow:
-0 0 20px rgba(255,220,150,0.9),
-0 0 40px rgba(255,220,150,0.6),
-0 0 80px rgba(255,220,150,0.4);
-
-opacity:0;
-
-transition:
-opacity 1.6s ease,
-transform 1.6s ease;
-
-z-index:15;
-}
-
-.eni-word.show{
-opacity:1;
-transform:translate(-50%,-50%) scale(1);
 }
   
 function createPageParticles(){
@@ -1116,11 +1089,12 @@ room.classList.remove("open");
 page.classList.remove("open");
 
 frame.src="";
+  
 
+  
 }
 
 </script>
-  
-<div class="page-turn" id="pageTurn"></div>
+
 
 
