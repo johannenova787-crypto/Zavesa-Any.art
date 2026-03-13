@@ -458,6 +458,44 @@ letter-spacing:0.2em;
 color:#8c6b2a;
 }
 
+  /* слово ЭНИ внутри портала */
+
+.eni-word{
+
+position:absolute;
+
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%) scale(0.6);
+
+font-size:64px;
+letter-spacing:0.28em;
+
+color:#e7c36a;
+
+text-shadow:
+0 0 30px rgba(255,220,150,0.8),
+0 0 80px rgba(255,220,150,0.5);
+
+opacity:0;
+
+transition:
+opacity 1.8s ease,
+transform 1.8s ease;
+
+z-index:21;
+
+}
+
+.eni-word.show{
+
+opacity:1;
+
+transform:translate(-50%,-50%) scale(1);
+
+}
+  
 @keyframes portalGlow{
   
 0%{box-shadow:0 0 60px rgba(255,220,140,0.6);}
@@ -732,9 +770,17 @@ background:black;
 </div>
 
 <div class="portal" id="portal">
-    <div class="portal-ring"></div>
-    <div class="portal-text">Переступить Завесу</div>
+
+<div class="portal-ring"></div>
+
+<div class="eni-word" id="eniWord">
+ЭНИ
 </div>
+
+<div class="portal-text">
+Переступить Завесу
+</div>
+
   
 <div class="eni-word" id="eniWord">
 ЭНИ
@@ -964,19 +1010,17 @@ setTimeout(()=>{
 eni.classList.add("show");
 },5200);
 
-/* слово растворяется */
+/* слово начинает растворяться */
 
 setTimeout(()=>{
 eni.classList.remove("show");
-},6500);
+},6600);
 
-/* из него появляется портал */
+/* портал появляется из слова */
 
 setTimeout(()=>{
 portal.classList.add("open");
-},7000);
-
-}
+},6900);
   
 function createPageParticles(){
 
