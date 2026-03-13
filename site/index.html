@@ -410,14 +410,17 @@ position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%) scale(0.6);
+
 width:260px;
 height:260px;
+
 border-radius:50%;
 opacity:0;
 pointer-events:none;
+
 transition:opacity 1.6s ease, transform 1.6s ease;
-z-index:5;
-  
+
+z-index:20;
 }
 
   
@@ -469,10 +472,10 @@ color:#8c6b2a;
 
 position:absolute;
 
-top:38%;
+top:50%;
 left:50%;
 
-transform:translate(-50%,-50%) scale(0.6);
+transform:translate(-50%,-50%) scale(0.5);
 
 font-size:64px;
 letter-spacing:0.28em;
@@ -489,7 +492,7 @@ transition:
 opacity 1.8s ease,
 transform 1.8s ease;
 
-z-index:50;
+z-index:30;
 
 }
 
@@ -1012,6 +1015,7 @@ bird.style.bottom=(300 + y)+"px";
 /* появляется слово */
 
 setTimeout(()=>{
+eni.style.display="block";
 eni.classList.add("show");
 createGoldDust();
 },5200);
