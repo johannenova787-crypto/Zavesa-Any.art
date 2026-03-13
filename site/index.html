@@ -943,6 +943,17 @@ for(let i=0;i<18;i++){
 
 const bird=document.createElement("div");
 bird.className="bird";
+  
+bird.innerHTML = `
+<svg viewBox="0 0 64 32">
+<path d="M2 18
+Q16 4 32 18
+Q48 4 62 18
+Q48 10 32 22
+Q16 10 2 18Z"/>
+</svg>
+`;
+  
 
 bird.style.left=(slider.offsetWidth/2 + (i-9)*30)+"px";
 bird.style.bottom="70px";
@@ -1020,7 +1031,6 @@ portal.classList.add("open");
 
 }
 
-  }
   
 function createPageParticles(){
 
