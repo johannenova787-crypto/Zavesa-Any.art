@@ -945,36 +945,30 @@ const portal = document.getElementById("portal");
 
 const birds=[];
 
+/* создаём птиц */
+
 for(let i=0;i<18;i++){
 
 const bird=document.createElement("div");
 bird.className="bird";
-  
+
 bird.style.transform="scale("+(0.7+Math.random()*0.6)+") rotate("+(-8+Math.random()*16)+"deg)";
 bird.style.animationDelay=(Math.random()*0.8)+"s";
-  
-  
-bird.innerHTML = `
-<svg viewBox="0 0 64 32">
-<path d="M2 18
+
+bird.innerHTML=`<svg viewBox="0 0 64 32"> <path d="M2 18
 Q16 4 32 18
 Q48 4 62 18
 Q48 10 32 22
-Q16 10 2 18Z"/>
-</svg>
-`;
-  
+Q16 10 2 18Z"/> </svg>`;
 
-bird.style.left=(slider.offsetWidth/2 + (i-9)*30)+"px";
+bird.style.left=(slider.offsetWidth/2 + (Math.random()*200-100))+"px";
 bird.style.bottom="70px";
 
 slider.appendChild(bird);
-
 birds.push(bird);
-
 }
 
-/* птицы летят вверх */
+/* птицы поднимаются */
 
 setTimeout(()=>{
 
@@ -992,53 +986,63 @@ bird.style.bottom=(150 + Math.sin(angle)*radius)+"px";
 
 },1500);
 
-
-/* птицы формируют слово */
+/* птицы формируют слово ЭНИ */
 
 setTimeout(()=>{
 
+const positions=[
+[-150,0],[-110,-30],[-70,0],[-110,30],      // Э
+[-20,-30],[-20,30],[20,-30],[20,30],        // Н
+[70,-30],[110,-30],[90,0],[70,30],[110,30]  // И
+];
+
 birds.forEach((bird,i)=>{
+
+if(!positions[i]) return;
 
 bird.style.transition="all 2s ease";
 
-const x = (i%6)*40 - 120;
-const y = Math.floor(i/6)*40;
-
-bird.style.left=(slider.offsetWidth/2 + x)+"px";
-bird.style.bottom=(300 + y)+"px";
+bird.style.left=(slider.offsetWidth/2 + positions[i][0])+"px";
+bird.style.bottom=(320 + positions[i][1])+"px";
 
 });
 
 },4200);
 
-
 /* появляется слово */
 
 setTimeout(()=>{
-eni.style.display="block";
-eni.classList.add("show");
-createGoldDust();
-},5200);
 
+eni.style.display="block";
+eni.style.opacity="1";
+eni.classList.add("show");
+
+createGoldDust();
+
+},5200);
 
 /* слово растворяется */
 
 setTimeout(()=>{
-eni.classList.remove("show");
-},6600);
 
+eni.classList.remove("show");
+
+},6600);
 
 /* птицы исчезают */
 
 setTimeout(()=>{
-birds.forEach(b=>b.remove());
-},7000);
 
+birds.forEach(b=>b.remove());
+
+},7000);
 
 /* открывается портал */
 
 setTimeout(()=>{
+
 portal.classList.add("open");
+
 },7200);
 
 }
