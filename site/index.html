@@ -466,10 +466,12 @@ color:#8c6b2a;
   /* слово ЭНИ внутри портала */
 
 .eni-word{
+z-index:50;
+}
 
 position:absolute;
 
-top:50%;
+top:38%;
 left:50%;
 
 transform:translate(-50%,-50%) scale(0.6);
@@ -1002,7 +1004,7 @@ const x = (i%6)*40 - 120;
 const y = Math.floor(i/6)*40;
 
 bird.style.left=(slider.offsetWidth/2 + x)+"px";
-bird.style.bottom=(220 + y)+"px";
+bird.style.bottom=(300 + y)+"px";
 
 });
 
