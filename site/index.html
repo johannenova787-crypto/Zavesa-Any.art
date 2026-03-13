@@ -96,19 +96,6 @@ transparent
 }
 
 
-  
-  
-font-size:clamp(64px,6vw,96px);
-letter-spacing:0.14em;
-font-weight:600;
-color:#c6a048;
-
-text-shadow:
-0 0 30px rgba(255,215,150,0.4),
-0 0 60px rgba(255,215,150,0.2);
-
-margin-bottom:20px;
-}
 
 .subtitle{
 font-size:24px;
@@ -1009,7 +996,13 @@ createBirds();
 
 
 
-document.getElementById("portal").onclick = function(){
+document.getElementById("portal").addEventListener("click", function(){
+
+if(!this.classList.contains("open")) return;
+
+window.location.href="../rooms/";
+
+});
 
 if(!this.classList.contains("open")) return;
 
@@ -1038,7 +1031,7 @@ bird.className="bird";
 bird.innerHTML=
 '<svg viewBox="0 0 64 32"><path d="M2 18 Q16 4 32 18 Q48 4 62 18 Q48 10 32 22 Q16 10 2 18Z"/></svg>';
 
-bird.style.left=(slider.offsetWidth/2)+"px";
+bird.style.left=center+"px";
 bird.style.bottom="60px";
 
 slider.appendChild(bird);
@@ -1057,7 +1050,7 @@ const r=160;
 
 b.style.transition="2.6s ease";
 
-b.style.left=(slider.offsetWidth/2 + Math.cos(angle)*r)+"px";
+b.style.left=(center + Math.cos(angle)*r)+"px";
 b.style.bottom=(180 + Math.sin(angle)*r)+"px";
 
 });
@@ -1080,7 +1073,7 @@ if(!pos[i]) return;
 
 b.style.transition="2s";
 
-b.style.left=(slider.offsetWidth/2 + pos[i][0])+"px";
+b.style.left=(center + pos[i][0])+"px";
 b.style.bottom=(300 + pos[i][1])+"px";
 
 });
@@ -1235,7 +1228,7 @@ page.classList.add("open");
 /* после перелистывания появляется PDF */
 
 setTimeout(()=>{
-frame.src="../excerpt/excerpt.pdf";
+frame.src="../excerpt/excerpt.pdf#view=FitH";
 room.classList.add("open");
 },1500);
 
