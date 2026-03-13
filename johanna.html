@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Joanna Nova</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+background:#f8f5ee;
+
+font-family:"Cormorant Garamond", serif;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+color:#6d5b32;
+
+overflow:hidden;
+
+cursor:none;
+}
+
+/* курсор-свет */
+
+.cursor-light{
+
+position:fixed;
+width:160px;
+height:160px;
+
+background:radial-gradient(circle,
+rgba(255,240,180,0.5),
+rgba(255,240,180,0.0) 70%);
+
+pointer-events:none;
+
+transform:translate(-50%,-50%);
+
+z-index:999;
+
+}
+
+/* имя автора */
+
+h1{
+
+font-size:58px;
+
+letter-spacing:12px;
+
+font-weight:500;
+
+color:#8a7748;
+
+margin-bottom:30px;
+
+}
+
+/* фраза */
+
+.tagline{
+
+font-size:30px;
+
+font-style:italic;
+
+opacity:0;
+
+animation:fade 3s forwards;
+
+}
+
+/* кнопка */
+
+.enter{
+
+margin-top:60px;
+
+padding:14px 38px;
+
+border:1px solid #bfa96d;
+
+background:transparent;
+
+font-size:16px;
+
+letter-spacing:3px;
+
+color:#7a6638;
+
+cursor:pointer;
+
+opacity:0;
+
+animation:fade 3s forwards;
+animation-delay:3s;
+
+transition:0.4s;
+
+}
+
+.enter:hover{
+
+background:#bfa96d;
+color:white;
+
+}
+
+/* птицы */
+
+.bird{
+
+position:absolute;
+
+width:36px;
+height:36px;
+
+fill:#7a6638;
+
+animation:fly 14s linear infinite;
+
+pointer-events:none;
+
+}
+
+/* анимации */
+
+@keyframes fade{
+
+0%{opacity:0; transform:translateY(10px);}
+100%{opacity:1; transform:translateY(0);}
+
+}
+
+@keyframes fly{
+
+0%{
+transform:translateX(-10vw) translateY(20px) scale(0.8);
+opacity:0;
+}
+
+10%{opacity:1;}
+
+90%{opacity:1;}
+
+100%{
+transform:translateX(110vw) translateY(-120px) scale(1);
+opacity:0;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="cursor-light" id="cursor"></div>
+
+<h1>JOANNA NOVA</h1>
+
+<div class="tagline">
+Иногда книга — это дверь
+</div>
+
+<button class="enter" onclick="openPortal()">
+Открыть книгу
+</button>
+
+<script>
+
+/* свет курсора */
+
+const cursor=document.getElementById("cursor");
+
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
+});
+
+
+function openPortal(){
+
+for(let i=0;i<14;i++){
+
+const bird=document.createElementNS(
+"http://www.w3.org/2000/svg","svg");
+
+bird.setAttribute("viewBox","0 0 24 24");
+
+bird.classList.add("bird");
+
+bird.style.top=(Math.random()*80)+"vh";
+
+bird.style.animationDelay=(Math.random()*6)+"s";
+
+bird.innerHTML=
+'<path d="M2 12c4-4 8-4 10 0 2-4 6-4 10 0-4-2-8-2-10 2-2-4-6-4-10-2z"/>';
+
+document.body.appendChild(bird);
+
+}
+
+/* переход на страницу сайта */
+
+setTimeout(()=>{
+
+window.location.href="https://johannenova787-crypto.github.io/Zavesa-Any.art/site/index.html";
+
+},4000);
+
+}
+
+</script>
+
+</body>
+</html>
