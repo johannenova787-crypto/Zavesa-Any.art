@@ -411,8 +411,11 @@ border-radius:50%;
 opacity:0;
 pointer-events:none;
 transition:opacity 1.6s ease, transform 1.6s ease;
+z-index:20;
+  
 }
 
+  
 .portal.open{
 opacity:1;
 pointer-events:auto;
@@ -436,12 +439,11 @@ box-shadow:
 0 0 140px rgba(255,220,140,0.4);
 
 animation:
-portalPulse 6s ease-in-out infinite,
 portalGlow 4s ease-in-out infinite,
 portalSpin 14s linear infinite;
+}
 
-  
-  @keyframes portalSpin{
+@keyframes portalSpin{
 from{ transform:rotate(0deg); }
 to{ transform:rotate(360deg); }
 }
@@ -950,10 +952,7 @@ bird.remove();
 
 setTimeout(()=>{
 portal.classList.add("open");
-},4200);
-
-}
-
+},6000);
   
 function createPageParticles(){
 
