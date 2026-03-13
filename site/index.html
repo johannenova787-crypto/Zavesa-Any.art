@@ -61,6 +61,31 @@ padding:40px 20px;
 }
 
 .title{
+  
+position:relative;
+  
+.title::after{
+
+content:"";
+
+display:block;
+
+width:140px;
+height:1px;
+
+margin:28px auto 0;
+
+background:linear-gradient(
+to right,
+transparent,
+rgba(200,160,80,0.8),
+transparent
+);
+
+}
+
+  
+  
 font-size:clamp(64px,6vw,96px);
 letter-spacing:0.14em;
 font-weight:600;
@@ -423,6 +448,14 @@ transition:opacity 1.6s ease, transform 1.6s ease;
 z-index:20;
 }
 
+  .portal{
+filter:blur(6px);
+}
+
+.portal.open{
+filter:blur(0);
+}
+
   
 .portal.open{
 opacity:1;
@@ -732,28 +765,7 @@ transform:rotateY(0deg);
 
 /* кнопка закрытия */
 
-.close-pdf{
 
-position:absolute;
-
-top:30px;
-right:40px;
-
-background:rgba(0,0,0,0.6);
-
-color:white;
-
-border:none;
-
-padding:12px 18px;
-
-border-radius:20px;
-
-font-size:16px;
-
-cursor:pointer;
-
-}
 
 .close-pdf:hover{
 
@@ -999,6 +1011,7 @@ window.location.href="../rooms/";
 function createBirds(){
 
 const slider=document.getElementById("slider");
+  const center =center
 const eni=document.getElementById("eniWord");
 const portal=document.getElementById("portal");
 
@@ -1077,7 +1090,7 @@ setTimeout(()=>{
 
 birds.forEach(b=>{
 
-const rect=b.getBoundingClientRect();
+
 
 for(let i=0;i<8;i++){
 
