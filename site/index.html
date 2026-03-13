@@ -735,7 +735,10 @@ background:black;
     <div class="portal-ring"></div>
     <div class="portal-text">Переступить Завесу</div>
 </div>
-
+  
+<div class="eni-word" id="eniWord">
+ЭНИ
+</div>
 
 <div class="buttons">
   
@@ -917,7 +920,7 @@ bird.style.bottom="70px";
 
 /* случайный размер */
 
-const scale=0.6+Math.random()*0.7;
+const scale=0.5 + Math.random()*0.9;
 bird.style.transform="scale("+scale+")";
 
 /* задержка вылета */
@@ -950,10 +953,56 @@ bird.remove();
 
 /* после того как птицы сформировали круг — появляется портал */
 
+const eni = document.getElementById("eniWord");
+
+/* птицы сформировали круг */
+
+setTimeout(()=>{
+eni.classList.add("show");
+},5200);
+
+/* слово растворяется */
+
+setTimeout(()=>{
+eni.classList.remove("show");
+},6500);
+
+/* из него появляется портал */
+
 setTimeout(()=>{
 portal.classList.add("open");
-},6000);
+},7000);
 
+  .eni-word{
+
+position:absolute;
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%) scale(0.6);
+
+font-size:72px;
+letter-spacing:0.3em;
+
+color:#d6b15a;
+
+text-shadow:
+0 0 20px rgba(255,220,150,0.9),
+0 0 40px rgba(255,220,150,0.6),
+0 0 80px rgba(255,220,150,0.4);
+
+opacity:0;
+
+transition:
+opacity 1.6s ease,
+transform 1.6s ease;
+
+z-index:15;
+}
+
+.eni-word.show{
+opacity:1;
+transform:translate(-50%,-50%) scale(1);
 }
   
 function createPageParticles(){
