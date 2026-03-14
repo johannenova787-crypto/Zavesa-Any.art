@@ -304,7 +304,19 @@ formText();
 /* переход */
 
 setTimeout(()=>{
+
+if(localStorage.getItem("joannaIntroRead")){
+
 window.location.href="johanna.html";
+
+}else{
+
+localStorage.setItem("joannaIntroRead","yes");
+
+window.location.href="intro.html";
+
+}
+
 },12000);
 
 }
