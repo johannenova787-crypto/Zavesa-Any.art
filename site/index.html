@@ -137,7 +137,15 @@ height:100%;
 object-fit:cover;
 object-position:center;
 display:block;
+
+opacity:0;
+transition:opacity 1.6s ease;
 }
+
+.slide img.loaded{
+opacity:1;
+}
+
 
 .slide.active{
 z-index:2;
@@ -819,27 +827,27 @@ calc(-60px + 120px * var(--y))
 <div class="slider" id="slider">
 
 <div class="slide active">
-<img src="../covers/cover1.jpg">
+<img src="../covers/cover1.jpg" loading="lazy">
 </div>
 
 <div class="slide">
-<img src="../covers/cover2.jpg">
+<img src="../covers/cover2.jpg" loading="lazy">
 </div>
 
 <div class="slide">
-<img src="../covers/cover3.jpg">
+<img src="../covers/cover3.jpg" loading="lazy">
 </div>
 
 <div class="slide">
-<img src="../covers/cover4.jpg">
+<img src="../covers/cover4.jpg" loading="lazy">
 </div>
 
 <div class="slide">
-<img src="../covers/cover5.jpg">
+<img src="../covers/cover5.jpg" loading="lazy">
 </div>
 
 <div class="slide">
-<img src="../covers/cover6.jpg">
+<img src="../covers/cover6.jpg" loading="lazy">
 </div>
 
 </div>
@@ -1244,6 +1252,22 @@ frame.src="";
 
   
 }
+  const images=document.querySelectorAll(".slide img");
+
+images.forEach(img=>{
+
+if(img.complete){
+img.classList.add("loaded");
+}else{
+
+img.addEventListener("load",()=>{
+img.classList.add("loaded");
+});
+
+}
+
+});
+
 
 </script>
 
