@@ -1,13 +1,9 @@
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Мир Эни</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
@@ -15,158 +11,245 @@
 body{
 margin:0;
 font-family:'Cormorant Garamond',serif;
-
-background:
-radial-gradient(circle at 50% 30%, #1a1924, #08070d 70%);
-
+background:radial-gradient(circle at 50% 30%, #1a1924, #07060c 70%);
 color:#e8ddc7;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-min-height:100vh;
-text-align:center;
 overflow:hidden;
 }
 
-.container{
-max-width:800px;
-padding:40px;
-}
-
 h1{
+position:absolute;
+top:60px;
+width:100%;
+text-align:center;
 font-size:64px;
 letter-spacing:0.12em;
-margin-bottom:40px;
 opacity:0;
-animation:fadeIn 3s forwards;
+animation:titleFade 3s forwards;
 }
 
-.rooms{
-display:flex;
-flex-direction:column;
-gap:22px;
+@keyframes titleFade{
+to{opacity:1}
 }
 
-.room{
+/* карта */
+
+.map{
+position:relative;
+width:100vw;
+height:100vh;
+}
+
+/* узлы карты */
+
+.node{
+position:absolute;
+transform:translate(-50%,-50%);
+text-align:center;
+}
+
+.portal{
+width:90px;
+height:90px;
+border-radius:50%;
+background:radial-gradient(circle,#f6e6b0,#a07c3a);
+box-shadow:0 0 30px rgba(255,220,140,0.6),0 0 80px rgba(255,210,120,0.2);
+margin:auto;
+transition:0.6s;
+cursor:pointer;
+}
+
+.portal:hover{
+transform:scale(1.15);
+box-shadow:0 0 50px rgba(255,230,160,0.9);
+}
+
+.label{
+margin-top:12px;
+font-size:18px;
+letter-spacing:0.1em;
+opacity:0.9;
+}
+
+/* соединительные линии */
+
+.line{
+position:absolute;
+height:2px;
+background:linear-gradient(to right,transparent,rgba(255,220,150,0.5),transparent);
+transform-origin:left center;
+}
+
+/* звезды */
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+opacity:0.6;
+animation:twinkle 4s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+0%,100%{opacity:0.2}
+50%{opacity:0.9}
+}
+
+/* скрытые комнаты */
+
+.hidden{
 opacity:0;
-transform:translateY(20px);
-
-padding:18px 36px;
-
-border-radius:40px;
-
-border:1px solid rgba(255,215,150,0.35);
-
-background:rgba(20,18,28,0.5);
-
-text-decoration:none;
-
-color:#e8ddc7;
-
-font-size:20px;
-
-transition:0.5s;
+pointer-events:none;
+transition:1.5s;
 }
 
-.room:hover{
-transform:scale(1.05);
-box-shadow:0 0 30px rgba(255,215,150,0.35);
-}
-
-@keyframes fadeIn{
-to{opacity:1;}
-}
-
-.appear{
-animation:roomAppear 2s forwards;
-}
-
-@keyframes roomAppear{
-
-from{
-opacity:0;
-transform:translateY(20px);
-}
-
-to{
+.hidden.show{
 opacity:1;
-transform:translateY(0);
-}
-
+pointer-events:auto;
 }
 
 .back{
-margin-top:40px;
-display:inline-block;
+position:absolute;
+bottom:40px;
+width:100%;
+text-align:center;
 font-size:18px;
 opacity:0.7;
-text-decoration:none;
-color:#e8ddc7;
 }
 
-.back:hover{
-opacity:1;
+.back a{
+color:#e8ddc7;
+text-decoration:none;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
-
 <h1>Мир Эни</h1>
 
-<div class="rooms">
+<div class="map" id="map">
 
-<a class="room" id="r1" href="house.html">
-Дом Благоразумия
+<!-- Эни -->
+<div class="node" style="top:50%;left:50%">
+<a href="../rooms/eni/house.html">
+<div class="portal"></div>
 </a>
+<div class="label">Дом Благоразумия</div>
+</div>
 
-<a class="room" id="r2" href="../excerpt/fragment.html">
-Фрагмент истории
+<!-- Анджелика -->
+<div class="node" style="top:30%;left:25%">
+<a href="../rooms/angelika-jeremy/room.html">
+<div class="portal"></div>
 </a>
+<div class="label">Анджелика и Джереми</div>
+</div>
 
-<a class="room" id="r3" href="lake.html">
-Озеро
+<!-- Ют -->
+<div class="node" style="top:70%;left:25%">
+<a href="../rooms/yut/room.html">
+<div class="portal"></div>
 </a>
+<div class="label">Ют</div>
+</div>
 
-<a class="room" id="r4" href="shadows.html">
-Тени
+<!-- Зеркальный брат -->
+<div class="node" style="top:30%;left:75%">
+<a href="../rooms/mirror-brother/room.html">
+<div class="portal"></div>
 </a>
+<div class="label">Зеркальный Брат</div>
+</div>
+
+<!-- Кот -->
+<div class="node" style="top:70%;left:75%">
+<a href="../rooms/cat/room.html">
+<div class="portal"></div>
+</a>
+<div class="label">Кот</div>
+</div>
+
+<!-- скрытые -->
+
+<div class="node hidden" id="si" style="top:15%;left:50%">
+<a href="../rooms/hidden/si-el.html">
+<div class="portal"></div>
+</a>
+<div class="label">SI‑EL</div>
+</div>
+
+<div class="node hidden" id="ael" style="top:85%;left:50%">
+<a href="../rooms/hidden/ael-ra.html">
+<div class="portal"></div>
+</a>
+<div class="label">AEL‑RA</div>
+</div>
 
 </div>
 
-<a class="back" href="../index.html">
-Вернуться к Книге
-</a>
-
+<div class="back">
+<a href="../index.html">Вернуться к Книге</a>
 </div>
 
 <script>
 
-function revealRooms(){
+/* звёздное небо */
 
-const ids=["r1","r2","r3","r4"]
+for(let i=0;i<120;i++){
+const s=document.createElement('div')
+s.className='star'
+s.style.left=Math.random()*100+'%'
+s.style.top=Math.random()*100+'%'
+s.style.animationDelay=Math.random()*4+'s'
+document.body.appendChild(s)
+}
 
-ids.forEach((id,i)=>{
+/* скрытые комнаты открываются после посещений */
 
-setTimeout(()=>{
-document.getElementById(id).classList.add("appear")
-},900+i*900)
+let visited=JSON.parse(localStorage.getItem('eniVisited')||'[]')
 
-})
+function mark(room){
+if(!visited.includes(room)){
+visited.push(room)
+localStorage.setItem('eniVisited',JSON.stringify(visited))
+}
+checkSecrets()
+}
+
+function checkSecrets(){
+
+if(visited.length>=3){
+
+document.getElementById('si').classList.add('show')
+}
+
+if(visited.length>=5){
+
+document.getElementById('ael').classList.add('show')
+}
 
 }
 
-setTimeout(revealRooms,1200)
+checkSecrets()
+
+/* пометка посещения */
+
+const links=document.querySelectorAll('.node a')
+
+links.forEach(l=>{
+
+l.addEventListener('click',()=>{
+
+mark(l.getAttribute('href'))
+
+})
+
+})
 
 </script>
 
 </body>
 </html>
-```
 
