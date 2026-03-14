@@ -283,7 +283,33 @@ window.location.href="https://johannenova787-crypto.github.io/Zavesa-Any.art/sit
 },4200);
 
 }
+const door=document.getElementById("door");
 
+door.addEventListener("mouseenter",()=>{
+
+for(let i=0;i<6;i++){
+
+const bird=document.createElementNS(
+"http://www.w3.org/2000/svg","svg");
+
+bird.setAttribute("viewBox","0 0 24 24");
+bird.classList.add("bird");
+
+const rect=door.getBoundingClientRect();
+
+bird.style.left=(rect.left + rect.width/2)+"px";
+bird.style.top=(rect.top + rect.height/2)+"px";
+
+bird.style.animationDuration=(8 + Math.random()*4)+"s";
+
+bird.innerHTML =
+'<path d="M2 12c4-4 8-4 10 0 2-4 6-4 10 0-4-2-8-2-10 2-2-4-6-4-10-2z"/>';
+
+document.body.appendChild(bird);
+
+}
+
+});
 </script>
 
 </body>
