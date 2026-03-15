@@ -1008,7 +1008,20 @@ document.getElementById("portal").addEventListener("click", function(){
 
 if(!this.classList.contains("open")) return;
 
-window.location.href="../rooms/";
+  releaseFinalBirds();
+
+/* лёгкое затухание страницы */
+
+document.body.style.transition="2.5s";
+document.body.style.opacity="0";
+
+/* через мгновение открывается Мир Эни */
+
+setTimeout(()=>{
+
+window.location.href="../world-map.html";
+
+},2200);
 
 });
 
@@ -1268,7 +1281,27 @@ img.classList.add("loaded");
 
 });
 
+function releaseFinalBirds(){
 
+for(let i=0;i<8;i++){
+
+const bird=document.createElement("div");
+bird.className="bird";
+
+bird.innerHTML =
+'<svg viewBox="0 0 64 32"><path d="M2 18 Q16 4 32 18 Q48 4 62 18 Q48 10 32 22 Q16 10 2 18Z"/></svg>';
+
+bird.style.left=(window.innerWidth/2)+"px";
+bird.style.bottom="40px";
+
+document.body.appendChild(bird);
+
+setTimeout(()=>bird.remove(),8000);
+
+}
+
+}
+  
 </script>
 
 
