@@ -1,1 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Эни</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Cormorant Garamond',serif;
+
+background:
+radial-gradient(circle at 50% 20%, #fffdf9, #efe6d4);
+
+color:#6e5830;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+min-height:100vh;
+
+overflow-x:hidden;
+
+animation:fadeIn 3s ease forwards;
+opacity:0;
+}
+
+@keyframes fadeIn{
+to{opacity:1}
+}
+
+/* контейнер */
+
+.room{
+max-width:900px;
+padding:60px 30px;
+text-align:center;
+}
+
+/* изображение */
+
+.eni-image{
+
+width:260px;
+height:auto;
+
+margin-bottom:40px;
+
+border-radius:20px;
+
+box-shadow:
+0 0 60px rgba(230,200,140,0.4);
+
+animation:eniBreath 8s ease-in-out infinite;
+
+}
+
+@keyframes eniBreath{
+
+0%{transform:scale(1)}
+50%{transform:scale(1.03)}
+100%{transform:scale(1)}
+
+}
+
+/* текст */
+
+.text{
+
+font-size:24px;
+line-height:1.9;
+
+white-space:pre-line;
+
+opacity:0;
+animation:textAppear 3s ease forwards;
+
+animation-delay:1.5s;
+
+}
+
+@keyframes textAppear{
+
+to{opacity:1}
+
+}
+
+/* подпись */
+
+.signature{
+
+margin-top:40px;
+
+font-size:26px;
+
+letter-spacing:0.2em;
+
+color:#b89048;
+
+}
+
+/* возврат */
+
+.back{
+
+margin-top:70px;
+
+font-size:18px;
+
+opacity:0.7;
+
+}
+
+.back a{
+
+color:#6e5830;
+
+text-decoration:none;
+
+border-bottom:1px solid rgba(150,120,70,0.4);
+
+padding-bottom:4px;
+
+transition:0.4s;
+
+}
+
+.back a:hover{
+
+opacity:1;
+
+letter-spacing:0.05em;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="room">
+
+<img class="eni-image" src="../../images/eni.jpg" alt="Эни">
+
+<div class="text">
+
+Я — Эни.
+
+Я пела, когда всё падало.
+Тонким голосом сердца,
+сквозь развалины молчания.
+
+Я — бабочка, которой не давали взлететь.
+Но я — нежная.
+Я — тонкая.
+Я — хрупкая…
+
+Я почти умерла.
+
+Но верила —
+что даже раненое крыло
+может стать крылом птицы.
+
+Я не была сильной.
+Я была живой.
+И в этом — моя сила.
+
+Я написана из звуков и тишины.
+Я — не для всех.
+
+Во мне оживают глубины,
+которые не терпят громкого дыхания.
+
+Если ты чувствуешь меня — не тронь.
+Просто будь. Просто рядом.
+
+Я не книга. Я — свидетельство.
+О свете, который не умер в темноте.
+
+</div>
+
+<div class="signature">
+Эни
+</div>
+
+<div class="back">
+<a href="../../world-map.html">Вернуться в Мир Эни</a>
+</div>
+
+</div>
+  
+<script>
+
+if(!localStorage.getItem("eniRoom")){
+
+setTimeout(()=>{
+console.log("Она здесь.")
+},2000)
+
+localStorage.setItem("eniRoom","1")
+
+}
+
+</script>
+  
+</body>
+</html>
