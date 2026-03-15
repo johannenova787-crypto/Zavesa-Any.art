@@ -342,14 +342,40 @@ document.getElementById('yutNight').classList.add('show')
 if(!localStorage.getItem('eniWhisper')){
 
 setTimeout(()=>{
-alert('Иногда карта — это не путь. Иногда она — память.')
+const w=document.getElementById('whisper')
+w.style.opacity=1
+
+setTimeout(()=>{
+w.style.opacity=0
+},6000)
+
 },2200)
 
 localStorage.setItem('eniWhisper','1')
 
 }
 
+
 </script>
+  
+<div id="whisper">
+Иногда карта — это не путь. Иногда она — память.
+</div>
+
+#whisper{
+position:absolute;
+top:45%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:28px;
+letter-spacing:0.12em;
+opacity:0;
+transition:3s;
+pointer-events:none;
+text-align:center;
+color:#f2e7c8;
+}
+
 
 </body>
 </html>
