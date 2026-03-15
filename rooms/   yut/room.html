@@ -1,1 +1,171 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ют</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Cormorant Garamond',serif;
+
+background:
+radial-gradient(circle at 50% 40%,#15141d,#06050a 80%);
+
+color:#e6dcc6;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+min-height:100vh;
+text-align:center;
+overflow:hidden;
+}
+
+.container{
+
+max-width:650px;
+padding:60px;
+
+background:rgba(12,12,18,0.5);
+
+border-radius:16px;
+
+backdrop-filter:blur(5px);
+
+}
+
+h1{
+
+font-size:48px;
+letter-spacing:0.15em;
+margin-bottom:20px;
+opacity:0.9;
+
+}
+
+.text{
+
+font-size:22px;
+line-height:1.8;
+
+opacity:0;
+transition:3s;
+
+}
+
+.back{
+
+margin-top:40px;
+
+display:inline-block;
+
+padding:12px 28px;
+
+border-radius:28px;
+
+background:linear-gradient(180deg,#e3c47a,#b9974a);
+
+color:#1a1610;
+
+text-decoration:none;
+
+font-size:18px;
+
+transition:0.4s;
+
+}
+
+.back:hover{
+
+transform:scale(1.05);
+box-shadow:0 0 20px rgba(255,215,150,0.4);
+
+}
+
+.ghost{
+
+position:absolute;
+
+width:220px;
+height:220px;
+
+background:radial-gradient(circle,
+rgba(255,255,255,0.15),
+rgba(255,255,255,0));
+
+border-radius:50%;
+
+filter:blur(25px);
+
+animation:float 10s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+0%{transform:translateY(0);}
+50%{transform:translateY(-40px);}
+100%{transform:translateY(0);}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="ghost"></div>
+
+<div class="container">
+
+<h1>Ют</h1>
+
+<div class="text" id="story">
+
+Она почти не оставляет следов.
+
+Когда-то её искра была яркой,
+но кто-то забрал её,
+и мир стал для неё прозрачным.
+
+Люди проходят рядом,
+не замечая тихого присутствия.
+
+Но однажды
+Эни увидела её.
+
+И с этого момента
+в тишине мира
+появилась возможность возвращения.
+
+</div>
+
+<a class="back" href="index.html">
+
+Вернуться к комнатам
+
+</a>
+
+</div>
+
+<script>
+
+setTimeout(()=>{
+document.getElementById("story").style.opacity=1
+},1200)
+
+</script>
+
+</body>
+</html>
+```
