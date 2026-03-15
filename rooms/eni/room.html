@@ -36,8 +36,6 @@ opacity:0;
 to{opacity:1}
 }
 
-/* контейнер */
-
 .room{
 max-width:900px;
 padding:60px 30px;
@@ -70,29 +68,24 @@ animation:eniBreath 8s ease-in-out infinite;
 
 }
 
-/* текст */
+/* строки текста */
 
-.text{
+.line{
 
 font-size:24px;
 line-height:1.9;
 
-white-space:pre-line;
-
 opacity:0;
-animation:textAppear 3s ease forwards;
+transform:translateY(20px);
 
-animation-delay:1.5s;
-
-}
-
-@keyframes textAppear{
-
-to{opacity:1}
+transition:1.5s;
 
 }
 
-/* подпись */
+.line.show{
+opacity:1;
+transform:translateY(0);
+}
 
 .signature{
 
@@ -104,6 +97,13 @@ letter-spacing:0.2em;
 
 color:#b89048;
 
+opacity:0;
+transition:2s;
+
+}
+
+.signature.show{
+opacity:1;
 }
 
 /* возврат */
@@ -140,7 +140,9 @@ letter-spacing:0.05em;
 
 }
 
- .spark{
+/* частицы */
+
+.spark{
 position:fixed;
 width:6px;
 height:6px;
@@ -153,7 +155,7 @@ pointer-events:none;
 
 opacity:0.9;
 
-animation:sparkFloat 2.6s ease-out forwards;
+animation:sparkFloat 3s ease-out forwards;
 }
 
 @keyframes sparkFloat{
@@ -164,12 +166,12 @@ opacity:1;
 }
 
 100%{
-transform:translateY(-120px) scale(0.2);
+transform:translateY(-160px) scale(0.2);
 opacity:0;
 }
 
 }
-  
+
 </style>
 
 </head>
@@ -180,99 +182,93 @@ opacity:0;
 
 <img class="eni-image" src="../../images/eni.jpg" alt="Эни">
 
-<div class="text">
+<div id="text">
 
-Я — Эни.
+<div class="line">Я — Эни.</div>
 
-Я пела, когда всё падало.
-Тонким голосом сердца,
-сквозь развалины молчания.
+<div class="line">Я пела, когда всё падало.</div>
+<div class="line">Тонким голосом сердца,</div>
+<div class="line">сквозь развалины молчания.</div>
 
-Я — бабочка, которой не давали взлететь.
-Но я — нежная.
-Я — тонкая.
-Я — хрупкая…
+<div class="line">Я — бабочка, которой не давали взлететь.</div>
+<div class="line">Но я — нежная.</div>
+<div class="line">Я — тонкая.</div>
+<div class="line">Я — хрупкая…</div>
 
-Я почти умерла.
+<div class="line">Я почти умерла.</div>
 
-Но верила —
-что даже раненое крыло
-может стать крылом птицы.
+<div class="line">Но верила —</div>
+<div class="line">что даже раненое крыло</div>
+<div class="line">может стать крылом птицы.</div>
 
-Я не была сильной.
-Я была живой.
-И в этом — моя сила.
+<div class="line">Я не была сильной.</div>
+<div class="line">Я была живой.</div>
+<div class="line">И в этом — моя сила.</div>
 
-Я написана из звуков и тишины.
-Я — не для всех.
+<div class="line">Я написана из звуков и тишины.</div>
+<div class="line">Я — не для всех.</div>
 
-Во мне оживают глубины,
-которые не терпят громкого дыхания.
+<div class="line">Во мне оживают глубины,</div>
+<div class="line">которые не терпят громкого дыхания.</div>
 
-Если ты чувствуешь меня — не тронь.
-Просто будь. Просто рядом.
+<div class="line">Если ты чувствуешь меня — не тронь.</div>
+<div class="line">Просто будь. Просто рядом.</div>
 
-Я не книга. Я — свидетельство.
-О свете, который не умер в темноте.
+<div class="line">Я не книга. Я — свидетельство.</div>
+<div class="line">О свете, который не умер в темноте.</div>
 
 </div>
 
-<div class="signature">
-Эни
-</div>
+<div class="signature">Эни</div>
 
 <div class="back">
 <a href="../../world-map.html">Вернуться в Мир Эни</a>
 </div>
 
 </div>
-  
+
 <script>
 
-if(!localStorage.getItem("eniRoom")){
+/* строки появляются как голос */
+
+const lines = document.querySelectorAll(".line")
+
+lines.forEach((line,i)=>{
 
 setTimeout(()=>{
-console.log("Она здесь.")
-},2000)
-
-localStorage.setItem("eniRoom","1")
-
-}
-
-</script>
-  <script>
-
-let lastSpark = 0;
-
-window.addEventListener("scroll", function(){
-
-const now = Date.now()
-
-if(now - lastSpark < 120) return
-
-lastSpark = now
-
-createSpark()
+line.classList.add("show")
+},i*1600)
 
 })
+
+setTimeout(()=>{
+document.querySelector(".signature").classList.add("show")
+},lines.length*1600+1000)
+
+/* много золотых частиц */
 
 function createSpark(){
 
 const spark = document.createElement("div")
 
-spark.className = "spark"
+spark.className="spark"
 
-spark.style.left = Math.random()*window.innerWidth + "px"
-spark.style.top = (window.innerHeight*0.7 + Math.random()*120) + "px"
+spark.style.left=Math.random()*window.innerWidth+"px"
+spark.style.top=(window.innerHeight*0.7+Math.random()*120)+"px"
 
 document.body.appendChild(spark)
 
 setTimeout(()=>{
 spark.remove()
-},2600)
+},3000)
 
 }
 
+/* постоянное дыхание света */
+
+setInterval(createSpark,220)
+
 </script>
+
 </body>
 </html>
