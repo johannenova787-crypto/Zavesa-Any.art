@@ -18,7 +18,7 @@ color:#e8e4da;
 overflow-x:hidden;
 }
 
-/* звёздная пыль */
+/* звёзды */
 
 .stars{
 position:fixed;
@@ -56,7 +56,6 @@ animation:fogMove 100s linear infinite;
 /* контейнер */
 
 .container{
-position:relative;
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -87,10 +86,9 @@ position:relative;
 .mirror img{
 width:100%;
 display:block;
-filter:contrast(1.05) brightness(0.95);
 }
 
-/* стеклянный отблеск */
+/* отблеск стекла */
 
 .glass{
 position:absolute;
@@ -113,25 +111,42 @@ pointer-events:none;
 100%{transform:translateX(100%)}
 }
 
-/* текстовый блок */
+/* текст */
 
 .story{
 margin-top:60px;
 max-width:700px;
 text-align:center;
-line-height:1.8;
 font-size:22px;
-opacity:0;
-animation:fadeStory 4s forwards;
-animation-delay:3s;
+line-height:1.9;
 padding:0 30px;
 }
 
-@keyframes fadeStory{
-to{opacity:0.9}
+.story p{
+opacity:0;
+transform:translateY(10px);
+animation:lineFade 3s forwards;
 }
 
-/* серебряные частицы */
+/* постепенные задержки */
+
+.story p:nth-child(1){animation-delay:2s;}
+.story p:nth-child(2){animation-delay:5s;}
+.story p:nth-child(3){animation-delay:8s;}
+.story p:nth-child(4){animation-delay:11s;}
+.story p:nth-child(5){animation-delay:14s;}
+.story p:nth-child(6){animation-delay:17s;}
+.story p:nth-child(7){animation-delay:20s;}
+.story p:nth-child(8){animation-delay:23s;}
+
+@keyframes lineFade{
+to{
+opacity:0.9;
+transform:translateY(0);
+}
+}
+
+/* серебряная пыль */
 
 .spark{
 position:absolute;
@@ -180,25 +195,19 @@ text-decoration:none;
 
 <p>Он не был создан.</p>
 
-<p>Он появился в тот миг, когда кто-то посмотрел в зеркало слишком долго.</p>
+<p>Он появился, когда кто-то посмотрел в зеркало слишком долго.</p>
 
 <p>И зеркало посмотрело в ответ.</p>
 
-<p>Сначала это было лишь ощущение —  
-будто отражение задерживается на долю секунды дольше, чем должно.</p>
+<p>Сначала это была лишь тень движения.</p>
 
-<p>Потом — едва заметное движение,  
-которого ты не совершал.</p>
+<p>Отражение, которое задержалось на мгновение дольше.</p>
 
-<p>Зеркальный Брат не враг и не друг.  
-Он — возможность.</p>
+<p>Зеркальный Брат хранит версии тебя, которые не случились.</p>
 
-<p>Он хранит те версии тебя,  
-которые никогда не вышли в этот мир.</p>
+<p>Он знает дороги, по которым ты не пошёл.</p>
 
-<p>И иногда…  
-если смотреть достаточно долго —  
-он может шагнуть ближе.</p>
+<p>И иногда... если смотреть достаточно долго — он смотрит обратно.</p>
 
 </div>
 
