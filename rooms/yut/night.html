@@ -8,41 +8,20 @@
 
 <style>
 
-  .art{
-margin-bottom:40px;
-}
-
-.art img{
-width:100%;
-max-width:420px;
-border-radius:6px;
-opacity:0.92;
-filter:brightness(0.9) contrast(1.05);
-box-shadow:0 0 40px rgba(0,0,0,0.8);
-}
-  
-.art img{
-animation:fadeArt 4s ease forwards;
-opacity:0;
-}
-
-@keyframes fadeArt{
-to{opacity:0.92}
-}
-  
 body{
 margin:0;
 font-family:'Cormorant Garamond',serif;
 background:radial-gradient(circle at 50% 30%, #0e0d17, #020106 80%);
 color:#e8ddc7;
-height:100vh;
+min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-overflow:hidden;
+overflow-x:hidden;
+overflow-y:auto;
 }
 
-/* мягкие звезды */
+/* звезды */
 
 .star{
 position:absolute;
@@ -66,6 +45,8 @@ width:200%;
 height:200%;
 background:radial-gradient(circle,rgba(255,255,255,0.04),transparent 70%);
 animation:mistMove 40s linear infinite;
+z-index:0;
+transition:transform 6s ease;
 }
 
 @keyframes mistMove{
@@ -74,31 +55,57 @@ animation:mistMove 40s linear infinite;
 100%{transform:translate(-10%,-10%)}
 }
 
-/* текст */
+/* контейнер */
 
 .room{
 max-width:700px;
 text-align:center;
 padding:40px;
+position:relative;
+z-index:2;
 }
+
+/* арт */
+
+.art{
+margin-bottom:40px;
+}
+
+.art img{
+width:100%;
+max-width:420px;
+border-radius:6px;
+opacity:0;
+filter:brightness(0.9) contrast(1.05);
+box-shadow:0 0 40px rgba(0,0,0,0.8);
+animation:fadeArt 4s ease forwards;
+animation-delay:2s;
+}
+
+@keyframes fadeArt{
+to{opacity:0.92}
+}
+
+/* текст */
 
 .line{
 font-size:28px;
 line-height:1.9;
 opacity:0;
+margin-bottom:18px;
 animation:fadeLine 2s forwards;
 }
 
-.line:nth-child(1){animation-delay:1s}
-.line:nth-child(2){animation-delay:4s}
-.line:nth-child(3){animation-delay:7s}
-.line:nth-child(4){animation-delay:10s}
+.line:nth-of-type(1){animation-delay:6s}
+.line:nth-of-type(2){animation-delay:9s}
+.line:nth-of-type(3){animation-delay:12s}
+.line:nth-of-type(4){animation-delay:15s}
 
 @keyframes fadeLine{
 to{opacity:1}
 }
 
-/* возвращение */
+/* кнопка назад */
 
 .back{
 position:absolute;
@@ -107,6 +114,7 @@ width:100%;
 text-align:center;
 font-size:18px;
 opacity:0.7;
+z-index:2;
 }
 
 .back a{
@@ -123,10 +131,10 @@ text-decoration:none;
 
 <div class="room">
 
-  <div class="art">
+<div class="art">
 <img src="yut-night.jpg" alt="Ют в ночном лесу">
 </div>
-  
+
 <div class="line">
 Ночью Ют почти не говорит.
 </div>
@@ -169,6 +177,19 @@ s.style.animationDelay=Math.random()*4+'s'
 document.body.appendChild(s)
 
 }
+
+/* движение тумана от мыши */
+
+const mist=document.querySelector('.mist')
+
+document.addEventListener('mousemove',e=>{
+
+let x=(e.clientX/window.innerWidth-0.5)*20
+let y=(e.clientY/window.innerHeight-0.5)*20
+
+mist.style.transform=`translate(${x}px,${y}px)`
+
+})
 
 </script>
 
