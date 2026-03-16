@@ -1302,8 +1302,40 @@ setTimeout(()=>bird.remove(),8000);
 
 }
   
-  function supportEni(){
+ function supportEni(){
+
+const hero=document.querySelector(".hero");
+
+/* создаём золотую вспышку */
+
+for(let i=0;i<40;i++){
+
+const dust=document.createElement("div");
+dust.className="dust-burst";
+
+dust.style.left=(window.innerWidth/2)+"px";
+dust.style.top=(window.innerHeight/2)+"px";
+
+dust.style.setProperty("--x",Math.random());
+dust.style.setProperty("--y",Math.random());
+
+document.body.appendChild(dust);
+
+setTimeout(()=>dust.remove(),1800);
+
+}
+
+/* мягкое затухание страницы */
+
+document.body.style.transition="1.6s";
+document.body.style.opacity="0";
+
+/* переход */
+
+setTimeout(()=>{
 window.location.href="support.html";
+},1400);
+
 }
   
 </script>
