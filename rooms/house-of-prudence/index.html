@@ -13,32 +13,30 @@
 
 body{
 margin:0;
-background: linear-gradient(#0b0e12,#1a1f26);
-font-family:'Cormorant Garamond', serif;
+background:linear-gradient(#07090c,#1a1f26);
+font-family:'Cormorant Garamond',serif;
 color:#e8e8e8;
 overflow-x:hidden;
 }
 
-/* Туман */
+/* туман */
 
 .fog{
 position:fixed;
-top:0;
-left:0;
 width:200%;
 height:200%;
-background:radial-gradient(circle at 40% 40%,rgba(255,255,255,0.05),transparent 60%);
-animation:fogmove 80s linear infinite;
+background:radial-gradient(circle at 40% 40%,rgba(255,255,255,0.06),transparent 60%);
+animation:fogMove 90s linear infinite;
 pointer-events:none;
 }
 
-@keyframes fogmove{
+@keyframes fogMove{
 0%{transform:translate(0,0)}
 50%{transform:translate(-200px,-100px)}
 100%{transform:translate(0,0)}
 }
 
-/* Контейнер */
+/* контейнер */
 
 .container{
 max-width:900px;
@@ -48,19 +46,18 @@ position:relative;
 z-index:2;
 }
 
-/* Заголовок */
+/* заголовок */
 
 h1{
 text-align:center;
 font-size:56px;
-font-weight:500;
 letter-spacing:2px;
 margin-bottom:50px;
 opacity:0;
-animation:fadeIn 3s ease forwards;
+animation:fadeIn 3s forwards;
 }
 
-/* Появление строк */
+/* текст */
 
 .text p{
 font-size:22px;
@@ -80,14 +77,21 @@ animation:lineFade 2s forwards;
 .text p:nth-child(7){animation-delay:13s}
 .text p:nth-child(8){animation-delay:15s}
 
-@keyframes lineFade{
-to{
-opacity:0.95;
-transform:translateY(0);
-}
+/* исчезающая искра */
+
+.spark{
+animation:sparkFade 10s infinite;
 }
 
-/* Вопрос */
+@keyframes sparkFade{
+0%{opacity:1}
+40%{opacity:1}
+50%{opacity:0}
+60%{opacity:1}
+100%{opacity:1}
+}
+
+/* вопрос */
 
 .question{
 margin-top:40px;
@@ -95,11 +99,11 @@ font-size:26px;
 text-align:center;
 color:#f0d8a8;
 opacity:0;
-animation:fadeIn 3s ease forwards;
+animation:fadeIn 3s forwards;
 animation-delay:17s;
 }
 
-/* Картинка дома */
+/* картинка */
 
 .house-image{
 width:100%;
@@ -110,14 +114,30 @@ animation:imageAppear 5s forwards;
 animation-delay:6s;
 }
 
-@keyframes imageAppear{
-to{
-opacity:0.9;
-transform:scale(1);
-}
+/* мерцание окон */
+
+.house-image:hover{
+filter:brightness(1.2);
 }
 
-/* Кнопка назад */
+/* змея */
+
+.snake{
+position:fixed;
+bottom:-200px;
+left:-200px;
+font-size:140px;
+opacity:0.15;
+animation:snakeMove 40s linear infinite;
+}
+
+@keyframes snakeMove{
+0%{transform:translate(0,0)}
+50%{transform:translate(120vw,-20vh)}
+100%{transform:translate(0,0)}
+}
+
+/* кнопка */
 
 a.back{
 display:block;
@@ -135,25 +155,22 @@ a.back:hover{
 opacity:1;
 }
 
-/* Змея */
-
-.snake{
-position:fixed;
-bottom:20px;
-right:30px;
-opacity:0.15;
-font-size:120px;
-animation:snakeBreath 6s ease-in-out infinite;
-}
-
-@keyframes snakeBreath{
-0%{transform:scale(1)}
-50%{transform:scale(1.1)}
-100%{transform:scale(1)}
-}
-
 @keyframes fadeIn{
 to{opacity:1}
+}
+
+@keyframes lineFade{
+to{
+opacity:0.95;
+transform:translateY(0);
+}
+}
+
+@keyframes imageAppear{
+to{
+opacity:0.9;
+transform:scale(1);
+}
 }
 
 </style>
@@ -181,9 +198,11 @@ to{opacity:1}
 где время течёт медленнее и каждый шаг
 словно растворяется в мягком тумане.</p>
 
-<p>Сюда приходят те, чьи искры стали слишком беспокойными —
+<p class="spark">
+Сюда приходят те, чьи искры стали слишком беспокойными —
 чтобы успокоиться, восстановиться
-и вновь обрести равновесие.</p>
+и вновь обрести равновесие.
+</p>
 
 <p>В Доме Благоразумия всё устроено для тишины.
 Длинные коридоры, мягкий свет в окнах,
