@@ -13,7 +13,7 @@
 
 body{
 margin:0;
-background:radial-gradient(circle at 50% 35%, #161720, #040408 70%);
+background:radial-gradient(circle at 50% 35%, #171821, #040408 70%);
 font-family:'Cormorant Garamond',serif;
 color:#e8e4da;
 overflow:hidden;
@@ -30,12 +30,12 @@ radial-gradient(white 1px, transparent 1px),
 radial-gradient(white 1px, transparent 1px);
 background-size:120px 120px;
 opacity:0.25;
-animation:starsMove 140s linear infinite;
+animation:starsMove 150s linear infinite;
 }
 
 @keyframes starsMove{
 0%{transform:translate(0,0)}
-100%{transform:translate(-500px,-400px)}
+100%{transform:translate(-600px,-500px)}
 }
 
 /* туман */
@@ -45,49 +45,67 @@ position:fixed;
 width:200%;
 height:200%;
 background:radial-gradient(circle at 40% 40%, rgba(255,255,255,0.05), transparent 60%);
-animation:fogMove 90s linear infinite;
+animation:fogMove 100s linear infinite;
 }
 
 @keyframes fogMove{
 0%{transform:translate(0,0)}
-50%{transform:translate(-180px,-120px)}
+50%{transform:translate(-200px,-140px)}
 100%{transform:translate(0,0)}
 }
 
-/* контейнер арта */
+/* зеркало */
 
-.mirrorRoom{
+.mirror{
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-text-align:center;
-opacity:0;
-animation:roomAppear 4s forwards;
-animation-delay:2s;
-}
-
-@keyframes roomAppear{
-to{opacity:1}
-}
-
-/* сам арт */
-
-.mirrorArt{
-width:420px;
+width:460px;
 max-width:80vw;
-border-radius:10px;
+border-radius:14px;
+overflow:hidden;
 box-shadow:
-0 0 60px rgba(200,200,220,0.25),
-0 0 120px rgba(160,170,220,0.1);
-transition:1s;
+0 0 60px rgba(200,200,220,0.3),
+0 0 120px rgba(160,170,220,0.15);
+animation:mirrorBreath 8s ease-in-out infinite;
 }
 
-.mirrorArt:hover{
-transform:scale(1.03);
-box-shadow:
-0 0 80px rgba(220,220,240,0.4),
-0 0 160px rgba(160,170,220,0.2);
+@keyframes mirrorBreath{
+0%{box-shadow:0 0 50px rgba(200,200,220,0.25)}
+50%{box-shadow:0 0 100px rgba(220,220,240,0.45)}
+100%{box-shadow:0 0 50px rgba(200,200,220,0.25)}
+}
+
+/* арт */
+
+.mirror img{
+width:100%;
+display:block;
+filter:contrast(1.05) brightness(0.95);
+}
+
+/* лёгкий стеклянный отблеск */
+
+.glass{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(
+120deg,
+transparent 20%,
+rgba(255,255,255,0.12),
+transparent 60%
+);
+animation:glassMove 8s linear infinite;
+pointer-events:none;
+}
+
+@keyframes glassMove{
+0%{transform:translateX(-100%)}
+100%{transform:translateX(100%)}
 }
 
 /* текст */
@@ -101,15 +119,15 @@ letter-spacing:0.1em;
 opacity:0;
 }
 
-.t1{top:18%; animation:fadeText 4s forwards; animation-delay:3s;}
-.t2{top:22%; animation:fadeText 4s forwards; animation-delay:7s;}
-.t3{top:26%; animation:fadeText 4s forwards; animation-delay:11s;}
+.t1{top:16%;animation:fadeText 4s forwards;animation-delay:2s;}
+.t2{top:20%;animation:fadeText 4s forwards;animation-delay:6s;}
+.t3{top:24%;animation:fadeText 4s forwards;animation-delay:10s;}
 
 @keyframes fadeText{
 to{opacity:0.9}
 }
 
-/* серебряные искры */
+/* серебряные частицы */
 
 .spark{
 position:absolute;
@@ -118,15 +136,15 @@ height:3px;
 background:white;
 border-radius:50%;
 box-shadow:0 0 10px white;
-animation:sparkMove 16s linear infinite;
+animation:sparkMove 18s linear infinite;
 }
 
 @keyframes sparkMove{
 0%{transform:translateY(0)}
-100%{transform:translateY(-800px)}
+100%{transform:translateY(-900px)}
 }
 
-/* кнопка назад */
+/* назад */
 
 .back{
 position:absolute;
@@ -140,11 +158,6 @@ opacity:0.7;
 .back a{
 color:#e8e4da;
 text-decoration:none;
-transition:0.3s;
-}
-
-.back a:hover{
-opacity:1;
 }
 
 </style>
@@ -156,15 +169,15 @@ opacity:1;
 <div class="stars"></div>
 <div class="fog"></div>
 
-<div class="text t1">Иногда зеркало — это просто стекло.</div>
-<div class="text t2">Иногда — память.</div>
-<div class="text t3">Иногда — тот, кто смотрит изнутри.</div>
+<div class="text t1">Он не был создан.</div>
+<div class="text t2">Он появился, когда кто-то посмотрел в зеркало слишком долго.</div>
+<div class="text t3">И зеркало посмотрело в ответ.</div>
 
-<div class="mirrorRoom">
+<div class="mirror">
 
-<!-- ВСТАВЬ СВОЙ АРТ СЮДА -->
+<img src="mirror-brother.jpg">
 
-<img src="mirror-brother-art.jpg" class="mirrorArt">
+<div class="glass"></div>
 
 </div>
 
@@ -174,20 +187,26 @@ opacity:1;
 
 <script>
 
-/* серебряные частицы */
+/* серебряная пыль */
 
-for(let i=0;i<35;i++){
+for(let i=0;i<40;i++){
 
 const s=document.createElement("div")
-
 s.className="spark"
 
 s.style.left=Math.random()*100+"%"
 s.style.top=100+Math.random()*100+"%"
 
-s.style.animationDelay=Math.random()*10+"s"
+s.style.animationDelay=Math.random()*12+"s"
 
 document.body.appendChild(s)
+
+}
+
+</script>
+
+</body>
+</html>
 
 }
 
