@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -8,7 +7,7 @@
 
 <title>Ют</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,104 +16,131 @@ margin:0;
 font-family:'Cormorant Garamond',serif;
 
 background:
-radial-gradient(circle at 50% 40%,#15141d,#06050a 80%);
+radial-gradient(circle at 50% 40%, #0f0f18, #020204);
 
-color:#e6dcc6;
+color:#d9d3c5;
 
 display:flex;
 align-items:center;
 justify-content:center;
 
 min-height:100vh;
-text-align:center;
+
 overflow:hidden;
+
+animation:fadeIn 3s ease forwards;
+opacity:0;
 }
 
-.container{
+@keyframes fadeIn{
+to{opacity:1}
+}
 
-max-width:650px;
-padding:60px;
+.room{
+max-width:800px;
+text-align:center;
+padding:60px 30px;
+}
 
-background:rgba(12,12,18,0.5);
+/* образ Ют */
 
-border-radius:16px;
+.yut-image{
 
-backdrop-filter:blur(5px);
+width:240px;
+opacity:0.45;
+
+margin-bottom:40px;
+
+filter:blur(0.2px);
+
+animation:ghost 6s ease-in-out infinite;
 
 }
 
-h1{
+@keyframes ghost{
 
-font-size:48px;
-letter-spacing:0.15em;
-margin-bottom:20px;
-opacity:0.9;
+0%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+100%{transform:translateY(0)}
 
 }
 
-.text{
+/* строки текста */
 
-font-size:22px;
-line-height:1.8;
+.line{
+
+font-size:23px;
+line-height:1.9;
 
 opacity:0;
-transition:3s;
+transform:translateY(10px);
+
+transition:1.8s;
 
 }
 
-.back{
+.line.show{
 
-margin-top:40px;
-
-display:inline-block;
-
-padding:12px 28px;
-
-border-radius:28px;
-
-background:linear-gradient(180deg,#e3c47a,#b9974a);
-
-color:#1a1610;
-
-text-decoration:none;
-
-font-size:18px;
-
-transition:0.4s;
+opacity:1;
+transform:translateY(0);
 
 }
 
-.back:hover{
+/* частицы */
 
-transform:scale(1.05);
-box-shadow:0 0 20px rgba(255,215,150,0.4);
+.particle{
 
-}
+position:fixed;
 
-.ghost{
+width:3px;
+height:3px;
 
-position:absolute;
-
-width:220px;
-height:220px;
-
-background:radial-gradient(circle,
-rgba(255,255,255,0.15),
-rgba(255,255,255,0));
+background:#d8cfae;
 
 border-radius:50%;
 
-filter:blur(25px);
+opacity:0.5;
 
-animation:float 10s ease-in-out infinite;
+animation:float 12s linear forwards;
 
 }
 
 @keyframes float{
 
-0%{transform:translateY(0);}
-50%{transform:translateY(-40px);}
-100%{transform:translateY(0);}
+0%{
+transform:translateY(0);
+opacity:0;
+}
+
+20%{opacity:0.5}
+
+100%{
+transform:translateY(-400px);
+opacity:0;
+}
+
+}
+
+/* выход */
+
+.back{
+
+margin-top:60px;
+opacity:0.5;
+font-size:18px;
+
+}
+
+.back a{
+
+color:#d9d3c5;
+text-decoration:none;
+
+}
+
+.back a:hover{
+
+opacity:1;
 
 }
 
@@ -124,50 +150,84 @@ animation:float 10s ease-in-out infinite;
 
 <body>
 
-<div class="ghost">
-<div class="ghost" style="left:20%;top:60%;animation-delay:2s"></div>
-<div class="ghost" style="right:18%;top:30%;animation-delay:4s"></div>
+<div class="room">
+
+<img class="yut-image" src="../../images/yut.png" alt="Ют">
+
+<div id="text">
+
+<div class="line">Она была здесь.</div>
+<div class="line">Но никто не заметил.</div>
+
+<div class="line">Её голос был тихим.</div>
+<div class="line">Слишком тихим для этого мира.</div>
+
+<div class="line">И однажды</div>
+<div class="line">её искра исчезла.</div>
+
+<div class="line">Теперь она — память.</div>
+<div class="line">Тонкая тень между строк.</div>
+
+<div class="line">Она почти не оставляет следов.</div>
+
+<div class="line">Когда-то её искра была яркой,</div>
+<div class="line">но кто-то забрал её,</div>
+<div class="line">и мир стал для неё прозрачным.</div>
+
+<div class="line">Люди проходят рядом,</div>
+<div class="line">не замечая тихого присутствия.</div>
+
+<div class="line">Но однажды</div>
+<div class="line">Эни увидела её.</div>
+
+<div class="line">И с этого момента</div>
+<div class="line">в тишине мира</div>
+<div class="line">появилась возможность возвращения.</div>
+
 </div>
-  
 
-<div class="container">
-
-<h1>Ют</h1>
-
-<div class="text" id="story">
-
-Она почти не оставляет следов.
-
-Когда-то её искра была яркой,
-но кто-то забрал её,
-и мир стал для неё прозрачным.
-
-Люди проходят рядом,
-не замечая тихого присутствия.
-
-Но однажды
-Эни увидела её.
-
-И с этого момента
-в тишине мира
-появилась возможность возвращения.
-
+<div class="back">
+<a href="../../world-map.html">Вернуться в Мир Эни</a>
 </div>
-
-<a class="back" href="../../world-map.html">
-Вернуться к карте мира
-</a>
 
 </div>
 
 <script>
 
+/* строки появляются как память */
+
+const lines=document.querySelectorAll(".line")
+
+lines.forEach((line,i)=>{
+
 setTimeout(()=>{
-document.getElementById("story").style.opacity=1
-},1200)
+line.classList.add("show")
+},i*2000)
+
+})
+
+/* частицы памяти */
+
+function createParticle(){
+
+const p=document.createElement("div")
+
+p.className="particle"
+
+p.style.left=Math.random()*window.innerWidth+"px"
+p.style.top=window.innerHeight+"px"
+
+document.body.appendChild(p)
+
+setTimeout(()=>{
+p.remove()
+},12000)
+
+}
+
+setInterval(createParticle,700)
 
 </script>
 
 </body>
 </html>
-```
