@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Комната Кота</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+background:black;
+color:#e8e8e8;
+font-family:'Cormorant Garamond',serif;
+overflow:hidden;
+}
+
+/* звезды */
+
+.stars{
+position:fixed;
+width:200%;
+height:200%;
+background:
+radial-gradient(white 1px, transparent 1px),
+radial-gradient(white 1px, transparent 1px);
+background-size:80px 80px;
+animation:starsMove 120s linear infinite;
+opacity:0.4;
+}
+
+@keyframes starsMove{
+0%{transform:translate(0,0)}
+100%{transform:translate(-400px,-400px)}
+}
+
+/* туман */
+
+.fog{
+position:fixed;
+width:200%;
+height:200%;
+background:radial-gradient(circle at 40% 40%,rgba(255,255,255,0.05),transparent 60%);
+animation:fogMove 60s linear infinite;
+}
+
+@keyframes fogMove{
+0%{transform:translate(0,0)}
+50%{transform:translate(-150px,-80px)}
+100%{transform:translate(0,0)}
+}
+
+/* текст */
+
+.container{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+max-width:600px;
+padding:30px;
+}
+
+p{
+font-size:24px;
+line-height:1.6;
+opacity:0;
+animation:fadeIn 4s forwards;
+}
+
+p:nth-child(1){animation-delay:1s}
+p:nth-child(2){animation-delay:4s}
+p:nth-child(3){animation-delay:7s}
+p:nth-child(4){animation-delay:10s}
+
+@keyframes fadeIn{
+to{opacity:0.9}
+}
+
+/* глаза */
+
+.eyes{
+position:fixed;
+width:60px;
+display:flex;
+justify-content:space-between;
+opacity:0;
+animation:eyesAppear 12s infinite;
+}
+
+.eyes div{
+width:10px;
+height:10px;
+background:#ffd56a;
+border-radius:50%;
+box-shadow:0 0 10px #ffd56a;
+}
+
+@keyframes eyesAppear{
+0%{opacity:0; top:30%; left:20%}
+40%{opacity:0}
+45%{opacity:1}
+60%{opacity:1}
+65%{opacity:0}
+100%{opacity:0}
+}
+
+/* искра Ют */
+
+.spark{
+position:fixed;
+width:6px;
+height:6px;
+background:white;
+border-radius:50%;
+box-shadow:0 0 15px white;
+animation:sparkMove 18s linear infinite;
+}
+
+@keyframes sparkMove{
+0%{top:80%; left:10%}
+50%{top:20%; left:80%}
+100%{top:80%; left:10%}
+}
+
+/* сообщение */
+
+.message{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:28px;
+opacity:0;
+color:#f0d8a8;
+pointer-events:none;
+}
+
+.show{
+animation:messageShow 3s forwards;
+}
+
+@keyframes messageShow{
+0%{opacity:0}
+20%{opacity:1}
+80%{opacity:1}
+100%{opacity:0}
+}
+
+/* кнопка назад */
+
+.back{
+position:fixed;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+text-decoration:none;
+color:#ccc;
+font-size:18px;
+opacity:0.7;
+}
+
+.back:hover{
+opacity:1;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="stars"></div>
+<div class="fog"></div>
+
+<div class="spark"></div>
+
+<div class="eyes">
+<div></div>
+<div></div>
+</div>
+
+<div class="container">
+
+<p>Здесь живёт Кот.</p>
+
+<p>Он не принадлежит этому дому.</p>
+
+<p>Иногда он просто наблюдает.</p>
+
+<p>Иногда — забирает искры.</p>
+
+</div>
+
+<div class="message" id="catMessage">
+Кот смотрит на тебя.
+</div>
+
+<a class="back" href="../../world-map.html">← Вернуться в мир Эни</a>
+
+<script>
+
+document.body.addEventListener("click", function(){
+
+let msg = document.getElementById("catMessage")
+
+msg.classList.remove("show")
+void msg.offsetWidth
+msg.classList.add("show")
+
+})
+
+</script>
+
+</body>
+</html>
