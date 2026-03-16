@@ -7,7 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
+  
+.fade-out{
+opacity:0;
+transition:opacity 0.8s ease;
+}
+  
 
+  
 body{
 margin:0;
 font-family:'Cormorant Garamond',serif;
@@ -222,7 +229,7 @@ color:#f2e7c8;
 </div>
 
 <div class="back">
-<a href="index.html">Вернуться к книге</a>
+<a href="/site/index.html" id="backLink">Вернуться к книге</a>
 </div>
 
 <script>
@@ -372,6 +379,21 @@ localStorage.setItem('eniWhisper','1')
 
 }
 
+  /* мягкое закрытие карты */
+
+const back = document.getElementById("backLink")
+
+back.addEventListener("click", function(e){
+
+e.preventDefault()
+
+document.body.classList.add("fade-out")
+
+setTimeout(()=>{
+window.location.href = "/site/index.html"
+},800)
+
+})
 
 </script>
   
