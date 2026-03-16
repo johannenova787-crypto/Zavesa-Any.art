@@ -47,13 +47,35 @@ padding:60px 30px;
 .yut-image{
 
 width:240px;
-opacity:0.45;
+
+opacity:0;
 
 margin-bottom:40px;
 
-filter:blur(0.2px);
+filter:blur(6px);
 
-animation:ghost 6s ease-in-out infinite;
+animation:yutAppear 4s ease forwards, ghost 6s ease-in-out infinite 4s;
+
+}
+
+  @keyframes yutAppear{
+
+0%{
+opacity:0;
+filter:blur(12px);
+transform:scale(0.9);
+}
+
+60%{
+opacity:0.5;
+filter:blur(4px);
+}
+
+100%{
+opacity:0.45;
+filter:blur(0.2px);
+transform:scale(1);
+}
 
 }
 
@@ -143,7 +165,47 @@ text-decoration:none;
 opacity:1;
 
 }
+  
+/* искра Ют */
 
+.spark{
+
+position:absolute;
+
+top:46%;
+left:52%;
+
+width:6px;
+height:6px;
+
+background:white;
+
+border-radius:50%;
+
+box-shadow:0 0 20px #fff, 0 0 60px #ffe8a0;
+
+animation:sparkPulse 3s ease-in-out infinite;
+
+}
+
+@keyframes sparkPulse{
+
+0%{
+opacity:0.2;
+transform:scale(0.8);
+}
+
+50%{
+opacity:1;
+transform:scale(1.4);
+}
+
+100%{
+opacity:0.2;
+transform:scale(0.8);
+}
+
+}
 </style>
 
 </head>
@@ -153,7 +215,9 @@ opacity:1;
 <div class="room">
 
 <img class="yut-image" src="../../images/yut.png" alt="Ют">
-
+  
+<div class="spark"></div>
+  
 <div id="text">
 
 <div class="line">Она была здесь.</div>
