@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -11,69 +12,157 @@
 <style>
 
 body{
-    margin:0;
-    background: linear-gradient(#0b0e12,#1a1f26);
-    font-family: 'Cormorant Garamond', serif;
-    color:#e8e8e8;
+margin:0;
+background: linear-gradient(#0b0e12,#1a1f26);
+font-family:'Cormorant Garamond', serif;
+color:#e8e8e8;
+overflow-x:hidden;
 }
+
+/* Туман */
+
+.fog{
+position:fixed;
+top:0;
+left:0;
+width:200%;
+height:200%;
+background:radial-gradient(circle at 40% 40%,rgba(255,255,255,0.05),transparent 60%);
+animation:fogmove 80s linear infinite;
+pointer-events:none;
+}
+
+@keyframes fogmove{
+0%{transform:translate(0,0)}
+50%{transform:translate(-200px,-100px)}
+100%{transform:translate(0,0)}
+}
+
+/* Контейнер */
 
 .container{
-    max-width:900px;
-    margin:auto;
-    padding:80px 30px;
+max-width:900px;
+margin:auto;
+padding:80px 30px;
+position:relative;
+z-index:2;
 }
+
+/* Заголовок */
 
 h1{
-    text-align:center;
-    font-size:56px;
-    font-weight:500;
-    letter-spacing:2px;
-    margin-bottom:50px;
+text-align:center;
+font-size:56px;
+font-weight:500;
+letter-spacing:2px;
+margin-bottom:50px;
+opacity:0;
+animation:fadeIn 3s ease forwards;
 }
 
-.text{
-    font-size:22px;
-    line-height:1.7;
-    opacity:0.95;
-}
+/* Появление строк */
 
 .text p{
-    margin-bottom:28px;
+font-size:22px;
+line-height:1.7;
+margin-bottom:28px;
+opacity:0;
+transform:translateY(20px);
+animation:lineFade 2s forwards;
 }
+
+.text p:nth-child(1){animation-delay:1s}
+.text p:nth-child(2){animation-delay:3s}
+.text p:nth-child(3){animation-delay:5s}
+.text p:nth-child(4){animation-delay:7s}
+.text p:nth-child(5){animation-delay:9s}
+.text p:nth-child(6){animation-delay:11s}
+.text p:nth-child(7){animation-delay:13s}
+.text p:nth-child(8){animation-delay:15s}
+
+@keyframes lineFade{
+to{
+opacity:0.95;
+transform:translateY(0);
+}
+}
+
+/* Вопрос */
 
 .question{
-    margin-top:40px;
-    font-size:26px;
-    text-align:center;
-    color:#f0d8a8;
+margin-top:40px;
+font-size:26px;
+text-align:center;
+color:#f0d8a8;
+opacity:0;
+animation:fadeIn 3s ease forwards;
+animation-delay:17s;
 }
 
-.snake{
-    position:fixed;
-    bottom:20px;
-    right:30px;
-    opacity:0.15;
-    font-size:120px;
+/* Картинка дома */
+
+.house-image{
+width:100%;
+margin-top:50px;
+opacity:0;
+transform:scale(1.05);
+animation:imageAppear 5s forwards;
+animation-delay:6s;
 }
+
+@keyframes imageAppear{
+to{
+opacity:0.9;
+transform:scale(1);
+}
+}
+
+/* Кнопка назад */
 
 a.back{
-    display:block;
-    text-align:center;
-    margin-top:70px;
-    text-decoration:none;
-    color:#d9c8a0;
-    font-size:20px;
-    opacity:0.8;
+display:block;
+text-align:center;
+margin-top:70px;
+text-decoration:none;
+color:#d9c8a0;
+font-size:20px;
+opacity:0;
+animation:fadeIn 3s forwards;
+animation-delay:20s;
 }
 
 a.back:hover{
-    opacity:1;
+opacity:1;
+}
+
+/* Змея */
+
+.snake{
+position:fixed;
+bottom:20px;
+right:30px;
+opacity:0.15;
+font-size:120px;
+animation:snakeBreath 6s ease-in-out infinite;
+}
+
+@keyframes snakeBreath{
+0%{transform:scale(1)}
+50%{transform:scale(1.1)}
+100%{transform:scale(1)}
+}
+
+@keyframes fadeIn{
+to{opacity:1}
 }
 
 </style>
+
 </head>
 
 <body>
+
+<div class="fog"></div>
 
 <div class="container">
 
@@ -81,55 +170,37 @@ a.back:hover{
 
 <div class="text">
 
-<p>
-Иногда мир становится слишком громким.  
-Мысли путаются, чувства вспыхивают слишком ярко,  
-а сердце устаёт от собственной силы.
-</p>
+<p>Иногда мир становится слишком громким.</p>
 
-<p>
-Для таких душ существует Дом Благоразумия.
-</p>
+<p>Мысли путаются, чувства вспыхивают слишком ярко,
+а сердце устаёт от собственной силы.</p>
 
-<p>
-Он стоит у тихой воды среди старых деревьев,  
-где время течёт медленнее и каждый шаг  
-словно растворяется в мягком тумане.
-</p>
+<p>Для таких душ существует Дом Благоразумия.</p>
 
-<p>
-Сюда приходят те, чьи искры стали слишком беспокойными —  
-чтобы успокоиться, восстановиться  
-и вновь обрести равновесие.
-</p>
+<p>Он стоит у тихой воды среди старых деревьев,
+где время течёт медленнее и каждый шаг
+словно растворяется в мягком тумане.</p>
 
-<p>
-В Доме Благоразумия всё устроено для тишины.  
-Длинные коридоры, мягкий свет в окнах,  
-спокойные голоса смотрителей.
-</p>
+<p>Сюда приходят те, чьи искры стали слишком беспокойными —
+чтобы успокоиться, восстановиться
+и вновь обрести равновесие.</p>
 
-<p>
-Говорят, в глубине дома живут древние хранители — змеи.  
-Они чувствуют слишком яркие искры  
-и умеют мягко касаться их.
-</p>
+<p>В Доме Благоразумия всё устроено для тишины.
+Длинные коридоры, мягкий свет в окнах,
+спокойные голоса смотрителей.</p>
 
-<p>
-Иногда достаточно одного прикосновения.
-</p>
+<p>Говорят, в глубине дома живут древние хранители — змеи.</p>
 
-<p>
-И искра больше не причиняет боли.  
-Она становится тихой.  
-Почти незаметной.
-</p>
+<p>Они чувствуют слишком яркие искры
+и умеют мягко касаться их.</p>
 
 <div class="question">
 Но что именно гаснет в этих стенах — боль… или свет?
 </div>
 
 </div>
+
+<img src="../../images/house-prudence.jpg" class="house-image">
 
 <a class="back" href="../../world-map.html">← Вернуться в мир Эни</a>
 
@@ -139,3 +210,4 @@ a.back:hover{
 
 </body>
 </html>
+
