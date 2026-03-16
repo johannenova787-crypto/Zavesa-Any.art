@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -16,7 +15,7 @@ margin:0;
 background:radial-gradient(circle at 50% 35%, #171821, #040408 70%);
 font-family:'Cormorant Garamond',serif;
 color:#e8e4da;
-overflow:hidden;
+overflow-x:hidden;
 }
 
 /* звёздная пыль */
@@ -54,13 +53,20 @@ animation:fogMove 100s linear infinite;
 100%{transform:translate(0,0)}
 }
 
+/* контейнер */
+
+.container{
+position:relative;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding-top:120px;
+padding-bottom:120px;
+}
+
 /* зеркало */
 
 .mirror{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
 width:460px;
 max-width:80vw;
 border-radius:14px;
@@ -69,6 +75,7 @@ box-shadow:
 0 0 60px rgba(200,200,220,0.3),
 0 0 120px rgba(160,170,220,0.15);
 animation:mirrorBreath 8s ease-in-out infinite;
+position:relative;
 }
 
 @keyframes mirrorBreath{
@@ -77,15 +84,13 @@ animation:mirrorBreath 8s ease-in-out infinite;
 100%{box-shadow:0 0 50px rgba(200,200,220,0.25)}
 }
 
-/* арт */
-
 .mirror img{
 width:100%;
 display:block;
 filter:contrast(1.05) brightness(0.95);
 }
 
-/* лёгкий стеклянный отблеск */
+/* стеклянный отблеск */
 
 .glass{
 position:absolute;
@@ -108,22 +113,21 @@ pointer-events:none;
 100%{transform:translateX(100%)}
 }
 
-/* текст */
+/* текстовый блок */
 
-.text{
-position:absolute;
-width:100%;
+.story{
+margin-top:60px;
+max-width:700px;
 text-align:center;
-font-size:26px;
-letter-spacing:0.1em;
+line-height:1.8;
+font-size:22px;
 opacity:0;
+animation:fadeStory 4s forwards;
+animation-delay:3s;
+padding:0 30px;
 }
 
-.t1{top:16%;animation:fadeText 4s forwards;animation-delay:2s;}
-.t2{top:20%;animation:fadeText 4s forwards;animation-delay:6s;}
-.t3{top:24%;animation:fadeText 4s forwards;animation-delay:10s;}
-
-@keyframes fadeText{
+@keyframes fadeStory{
 to{opacity:0.9}
 }
 
@@ -147,10 +151,7 @@ animation:sparkMove 18s linear infinite;
 /* назад */
 
 .back{
-position:absolute;
-bottom:40px;
-width:100%;
-text-align:center;
+margin-top:80px;
 font-size:18px;
 opacity:0.7;
 }
@@ -161,7 +162,6 @@ text-decoration:none;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -169,15 +169,36 @@ text-decoration:none;
 <div class="stars"></div>
 <div class="fog"></div>
 
-<div class="text t1">Он не был создан.</div>
-<div class="text t2">Он появился, когда кто-то посмотрел в зеркало слишком долго.</div>
-<div class="text t3">И зеркало посмотрело в ответ.</div>
+<div class="container">
 
 <div class="mirror">
-
 <img src="mirror-brother.jpg">
-
 <div class="glass"></div>
+</div>
+
+<div class="story">
+
+<p>Он не был создан.</p>
+
+<p>Он появился в тот миг, когда кто-то посмотрел в зеркало слишком долго.</p>
+
+<p>И зеркало посмотрело в ответ.</p>
+
+<p>Сначала это было лишь ощущение —  
+будто отражение задерживается на долю секунды дольше, чем должно.</p>
+
+<p>Потом — едва заметное движение,  
+которого ты не совершал.</p>
+
+<p>Зеркальный Брат не враг и не друг.  
+Он — возможность.</p>
+
+<p>Он хранит те версии тебя,  
+которые никогда не вышли в этот мир.</p>
+
+<p>И иногда…  
+если смотреть достаточно долго —  
+он может шагнуть ближе.</p>
 
 </div>
 
@@ -185,9 +206,9 @@ text-decoration:none;
 <a href="../../world-map.html">Вернуться к карте</a>
 </div>
 
-<script>
+</div>
 
-/* серебряная пыль */
+<script>
 
 for(let i=0;i<40;i++){
 
@@ -200,13 +221,6 @@ s.style.top=100+Math.random()*100+"%"
 s.style.animationDelay=Math.random()*12+"s"
 
 document.body.appendChild(s)
-
-}
-
-</script>
-
-</body>
-</html>
 
 }
 
