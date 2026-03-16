@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="ru">
@@ -20,7 +19,7 @@ color:#6f7482;
 overflow:hidden;
 }
 
-/* холодный туман */
+/* туман */
 
 .fog{
 position:fixed;
@@ -36,7 +35,7 @@ animation:fogMove 80s linear infinite;
 100%{transform:translate(0,0)}
 }
 
-/* частицы света */
+/* частицы */
 
 .particle{
 position:absolute;
@@ -63,11 +62,13 @@ transform:translate(-50%,-50%);
 width:220px;
 height:440px;
 border-radius:140px;
+
 background:
 radial-gradient(ellipse at center,
 rgba(255,255,255,0.95),
 rgba(230,235,245,0.5),
 rgba(210,215,230,0.1));
+
 filter:blur(14px);
 animation:breath 9s ease-in-out infinite;
 transition:transform 0.8s;
@@ -97,6 +98,8 @@ opacity:0;
 .t5{top:32%;animation:fade 4s forwards;animation-delay:18s;}
 .t6{top:36%;animation:fade 4s forwards;animation-delay:22s;}
 .t7{top:40%;animation:fade 4s forwards;animation-delay:26s;}
+.t8{top:44%;animation:fade 4s forwards;animation-delay:30s;}
+.t9{top:48%;animation:fade 4s forwards;animation-delay:34s;}
 
 @keyframes fade{
 to{opacity:0.85}
@@ -142,18 +145,14 @@ text-decoration:none;
 <div class="si" id="si"></div>
 
 <div class="text t1">Здесь всё чисто.</div>
-
 <div class="text t2">Ничто не тревожит пространство.</div>
-
 <div class="text t3">Ни боль.</div>
-
 <div class="text t4">Ни желание.</div>
-
 <div class="text t5">Ни память.</div>
-
 <div class="text t6">Свет Si-El совершенен.</div>
-
-<div class="text t7">Он просто проходит сквозь тебя.</div>
+<div class="text t7">Он не выбирает.</div>
+<div class="text t8">Он не касается.</div>
+<div class="text t9">Он просто проходит сквозь тебя.</div>
 
 <div class="reveal" id="reveal">
 Иногда чистота — это просто отсутствие жизни.
@@ -179,9 +178,11 @@ document.body.appendChild(p)
 
 }
 
-/* свет отдаляется от курсора */
+/* фигура */
 
 const si=document.getElementById("si")
+
+/* свет отдаляется от курсора */
 
 document.addEventListener("mousemove",(e)=>{
 
@@ -196,11 +197,34 @@ si.style.transform=
 /* скрытая фраза */
 
 setTimeout(()=>{
+
 document.getElementById("reveal").style.opacity=0.9
+
 setTimeout(()=>{
 document.getElementById("reveal").style.opacity=0
 },6000)
+
 },15000)
+
+/* призрачная память */
+
+setInterval(()=>{
+
+si.style.background=
+"radial-gradient(ellipse at center, rgba(255,255,255,1), rgba(210,215,235,0.6), rgba(200,205,230,0.2))"
+
+si.style.filter="blur(6px)"
+
+setTimeout(()=>{
+
+si.style.background=
+"radial-gradient(ellipse at center, rgba(255,255,255,0.95), rgba(230,235,245,0.5), rgba(210,215,230,0.1))"
+
+si.style.filter="blur(14px)"
+
+},180)
+
+},12000)
 
 </script>
 
