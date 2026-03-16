@@ -17,7 +17,19 @@ background:black;
 color:#e8e8e8;
 font-family:'Cormorant Garamond',serif;
 overflow:hidden;
-cursor:none;
+}
+
+/* КУРСОР-ИСКРА */
+
+.sparkCursor{
+position:fixed;
+width:8px;
+height:8px;
+background:white;
+border-radius:50%;
+pointer-events:none;
+box-shadow:0 0 12px white;
+z-index:9999;
 }
 
 /* звезды */
@@ -59,12 +71,12 @@ animation:fogMove 70s linear infinite;
 
 .cat{
 position:absolute;
-bottom:80px;
+bottom:40px;
 left:50%;
 transform:translateX(-50%);
 opacity:0;
 animation:catAppear 6s forwards;
-animation-delay:5s;
+animation-delay:4s;
 }
 
 @keyframes catAppear{
@@ -111,7 +123,7 @@ animation:pawCatchMove 0.8s forwards;
 
 .eye{
 fill:#ffd86a;
-filter:drop-shadow(0 0 6px #ffd86a);
+filter:drop-shadow(0 0 8px #ffd86a);
 transition:transform 0.2s;
 }
 
@@ -119,7 +131,7 @@ transition:transform 0.2s;
 
 .container{
 position:absolute;
-top:40%;
+top:30%;
 left:50%;
 transform:translate(-50%,-50%);
 text-align:center;
@@ -127,7 +139,7 @@ max-width:600px;
 }
 
 p{
-font-size:24px;
+font-size:26px;
 line-height:1.6;
 opacity:0;
 animation:fadeIn 4s forwards;
@@ -142,24 +154,6 @@ p:nth-child(4){animation-delay:10s}
 to{opacity:0.9}
 }
 
-/* искра */
-
-.spark{
-position:fixed;
-width:6px;
-height:6px;
-background:white;
-border-radius:50%;
-box-shadow:0 0 15px white;
-animation:sparkMove 18s linear infinite;
-}
-
-@keyframes sparkMove{
-0%{top:80%; left:10%}
-50%{top:30%; left:60%}
-100%{top:80%; left:10%}
-}
-
 /* сообщение */
 
 .message{
@@ -167,7 +161,7 @@ position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-font-size:28px;
+font-size:30px;
 opacity:0;
 color:#f0d8a8;
 pointer-events:none;
@@ -181,6 +175,28 @@ animation:messageShow 4s forwards;
 0%{opacity:0}
 20%{opacity:1}
 80%{opacity:1}
+100%{opacity:0}
+}
+
+/* СИЛУЭТ ЮТ */
+
+.yut{
+position:fixed;
+top:20%;
+left:60%;
+width:120px;
+height:200px;
+background:linear-gradient(transparent,rgba(255,255,255,0.15),transparent);
+opacity:0;
+filter:blur(3px);
+animation:yutAppear 40s infinite;
+}
+
+@keyframes yutAppear{
+0%{opacity:0}
+45%{opacity:0}
+50%{opacity:0.25}
+60%{opacity:0}
 100%{opacity:0}
 }
 
@@ -207,10 +223,12 @@ opacity:1;
 
 <body>
 
+<div class="sparkCursor" id="cursor"></div>
+
 <div class="stars"></div>
 <div class="fog"></div>
 
-<div class="spark" id="spark"></div>
+<div class="yut"></div>
 
 <div class="container">
 
@@ -221,7 +239,7 @@ opacity:1;
 
 </div>
 
-<svg class="cat" width="260" height="160" viewBox="0 0 260 160">
+<svg class="cat" width="600" height="360" viewBox="0 0 260 160">
 
 <ellipse cx="130" cy="110" rx="80" ry="40" fill="#070707"/>
 <circle cx="70" cy="80" r="30" fill="#070707"/>
@@ -246,17 +264,29 @@ opacity:1;
 
 <script>
 
-/* глаза следят за курсором */
+/* курсор-искра */
+
+const cursor=document.getElementById("cursor")
+
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px"
+cursor.style.top=e.clientY+"px"
+})
+
+/* глаза следят за искрой */
 
 document.addEventListener("mousemove", function(e){
 
-let eyes = document.querySelectorAll(".eye")
+let eyes=document.querySelectorAll(".eye")
 
 eyes.forEach(eye=>{
-let rect = eye.getBoundingClientRect()
-let x = (e.clientX - rect.left)/50
-let y = (e.clientY - rect.top)/50
+let rect=eye.getBoundingClientRect()
+
+let x=(e.clientX-rect.left)/50
+let y=(e.clientY-rect.top)/50
+
 eye.style.transform="translate("+x+"px,"+y+"px)"
+
 })
 
 })
@@ -265,18 +295,13 @@ eye.style.transform="translate("+x+"px,"+y+"px)"
 
 setInterval(()=>{
 
-let spark=document.getElementById("spark")
 let paw=document.getElementById("paw")
 let msg=document.getElementById("catMessage")
 
 paw.classList.add("pawCatch")
-
-spark.style.opacity="0"
-
 msg.classList.add("show")
 
 setTimeout(()=>{
-spark.style.opacity="1"
 paw.classList.remove("pawCatch")
 msg.classList.remove("show")
 },2000)
