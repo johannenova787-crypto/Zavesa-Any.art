@@ -44,6 +44,7 @@ to{opacity:1}
 max-width:800px;
 text-align:center;
 padding:60px 30px;
+position:relative;
 }
 
 /* образ Ют */
@@ -173,11 +174,12 @@ opacity:1;
 /* искра Ют */
 
 .spark{
-
 position:absolute;
 
-top:46%;
-left:52%;
+top:38%;
+left:50%;
+
+transform:translateX(-50%);
 
 width:6px;
 height:6px;
@@ -189,7 +191,6 @@ border-radius:50%;
 box-shadow:0 0 20px #fff, 0 0 60px #ffe8a0;
 
 animation:sparkPulse 3s ease-in-out infinite;
-
 }
 
 @keyframes sparkPulse{
@@ -210,6 +211,35 @@ transform:scale(0.8);
 }
 
 }
+
+  /* вспышка когда Ют увидели */
+
+.spark.flash{
+
+animation:sparkFlash 1.2s ease;
+
+}
+
+@keyframes sparkFlash{
+
+0%{
+transform:scale(1);
+opacity:0.5;
+}
+
+50%{
+transform:scale(3);
+opacity:1;
+box-shadow:0 0 40px #fff, 0 0 120px #ffe8a0;
+}
+
+100%{
+transform:scale(1);
+opacity:0.5;
+}
+
+}
+  
 </style>
 
 </head>
@@ -265,11 +295,26 @@ transform:scale(0.8);
 /* строки появляются как память */
 
 const lines=document.querySelectorAll(".line")
+  const spark=document.querySelector(".spark")
 
 lines.forEach((line,i)=>{
 
 setTimeout(()=>{
+
 line.classList.add("show")
+
+/* момент когда Эни увидела Ют */
+
+if(line.textContent.includes("Эни увидела её")){
+
+spark.classList.add("flash")
+
+setTimeout(()=>{
+spark.classList.remove("flash")
+},1200)
+
+}
+
 },i*2000)
 
 })
