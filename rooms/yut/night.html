@@ -8,6 +8,28 @@
 
 <style>
 
+  .art{
+margin-bottom:40px;
+}
+
+.art img{
+width:100%;
+max-width:420px;
+border-radius:6px;
+opacity:0.92;
+filter:brightness(0.9) contrast(1.05);
+box-shadow:0 0 40px rgba(0,0,0,0.8);
+}
+  
+.art img{
+animation:fadeArt 4s ease forwards;
+opacity:0;
+}
+
+@keyframes fadeArt{
+to{opacity:0.92}
+}
+  
 body{
 margin:0;
 font-family:'Cormorant Garamond',serif;
@@ -101,6 +123,10 @@ text-decoration:none;
 
 <div class="room">
 
+  <div class="art">
+<img src="yut-night.jpg" alt="Ют в ночном лесу">
+</div>
+  
 <div class="line">
 Ночью Ют почти не говорит.
 </div>
