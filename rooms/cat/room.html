@@ -17,6 +17,7 @@ background:black;
 color:#e8e8e8;
 font-family:'Cormorant Garamond',serif;
 overflow:hidden;
+cursor:none;
 }
 
 /* звезды */
@@ -30,7 +31,7 @@ radial-gradient(white 1px, transparent 1px),
 radial-gradient(white 1px, transparent 1px);
 background-size:80px 80px;
 animation:starsMove 120s linear infinite;
-opacity:0.4;
+opacity:0.35;
 }
 
 @keyframes starsMove{
@@ -45,7 +46,7 @@ position:fixed;
 width:200%;
 height:200%;
 background:radial-gradient(circle at 40% 40%,rgba(255,255,255,0.05),transparent 60%);
-animation:fogMove 60s linear infinite;
+animation:fogMove 70s linear infinite;
 }
 
 @keyframes fogMove{
@@ -54,16 +55,75 @@ animation:fogMove 60s linear infinite;
 100%{transform:translate(0,0)}
 }
 
+/* КОТ */
+
+.cat{
+position:absolute;
+bottom:80px;
+left:50%;
+transform:translateX(-50%);
+opacity:0;
+animation:catAppear 6s forwards;
+animation-delay:5s;
+}
+
+@keyframes catAppear{
+to{opacity:0.9}
+}
+
+/* хвост */
+
+.tail{
+transform-origin:0% 50%;
+animation:tailMove 6s ease-in-out infinite;
+}
+
+@keyframes tailMove{
+0%{transform:rotate(0deg)}
+50%{transform:rotate(8deg)}
+100%{transform:rotate(0deg)}
+}
+
+/* лапа */
+
+.paw{
+transform-origin:50% 50%;
+animation:pawIdle 8s infinite;
+}
+
+@keyframes pawIdle{
+0%{transform:rotate(0deg)}
+50%{transform:rotate(-5deg)}
+100%{transform:rotate(0deg)}
+}
+
+.pawCatch{
+animation:pawCatchMove 0.8s forwards;
+}
+
+@keyframes pawCatchMove{
+0%{transform:rotate(0deg)}
+50%{transform:rotate(-40deg)}
+100%{transform:rotate(0deg)}
+}
+
+/* глаза */
+
+.eye{
+fill:#ffd86a;
+filter:drop-shadow(0 0 6px #ffd86a);
+transition:transform 0.2s;
+}
+
 /* текст */
 
 .container{
 position:absolute;
-top:50%;
+top:40%;
 left:50%;
 transform:translate(-50%,-50%);
 text-align:center;
 max-width:600px;
-padding:30px;
 }
 
 p{
@@ -82,35 +142,7 @@ p:nth-child(4){animation-delay:10s}
 to{opacity:0.9}
 }
 
-/* глаза */
-
-.eyes{
-position:fixed;
-width:60px;
-display:flex;
-justify-content:space-between;
-opacity:0;
-animation:eyesAppear 12s infinite;
-}
-
-.eyes div{
-width:10px;
-height:10px;
-background:#ffd56a;
-border-radius:50%;
-box-shadow:0 0 10px #ffd56a;
-}
-
-@keyframes eyesAppear{
-0%{opacity:0; top:30%; left:20%}
-40%{opacity:0}
-45%{opacity:1}
-60%{opacity:1}
-65%{opacity:0}
-100%{opacity:0}
-}
-
-/* искра Ют */
+/* искра */
 
 .spark{
 position:fixed;
@@ -124,7 +156,7 @@ animation:sparkMove 18s linear infinite;
 
 @keyframes sparkMove{
 0%{top:80%; left:10%}
-50%{top:20%; left:80%}
+50%{top:30%; left:60%}
 100%{top:80%; left:10%}
 }
 
@@ -142,7 +174,7 @@ pointer-events:none;
 }
 
 .show{
-animation:messageShow 3s forwards;
+animation:messageShow 4s forwards;
 }
 
 @keyframes messageShow{
@@ -152,7 +184,7 @@ animation:messageShow 3s forwards;
 100%{opacity:0}
 }
 
-/* кнопка назад */
+/* кнопка */
 
 .back{
 position:fixed;
@@ -178,44 +210,81 @@ opacity:1;
 <div class="stars"></div>
 <div class="fog"></div>
 
-<div class="spark"></div>
-
-<div class="eyes">
-<div></div>
-<div></div>
-</div>
+<div class="spark" id="spark"></div>
 
 <div class="container">
 
 <p>Здесь живёт Кот.</p>
-
 <p>Он не принадлежит этому дому.</p>
-
 <p>Иногда он просто наблюдает.</p>
-
 <p>Иногда — забирает искры.</p>
 
 </div>
 
+<svg class="cat" width="260" height="160" viewBox="0 0 260 160">
+
+<ellipse cx="130" cy="110" rx="80" ry="40" fill="#070707"/>
+<circle cx="70" cy="80" r="30" fill="#070707"/>
+
+<polygon points="50,60 60,35 70,60" fill="#070707"/>
+<polygon points="70,60 85,35 90,60" fill="#070707"/>
+
+<circle class="eye" id="eye1" cx="60" cy="80" r="4"/>
+<circle class="eye" id="eye2" cx="80" cy="80" r="4"/>
+
+<rect class="tail" x="200" y="95" width="60" height="8" rx="4" fill="#070707"/>
+
+<rect class="paw" id="paw" x="120" y="105" width="30" height="8" rx="4" fill="#070707"/>
+
+</svg>
+
 <div class="message" id="catMessage">
-Кот смотрит на тебя.
+Эта искра когда-то принадлежала Ют.
 </div>
 
 <a class="back" href="../../world-map.html">← Вернуться в мир Эни</a>
 
 <script>
 
-document.body.addEventListener("click", function(){
+/* глаза следят за курсором */
 
-let msg = document.getElementById("catMessage")
+document.addEventListener("mousemove", function(e){
 
-msg.classList.remove("show")
-void msg.offsetWidth
-msg.classList.add("show")
+let eyes = document.querySelectorAll(".eye")
+
+eyes.forEach(eye=>{
+let rect = eye.getBoundingClientRect()
+let x = (e.clientX - rect.left)/50
+let y = (e.clientY - rect.top)/50
+eye.style.transform="translate("+x+"px,"+y+"px)"
+})
 
 })
+
+/* кот ловит искру */
+
+setInterval(()=>{
+
+let spark=document.getElementById("spark")
+let paw=document.getElementById("paw")
+let msg=document.getElementById("catMessage")
+
+paw.classList.add("pawCatch")
+
+spark.style.opacity="0"
+
+msg.classList.add("show")
+
+setTimeout(()=>{
+spark.style.opacity="1"
+paw.classList.remove("pawCatch")
+msg.classList.remove("show")
+},2000)
+
+},20000)
 
 </script>
 
 </body>
 </html>
+
