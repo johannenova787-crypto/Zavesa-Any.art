@@ -2,54 +2,26 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Поддержать Эни</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-
 body{
 margin:0;
 font-family:'Cormorant Garamond',serif;
 background:radial-gradient(circle,#fffdf9,#f2e6cf);
-display:flex;
-align-items:flex-start; /* изменили */
-justify-content:center;
 min-height:100vh;
 color:#8c6b2a;
 text-align:center;
-
-/* теперь можно скроллить */
-overflow-y:auto;
 overflow-x:hidden;
-}
-
-/* СВЕТЛЯЧКИ */
-.firefly{
-position:fixed;
-width:8px;
-height:8px;
-background:radial-gradient(circle, #fff6c0, rgba(255,255,255,0));
-border-radius:50%;
-opacity:0.95;
-pointer-events:none;
-
-box-shadow:
-0 0 10px rgba(255,230,150,0.9),
-0 0 25px rgba(255,240,180,0.7);
-
-animation:float linear infinite;
-}
-
-/* разные движения */
-@keyframes float{
-0%{transform:translateY(110vh) translateX(0);}
-100%{transform:translateY(-10vh) translateX(60px);}
 }
 
 .box{
 max-width:600px;
-padding:80px 40px 80px; /* больше воздуха */
+padding:80px 40px 60px;
+margin:auto;
 position:relative;
 z-index:2;
 }
@@ -57,45 +29,83 @@ z-index:2;
 h1{
 letter-spacing:0.18em;
 margin-bottom:30px;
-margin-top:30px;
 }
 
 p{
 font-size:20px;
 line-height:1.8;
-opacity:0.9;
+opacity:0.85;
 }
 
-/* ЭНИ */
-.enie-image{
-margin:30px auto 40px;
-width:300px;
-height:auto;
-opacity:0.98;
+.enie-wrapper{
+position:relative;
+display:inline-block;
+}
 
+.enie-image{
+width:320px;
 border-radius:14px;
 border:1px solid rgba(255,215,120,0.9);
-
 box-shadow:
 0 0 25px rgba(255,215,120,0.9),
 0 0 60px rgba(255,230,150,0.8),
-0 0 120px rgba(255,240,180,0.6);
+0 0 120px rgba(255,240,180,0.7);
+}
+
+/* СВЕТЛЯЧКИ */
+.firefly{
+position:fixed;
+width:8px;
+height:8px;
+border-radius:50%;
+pointer-events:none;
+background:radial-gradient(circle, #fff8d6, rgba(255,255,255,0));
+box-shadow:0 0 10px #fff8d6, 0 0 20px #ffe9a8;
+animation:float 12s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(110vh) translateX(0);opacity:0}
+20%{opacity:1}
+100%{transform:translateY(-10vh) translateX(80px);opacity:0}
+}
+
+/* ВРАЩЕНИЕ ВОКРУГ ЭНИ */
+.orbit{
+position:absolute;
+top:50%;
+left:50%;
+width:260px;
+height:260px;
+margin:-130px;
+animation:spin 12s linear infinite;
+}
+
+.orbit .firefly{
+position:absolute;
+top:0;
+left:50%;
+}
+
+@keyframes spin{
+from{transform:rotate(0deg)}
+to{transform:rotate(360deg)}
 }
 
 .card{
-margin-top:40px;
-padding:24px;
+margin-top:30px;
+padding:20px;
 border:1px solid rgba(190,150,80,0.4);
 border-radius:16px;
-background:rgba(255,255,255,0.65);
+background:rgba(255,255,255,0.6);
 font-size:22px;
 letter-spacing:0.1em;
 }
 
 .back{
-margin-top:50px;
+margin-top:40px;
 display:inline-block;
-padding:14px 30px;
+padding:12px 28px;
 border-radius:30px;
 border:1px solid rgba(190,150,80,0.4);
 background:rgba(255,255,255,0.4);
@@ -111,29 +121,24 @@ color:white;
 }
 
 </style>
-
-<link rel="stylesheet" href="/style-mobile.css">
 </head>
 
 <body>
-
-<!-- МНОГО СВЕТЛЯЧКОВ -->
-<div class="firefly" style="left:5%; animation-duration:12s;"></div>
-<div class="firefly" style="left:15%; animation-duration:9s;"></div>
-<div class="firefly" style="left:25%; animation-duration:11s;"></div>
-<div class="firefly" style="left:35%; animation-duration:8s;"></div>
-<div class="firefly" style="left:45%; animation-duration:10s;"></div>
-<div class="firefly" style="left:55%; animation-duration:13s;"></div>
-<div class="firefly" style="left:65%; animation-duration:7s;"></div>
-<div class="firefly" style="left:75%; animation-duration:14s;"></div>
-<div class="firefly" style="left:85%; animation-duration:9s;"></div>
-<div class="firefly" style="left:95%; animation-duration:12s;"></div>
 
 <div class="box">
 
 <h1>Поддержать Эни</h1>
 
-<img src="enie.jpg" alt="Эни" class="enie-image">
+<div class="enie-wrapper">
+<img src="enie.jpg" class="enie-image">
+
+<div class="orbit">
+<div class="firefly"></div>
+<div class="firefly" style="left:70%"></div>
+<div class="firefly" style="left:30%"></div>
+</div>
+
+</div>
 
 <p>
 Если этот мир откликнулся в тебе —
@@ -157,8 +162,41 @@ color:white;
 <a href="/Zavesa-Any.art/site/index.html" class="back">
 вернуться на сайт
 </a>
-  
+
 </div>
+
+<script>
+// СВЕТЛЯЧКИ С КУРСОРОМ
+const count = 25;
+for(let i=0;i<count;i++){
+  let f = document.createElement('div');
+  f.className='firefly';
+  f.style.left = Math.random()*100+'vw';
+  f.style.animationDuration = (8+Math.random()*6)+'s';
+  document.body.appendChild(f);
+}
+
+// РЕАКЦИЯ НА КУРСОР
+let mouseX = 0, mouseY = 0;
+document.addEventListener('mousemove', e=>{
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+setInterval(()=>{
+  const f = document.createElement('div');
+  f.className='firefly';
+  f.style.left = mouseX+'px';
+  f.style.top = mouseY+'px';
+  document.body.appendChild(f);
+
+  setTimeout(()=>f.remove(),2000);
+},150);
+</script>
+
+</body>
+</html>
+
 
 </body>
 </html>
