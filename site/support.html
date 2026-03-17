@@ -15,19 +15,39 @@ background:radial-gradient(circle,#fffdf9,#f2e6cf);
 display:flex;
 align-items:center;
 justify-content:center;
-height:100vh;
+min-height:100vh;
 color:#8c6b2a;
 text-align:center;
+overflow:hidden;
+}
+
+/* СВЕТЛЯЧКИ */
+.firefly{
+position:fixed;
+width:6px;
+height:6px;
+background:radial-gradient(circle, #fff8d6, rgba(255,255,255,0));
+border-radius:50%;
+opacity:0.8;
+animation:float 10s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh) translateX(0);}
+100%{transform:translateY(-10vh) translateX(40px);}
 }
 
 .box{
 max-width:600px;
-padding:40px;
+padding:60px 40px 40px; /* добавили отступ сверху */
+position:relative;
+z-index:2;
 }
 
 h1{
 letter-spacing:0.18em;
 margin-bottom:30px;
+margin-top:20px; /* чуть опустили */
 }
 
 p{
@@ -36,19 +56,36 @@ line-height:1.8;
 opacity:0.85;
 }
 
-/* БЛОК ДЛЯ ЭНИ */
+/* БЛОК ЭНИ */
 .enie-image{
 margin:20px auto 30px;
-width:280px;
+width:300px;
 height:auto;
-opacity:0.95;
+opacity:0.97;
 
-border-radius:12px;
-border:1px solid rgba(255, 240, 200, 0.6);
+border-radius:14px;
+border:1px solid rgba(255,215,120,0.8);
 
+/* золотое сияние */
 box-shadow:
-0 0 25px rgba(255, 230, 180, 0.6),
-0 0 60px rgba(255, 240, 200, 0.4);
+0 0 20px rgba(255,215,120,0.8),
+0 0 50px rgba(255,230,150,0.7),
+0 0 90px rgba(255,240,180,0.6);
+
+position:relative;
+}
+
+/* ИСКРЫ ВОКРУГ КАРТИНКИ */
+.enie-image::after{
+content:'';
+position:absolute;
+top:-20px;
+left:-20px;
+right:-20px;
+bottom:-20px;
+background:radial-gradient(circle, rgba(255,230,150,0.2), transparent 70%);
+filter:blur(20px);
+z-index:-1;
 }
 
 .card{
@@ -86,11 +123,18 @@ color:white;
 
 <body>
 
+<!-- СВЕТЛЯЧКИ -->
+<div class="firefly" style="left:10%; animation-duration:12s;"></div>
+<div class="firefly" style="left:25%; animation-duration:9s;"></div>
+<div class="firefly" style="left:40%; animation-duration:11s;"></div>
+<div class="firefly" style="left:60%; animation-duration:8s;"></div>
+<div class="firefly" style="left:75%; animation-duration:10s;"></div>
+<div class="firefly" style="left:85%; animation-duration:13s;"></div>
+
 <div class="box">
 
 <h1>Поддержать Эни</h1>
 
-<!-- ВОТ СЮДА СТАВИТСЯ ЭНИ -->
 <img src="enie.jpg" alt="Эни" class="enie-image">
 
 <p>
