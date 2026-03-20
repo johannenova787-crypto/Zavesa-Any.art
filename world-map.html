@@ -124,7 +124,27 @@ pointer-events:none;
 text-align:center;
 color:#f2e7c8;
 }
+  
+  <div id="worldMemory">
+Мир запомнил, что ты был здесь.
+</div>
+  
 
+  #worldMemory{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:34px;
+letter-spacing:0.14em;
+opacity:0;
+transition:3s;
+pointer-events:none;
+text-align:center;
+color:#f5e9c9;
+text-shadow:0 0 30px rgba(255,230,160,0.6);
+}
+  
 </style>
   <link rel="stylesheet" href="/style-mobile.css">
 </head>
@@ -229,6 +249,45 @@ color:#f2e7c8;
 
 <script>
 
+  function worldAwakening(){
+
+const text=document.getElementById("worldMemory")
+
+/* вспыхивают линии */
+
+document.querySelectorAll('.line').forEach(l=>{
+l.style.opacity=1
+l.style.boxShadow="0 0 20px rgba(255,230,160,0.9)"
+})
+
+/* порталы усиливают свет */
+
+document.querySelectorAll('.portal').forEach(p=>{
+p.style.transform="scale(1.35)"
+p.style.boxShadow="0 0 120px rgba(255,240,180,1)"
+})
+
+/* появляется строка */
+
+setTimeout(()=>{
+text.style.opacity=1
+},600)
+
+/* затем всё мягко возвращается */
+
+setTimeout(()=>{
+
+text.style.opacity=0
+
+document.querySelectorAll('.portal').forEach(p=>{
+p.style.transform=""
+p.style.boxShadow=""
+})
+
+},6000)
+
+}
+  
 /* звезды */
 
 for(let i=0;i<200;i++){
@@ -314,6 +373,7 @@ document.getElementById('ael').classList.add('show')
 
 activateLines()
 checkSecrets()
+  
 
 /* переходы */
 
@@ -373,6 +433,13 @@ localStorage.setItem('eniWhisper','1')
 
 }
 
+  if(visited.length>=6 && !localStorage.getItem('eniWorldAwakened')){
+
+setTimeout(worldAwakening,1200)
+
+localStorage.setItem('eniWorldAwakened','1')
+
+}
 
 </script>
   
