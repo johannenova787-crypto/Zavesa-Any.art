@@ -125,9 +125,7 @@ text-align:center;
 color:#f2e7c8;
 }
   
-  <div id="worldMemory">
-Мир запомнил, что ты был здесь.
-</div>
+
   
 
   #worldMemory{
@@ -434,7 +432,9 @@ localStorage.setItem('eniWhisper','1')
 }
 
   if(visited.length>=6 && !localStorage.getItem('eniWorldAwakened')){
-
+    
+localStorage.removeItem('eniWorldAwakened')
+    
 setTimeout(worldAwakening,1200)
 
 localStorage.setItem('eniWorldAwakened','1')
@@ -449,6 +449,9 @@ localStorage.setItem('eniWorldAwakened','1')
 </div>
 
 
+</div>
+  <div id="worldMemory">
+Мир запомнил, что ты был здесь.
 </div>
 </body>
 </html>
