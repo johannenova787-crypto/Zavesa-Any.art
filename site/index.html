@@ -59,6 +59,7 @@ justify-content:center;
 text-align:center;
 padding:40px 20px;
 }
+  
 
 .title{
 position:relative;
@@ -164,6 +165,7 @@ gap:40px;
 flex-wrap:wrap;
 justify-content:center;
 }
+  
 
 .button{
 
@@ -188,6 +190,14 @@ transform:scale(1.07);
 box-shadow:0 0 40px rgba(255,220,160,0.6);
 }
 
+  
+<div class="buy-message" id="buyMessage">
+Чтобы взять книгу с собой,<br>
+тебе понадобится сделать один шаг во внешний мир.<br><br>
+Это быстро.<br>
+И ты сразу вернёшься обратно.
+</div>
+  
 /* О книге */
 
 .about-book{
@@ -809,6 +819,29 @@ calc(-60px + 120px * var(--y))
 }
 
 }
+
+  .buy-message{
+
+opacity:0;
+transform:translateY(20px);
+
+transition:1.6s ease;
+
+margin-top:40px;
+
+font-size:20px;
+line-height:1.8;
+letter-spacing:0.08em;
+
+color:#8c6b2a;
+
+}
+
+.buy-message.show{
+opacity:1;
+transform:translateY(0);
+}
+  
   
 </style>
 <link rel="stylesheet" href="/style-mobile.css">
@@ -1171,7 +1204,21 @@ setTimeout(()=>p.remove(),3000);
 }
 
 function goBuy(){
-window.location.href="buy.html";
+
+// показываем сообщение
+const msg = document.getElementById("buyMessage");
+
+msg.classList.add("show");
+
+  
+document.body.style.opacity="0";
+  
+// через 3 секунды — переход
+setTimeout(()=>{
+  
+window.location.href="https://boosty.to/ТВОЙ_НИК/posts/ID";
+},3000);
+
 }
 
 
