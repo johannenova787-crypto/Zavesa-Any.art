@@ -28,6 +28,35 @@ scroll-behavior:smooth;
 
 background:radial-gradient(circle at 50% 0%,#fffdf9,#f2e6cf);
 background-size:120% 120%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 animation:goldenBreath 18s ease-in-out infinite;
 }
 
@@ -1006,8 +1035,15 @@ transform:translate(-50%,-20px);
 
 <script>
 
+window.addEventListener("pageshow", () => {
+document.body.style.filter = "none";
+document.body.style.opacity = "1";
+});
 
-
+  
+window.addEventListener("load", () => {
+document.body.style.filter = "none";
+});
 
 
 const slides=document.querySelectorAll(".slide");
@@ -1235,21 +1271,21 @@ const msg = document.getElementById("buyMessage");
 
 msg.classList.add("show");
 
-/* сначала лёгкое размытие */
+/* даём время прочитать */
 setTimeout(()=>{
 document.body.style.filter="blur(6px)";
-},800);
+},2500);
 
-/* затем затухание */
+/* затем мягкое затухание */
 setTimeout(()=>{
 document.body.style.transition="2s";
 document.body.style.opacity="0";
-},1400);
+},4000);
 
 /* переход */
 setTimeout(()=>{
 window.location.href="https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae";
-},3200);
+},5500);
 }
 
 
@@ -1392,6 +1428,12 @@ const dust=document.createElement("div");
 dust.className="dust-burst";
 
 dust.style.left=(window.innerWidth/2)+"px";
+
+
+
+
+
+  
 dust.style.top=(window.innerHeight/2)+"px";
 
 dust.style.setProperty("--x",Math.random());
