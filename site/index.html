@@ -190,13 +190,7 @@ transform:scale(1.07);
 box-shadow:0 0 40px rgba(255,220,160,0.6);
 }
 
-  
-<div class="buy-message" id="buyMessage">
-Чтобы взять книгу с собой,<br>
-тебе понадобится сделать один шаг во внешний мир.<br><br>
-Это быстро.<br>
-И ты сразу вернёшься обратно.
-</div>
+
   
 /* О книге */
 
@@ -841,6 +835,34 @@ color:#8c6b2a;
 opacity:1;
 transform:translateY(0);
 }
+
+  .buy-message{
+position:fixed;
+top:60%;
+left:50%;
+transform:translate(-50%,0);
+
+max-width:600px;
+text-align:center;
+
+opacity:0;
+transition:1.6s ease;
+
+font-size:20px;
+line-height:1.8;
+letter-spacing:0.08em;
+
+color:#8c6b2a;
+}
+
+.buy-message.show{
+opacity:1;
+transform:translate(-50%,-20px);
+}
+  
+setTimeout(()=>{
+document.body.style.filter="blur(6px)";
+},1000);
   
   
 </style>
@@ -848,6 +870,8 @@ transform:translateY(0);
 </head>
 
 <body>
+
+  
 
 <section class="hero">
 
@@ -915,7 +939,15 @@ transform:translateY(0);
 Взять книгу с собой
 </button>
 
+  
+<div class="buy-message" id="buyMessage">
+Чтобы взять книгу с собой,<br>
+тебе понадобится сделать один шаг во внешний мир.<br><br>
+Это быстро.<br>
+И ты сразу вернёшься обратно.
+  
 </div>
+
 
 </section>
 
@@ -1205,19 +1237,21 @@ setTimeout(()=>p.remove(),3000);
 
 function goBuy(){
 
-// показываем сообщение
 const msg = document.getElementById("buyMessage");
 
+/* показываем текст */
 msg.classList.add("show");
 
-  
-document.body.style.opacity="0";
-  
-// через 3 секунды — переход
+/* затем мягкое затухание */
 setTimeout(()=>{
-  
-window.location.href="https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae;
-},3000);
+document.body.style.transition="2s";
+document.body.style.opacity="0";
+},1200);
+
+/* потом переход */
+setTimeout(()=>{
+https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae;
+},3200);
 
 }
 
