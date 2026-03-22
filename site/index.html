@@ -923,12 +923,12 @@ transform:translate(-50%,-20px);
 
 
 <div class="buttons">
-  <button ...>Поддержать Эни</button>
-  <button ...>Нырнуть глубже</button>
-  <button ...>Взять книгу с собой</button>
+<button class="button" onclick="supportEni()">Поддержать Эни</button>
+<button class="button" onclick="goDeeper()">Нырнуть глубже</button>
+<button class="button" onclick="goBuy()">Взять книгу с собой</button>
 </div>
 
-<div class="buy-message" id="buyMessage">
+
 ...
 </div>
   
@@ -1006,9 +1006,7 @@ transform:translate(-50%,-20px);
 
 <script>
 
-setTimeout(()=>{
-document.body.style.filter="blur(6px)";
-},1000);
+
 
 
 
@@ -1237,14 +1235,21 @@ const msg = document.getElementById("buyMessage");
 
 msg.classList.add("show");
 
+/* сначала лёгкое размытие */
+setTimeout(()=>{
+document.body.style.filter="blur(6px)";
+},800);
+
+/* затем затухание */
 setTimeout(()=>{
 document.body.style.transition="2s";
 document.body.style.opacity="0";
-},1600);
+},1400);
 
+/* переход */
 setTimeout(()=>{
 window.location.href="https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae";
-},3600);
+},3200);
 }
 
 
