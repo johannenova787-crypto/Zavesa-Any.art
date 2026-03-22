@@ -860,9 +860,7 @@ opacity:1;
 transform:translate(-50%,-20px);
 }
   
-setTimeout(()=>{
-document.body.style.filter="blur(6px)";
-},1000);
+
   
   
 </style>
@@ -925,19 +923,15 @@ document.body.style.filter="blur(6px)";
 
 
 <div class="buttons">
+  <button ...>Поддержать Эни</button>
+  <button ...>Нырнуть глубже</button>
+  <button ...>Взять книгу с собой</button>
+</div>
+
+<div class="buy-message" id="buyMessage">
+...
+</div>
   
-
-<button class="button" onclick="supportEni()">
-Поддержать Эни
-</button>
-
-<button class="button" onclick="goDeeper()">
-Нырнуть глубже
-</button>
-
-<button class="button" onclick="goBuy()">
-Взять книгу с собой
-</button>
 
   
 <div class="buy-message" id="buyMessage">
@@ -1008,10 +1002,13 @@ document.body.style.filter="blur(6px)";
 
 <div class="page-turn" id="pageTurn"></div>
 
-  
+
+
 <script>
 
-
+setTimeout(()=>{
+document.body.style.filter="blur(6px)";
+},1000);
 
 
 
@@ -1236,23 +1233,18 @@ setTimeout(()=>p.remove(),3000);
 }
 
 function goBuy(){
-
 const msg = document.getElementById("buyMessage");
 
-/* показываем текст */
 msg.classList.add("show");
 
-/* затем мягкое затухание */
 setTimeout(()=>{
 document.body.style.transition="2s";
 document.body.style.opacity="0";
-},1200);
+},1600);
 
-/* потом переход */
 setTimeout(()=>{
-https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae;
-},3200);
-
+window.location.href="https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae";
+},3600);
 }
 
 
