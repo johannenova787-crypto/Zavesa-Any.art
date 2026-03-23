@@ -30,33 +30,6 @@ background:radial-gradient(circle at 50% 0%,#fffdf9,#f2e6cf);
 background-size:120% 120%;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 animation:goldenBreath 18s ease-in-out infinite;
 }
 
@@ -958,11 +931,10 @@ transform:translate(-50%,-20px);
 </div>
 
 
-...
-</div>
-  
 
   
+
+<div class="buy-message" id="buyMessage">
 Чтобы взять книгу с собой,<br>
 тебе понадобится сделать один шаг во внешний мир.<br><br>
 
@@ -970,6 +942,7 @@ transform:translate(-50%,-20px);
 Дверь останется открытой.<br><br>
 
 И ты сможешь вернуться.
+</div>
 
 
 </section>
@@ -1041,7 +1014,7 @@ document.body.style.opacity = "1";
 });
 
   
-window.addEventListener("load", () => {
+
 document.body.style.filter = "none";
 });
 
@@ -1295,7 +1268,6 @@ document.body.style.filter = "none";
 
 }
 
- window.addEventListener("focus", () => {
 
 document.body.style.transition = "0.6s";
 document.body.style.opacity = "0";
