@@ -963,13 +963,13 @@ transform:translate(-50%,-20px);
   
 
   
-<div class="buy-message" id="buyMessage">
 Чтобы взять книгу с собой,<br>
 тебе понадобится сделать один шаг во внешний мир.<br><br>
-Это быстро.<br>
-И ты сразу вернёшься обратно.
-  
-</div>
+
+Не бойся.<br>
+Дверь останется открытой.<br><br>
+
+И ты сможешь вернуться.
 
 
 </section>
@@ -1267,26 +1267,44 @@ setTimeout(()=>p.remove(),3000);
 }
 
 function goBuy(){
-const msg = document.getElementById("buyMessage");
 
+const msg = document.getElementById("buyMessage");
 msg.classList.add("show");
 
-/* даём время прочитать */
+/* мягкое замедление мира */
 setTimeout(()=>{
-document.body.style.filter="blur(6px)";
+document.body.style.transition = "2s";
+document.body.style.filter = "blur(4px)";
 },2500);
 
-/* затем мягкое затухание */
+/* лёгкое затухание */
 setTimeout(()=>{
-document.body.style.transition="2s";
-document.body.style.opacity="0";
-},4000);
+document.body.style.opacity = "0.4";
+},3800);
 
-/* переход */
+/* открываем внешний мир в новой вкладке */
 setTimeout(()=>{
-window.location.href="https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae";
-},5500);
+window.open("https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae", "_blank");
+},4200);
+
+/* возвращаем свет на странице (она ждёт) */
+setTimeout(()=>{
+document.body.style.opacity = "1";
+document.body.style.filter = "none";
+},5200);
+
 }
+
+ window.addEventListener("focus", () => {
+
+document.body.style.transition = "0.6s";
+document.body.style.opacity = "0";
+
+setTimeout(()=>{
+document.body.style.opacity = "1";
+},300);
+
+}); 
 
 
 function createGoldDust(){
