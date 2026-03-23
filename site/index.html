@@ -1008,280 +1008,206 @@ transform:translate(-50%,-20px);
 
 <script>
 
-window.addEventListener("pageshow", () => {
-document.body.style.filter = "none";
-document.body.style.opacity = "1";
-});
+// --- БАЗОВЫЕ СОБЫТИЯ ---
 
-  
+window.addEventListener("pageshow", () => {
+  document.body.style.filter = "none";
+  document.body.style.opacity = "1";
+});
 
 window.addEventListener("load", () => {
   document.body.style.filter = "none";
 });
 
+// --- СЛАЙДЕР ---
 
-const slides=document.querySelectorAll(".slide");
+const slides = document.querySelectorAll(".slide");
 
-let current=0;
-let isAnimating=false;
+let current = 0;
+let isAnimating = false;
 
 function nextSlide(){
+  if(isAnimating) return;
 
-if(isAnimating)return;
+  isAnimating = true;
 
-isAnimating=true;
+  const currentSlide = slides[current];
+  const nextIndex = (current+1) % slides.length;
+  const upcomingSlide = slides[nextIndex];
 
-const currentSlide=slides[current];
-const nextIndex=(current+1)%slides.length;
-const upcomingSlide=slides[nextIndex];
+  currentSlide.classList.add("flip");
 
-currentSlide.classList.add("flip");
+  setTimeout(()=>{
+    currentSlide.classList.remove("active","flip");
+    upcomingSlide.classList.add("active");
 
-setTimeout(()=>{
+    current = nextIndex;
+    isAnimating = false;
 
-currentSlide.classList.remove("active","flip");
-upcomingSlide.classList.add("active");
-
-current=nextIndex;
-isAnimating=false;
-
-setTimeout(nextSlide,7000);
-
-},2000);
-
+    setTimeout(nextSlide,7000);
+  },2000);
 }
 
 setTimeout(nextSlide,7000);
+
+// --- SCROLL ---
 
 function scrollToAbout(){
-document.getElementById("about").scrollIntoView({behavior:"smooth"});
+  document.getElementById("about").scrollIntoView({behavior:"smooth"});
 }
 
-let deeperStarted=false;
+// --- ГЛУБЖЕ ---
+
+let deeperStarted = false;
 
 function goDeeper(){
+  if(deeperStarted) return;
+  deeperStarted = true;
 
-if(deeperStarted) return;
-deeperStarted=true;
+  createPageParticles();
 
-createPageParticles();
-
-setTimeout(()=>{
-createBirds();
-},400);
-
+  setTimeout(()=>{
+    createBirds();
+  },400);
 }
 
-
+// --- ПОРТАЛ ---
 
 document.getElementById("portal").addEventListener("click", function(){
-
-if(!this.classList.contains("open")) return;
+  if(!this.classList.contains("open")) return;
 
   releaseFinalBirds();
 
-/* лёгкое затухание страницы */
+  document.body.style.transition="2.5s";
+  document.body.style.opacity="0";
 
-document.body.style.transition="2.5s";
-document.body.style.opacity="0";
-
-/* через мгновение открывается Мир Эни */
-
-setTimeout(()=>{
-
-window.location.href="../world-map.html";
-
-},2200);
-
+  setTimeout(()=>{
+    window.location.href="../world-map.html";
+  },2200);
 });
 
-  
+// --- ПТИЦЫ ---
+
 function createBirds(){
 
-const slider=document.getElementById("slider");
- const center = slider.offsetWidth / 2;
-  
+  const slider=document.getElementById("slider");
+  const center = slider.offsetWidth / 2;
 
-const eni=document.getElementById("eniWord");
-const portal=document.getElementById("portal");
+  const eni=document.getElementById("eniWord");
+  const portal=document.getElementById("portal");
 
-const birds=[];
+  const birds=[];
 
-/* создаём птиц из центра книги */
+  for(let i=0;i<16;i++){
+    const bird=document.createElement("div");
+    bird.className="bird";
 
-for(let i=0;i<16;i++){
+    bird.innerHTML=
+    '<svg viewBox="0 0 64 32"><path d="M2 18 Q16 4 32 18 Q48 4 62 18 Q48 10 32 22 Q16 10 2 18Z"/></svg>';
 
-const bird=document.createElement("div");
-bird.className="bird";
+    bird.style.left=center+"px";
+    bird.style.bottom="60px";
 
-bird.innerHTML=
-'<svg viewBox="0 0 64 32"><path d="M2 18 Q16 4 32 18 Q48 4 62 18 Q48 10 32 22 Q16 10 2 18Z"/></svg>';
+    slider.appendChild(bird);
+    birds.push(bird);
+  }
 
-bird.style.left=center+"px";
-bird.style.bottom="60px";
+  setTimeout(()=>{
+    birds.forEach((b,i)=>{
+      const angle=(i/16)*Math.PI*2;
+      const r=160;
 
-slider.appendChild(bird);
-birds.push(bird);
+      b.style.transition="2.6s ease";
+      b.style.left=(center + Math.cos(angle)*r)+"px";
+      b.style.bottom=(180 + Math.sin(angle)*r)+"px";
+    });
+  },600);
 
+  setTimeout(()=>{
+    const pos=[
+      [-150,0],[-110,-30],[-70,0],[-110,30],
+      [-20,-30],[-20,30],[20,-30],[20,30],
+      [70,-30],[110,-30],[90,0],[70,30],[110,30]
+    ];
+
+    birds.forEach((b,i)=>{
+      if(!pos[i]) return;
+
+      b.style.transition="2s";
+      b.style.left=(center + pos[i][0])+"px";
+      b.style.bottom=(300 + pos[i][1])+"px";
+    });
+  },3200);
+
+  setTimeout(()=> eni.classList.add("show"),4400);
+
+  setTimeout(()=>{
+    birds.forEach(b=>{
+      for(let i=0;i<8;i++){
+        const d=document.createElement("div");
+        d.className="dust-burst";
+
+        d.style.left=b.style.left;
+        d.style.bottom=b.style.bottom;
+
+        d.style.setProperty("--x",Math.random());
+        d.style.setProperty("--y",Math.random());
+
+        slider.appendChild(d);
+        setTimeout(()=>d.remove(),1800);
+      }
+      b.remove();
+    });
+  },5200);
+
+  setTimeout(()=> eni.classList.remove("show"),6200);
+  setTimeout(()=> portal.classList.add("open"),7200);
 }
 
-/* птицы разлетаются */
+// --- СТРАНИЦЫ ---
 
-setTimeout(()=>{
-
-birds.forEach((b,i)=>{
-
-const angle=(i/16)*Math.PI*2;
-const r=160;
-
-b.style.transition="2.6s ease";
-
-b.style.left=(center + Math.cos(angle)*r)+"px";
-b.style.bottom=(180 + Math.sin(angle)*r)+"px";
-
-});
-
-},600);
-
-/* формируют слово ЭНИ */
-
-setTimeout(()=>{
-
-const pos=[
-[-150,0],[-110,-30],[-70,0],[-110,30],
-[-20,-30],[-20,30],[20,-30],[20,30],
-[70,-30],[110,-30],[90,0],[70,30],[110,30]
-];
-
-birds.forEach((b,i)=>{
-
-if(!pos[i]) return;
-
-b.style.transition="2s";
-
-b.style.left=(center + pos[i][0])+"px";
-b.style.bottom=(300 + pos[i][1])+"px";
-
-});
-
-},3200);
-
-/* появляется слово */
-
-setTimeout(()=>{
-
-eni.classList.add("show");
-
-},4400);
-
-/* птицы превращаются в золотую пыль */
-
-setTimeout(()=>{
-
-birds.forEach(b=>{
-
-
-
-for(let i=0;i<8;i++){
-
-const d=document.createElement("div");
-d.className="dust-burst";
-
-d.style.left=b.style.left;
-d.style.bottom=b.style.bottom;
-
-d.style.setProperty("--x",Math.random());
-d.style.setProperty("--y",Math.random());
-
-slider.appendChild(d);
-
-setTimeout(()=>d.remove(),1800);
-
-}
-
-b.remove();
-
-});
-
-},5200);
-
-/* слово растворяется */
-
-setTimeout(()=>{
-eni.classList.remove("show");
-},6200);
-
-/* открывается портал */
-
-setTimeout(()=>{
-portal.classList.add("open");
-},7200);
-
-}
-
-  
 function createPageParticles(){
+  const slider = document.getElementById("slider");
 
-const slider = document.getElementById("slider");
+  for(let i=0;i<20;i++){
+    const p = document.createElement("div");
+    p.className="page-particle";
 
-for(let i=0;i<20;i++){
+    p.style.left=Math.random()*100+"%";
+    p.style.bottom="40px";
 
-const p = document.createElement("div");
-p.className="page-particle";
-
-p.style.left=Math.random()*100+"%";
-p.style.bottom="40px";
-
-slider.appendChild(p);
-
-setTimeout(()=>p.remove(),3000);
-
+    slider.appendChild(p);
+    setTimeout(()=>p.remove(),3000);
+  }
 }
 
-}
+// --- ПОКУПКА ---
 
 function goBuy(){
 
-const msg = document.getElementById("buyMessage");
-msg.classList.add("show");
+  const msg = document.getElementById("buyMessage");
+  msg.classList.add("show");
 
-/* мягкое замедление мира */
-setTimeout(()=>{
-document.body.style.transition = "2s";
-document.body.style.filter = "blur(4px)";
-},2500);
+  setTimeout(()=>{
+    document.body.style.transition = "2s";
+    document.body.style.filter = "blur(4px)";
+  },2500);
 
-/* лёгкое затухание */
-setTimeout(()=>{
-document.body.style.opacity = "0.4";
-},3800);
+  setTimeout(()=>{
+    document.body.style.opacity = "0.4";
+  },3800);
 
-/* открываем внешний мир в новой вкладке */
-setTimeout(()=>{
-window.open("https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae", "_blank");
-},4200);
-
- 
-
-/* возвращаем свет на странице (она ждёт) */
-setTimeout(()=>{
-document.body.style.opacity = "1";
-document.body.style.filter = "none";
-},5200);
-
-}
-
-   
-  window.addEventListener("focus", () => {
-  document.body.style.transition = "1s";
-  document.body.style.opacity = "0";
+  setTimeout(()=>{
+    window.open("https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae", "_blank");
+  },4200);
 
   setTimeout(()=>{
     document.body.style.opacity = "1";
-  },400);
-});
+    document.body.style.filter = "none";
+  },5200);
+}
 
-  
+// --- FOCUS (ОДИН, ЧИСТЫЙ) ---
 
 window.addEventListener("focus", () => {
   document.body.style.transition = "0.6s";
@@ -1292,176 +1218,118 @@ window.addEventListener("focus", () => {
   },300);
 });
 
-
-function createGoldDust(){
-
-const container=document.querySelector(".excerpt-inner");
-
-for(let i=0;i<12;i++){
-
-const dust=document.createElement("div");
-
-dust.className="gold-particle";
-
-dust.style.left=Math.random()*100+"%";
-dust.style.bottom="40px";
-
-container.appendChild(dust);
-
-setTimeout(()=>dust.remove(),2000);
-
-}
-
-}
+// --- ПЫЛЬ ---
 
 window.addEventListener("scroll",createScrollDust);
 
 function createScrollDust(){
+  if(Math.random()>0.25)return;
 
-if(Math.random()>0.25)return;
+  const dust=document.createElement("div");
+  dust.className="scroll-dust";
 
-const dust=document.createElement("div");
+  dust.style.left=Math.random()*window.innerWidth+"px";
+  dust.style.top=window.scrollY+window.innerHeight*Math.random()+"px";
 
-dust.className="scroll-dust";
-
-dust.style.left=Math.random()*window.innerWidth+"px";
-dust.style.top=window.scrollY+window.innerHeight*Math.random()+"px";
-
-document.body.appendChild(dust);
-
-setTimeout(()=>dust.remove(),3000);
-
+  document.body.appendChild(dust);
+  setTimeout(()=>dust.remove(),3000);
 }
+
+// --- КУРСОР ---
 
 document.addEventListener("mousemove",(e)=>{
+  const glow=document.createElement("div");
+  glow.className="cursor-glow";
 
-const glow=document.createElement("div");
+  glow.style.left=e.clientX+"px";
+  glow.style.top=e.clientY+"px";
 
-glow.className="cursor-glow";
-
-glow.style.left=e.clientX+"px";
-glow.style.top=e.clientY+"px";
-
-document.body.appendChild(glow);
-
-setTimeout(()=>glow.remove(),800);
-
+  document.body.appendChild(glow);
+  setTimeout(()=>glow.remove(),800);
 });
+
+// --- PDF ---
 
 function openExcerpt(){
+  const page = document.getElementById("pageTurn");
+  const room = document.getElementById("pdfRoom");
+  const frame = document.getElementById("pdfFrame");
 
-const page = document.getElementById("pageTurn");
-const room = document.getElementById("pdfRoom");
-const frame = document.getElementById("pdfFrame");
+  page.classList.add("open");
 
-/* перелистываем страницу */
-
-page.classList.add("open");
-
-/* после перелистывания появляется PDF */
-
-setTimeout(()=>{
-frame.src="../excerpt/excerpt.pdf#view=FitH";
-room.classList.add("open");
-},1500);
-
+  setTimeout(()=>{
+    frame.src="../excerpt/excerpt.pdf#view=FitH";
+    room.classList.add("open");
+  },1500);
 }
-
 
 function closeExcerpt(){
+  const room = document.getElementById("pdfRoom");
+  const frame = document.getElementById("pdfFrame");
+  const page = document.getElementById("pageTurn");
 
-const room = document.getElementById("pdfRoom");
-const frame = document.getElementById("pdfFrame");
-const page = document.getElementById("pageTurn");
+  room.classList.remove("open");
+  page.classList.remove("open");
 
-room.classList.remove("open");
-page.classList.remove("open");
-
-frame.src="";
-  
-
-  
+  frame.src="";
 }
-  const images=document.querySelectorAll(".slide img");
+
+// --- КАРТИНКИ ---
+
+const images=document.querySelectorAll(".slide img");
 
 images.forEach(img=>{
-
-if(img.complete){
-img.classList.add("loaded");
-}else{
-
-img.addEventListener("load",()=>{
-img.classList.add("loaded");
+  if(img.complete){
+    img.classList.add("loaded");
+  }else{
+    img.addEventListener("load",()=>{
+      img.classList.add("loaded");
+    });
+  }
 });
 
-}
-
-});
+// --- ФИНАЛЬНЫЕ ПТИЦЫ ---
 
 function releaseFinalBirds(){
+  for(let i=0;i<8;i++){
+    const bird=document.createElement("div");
+    bird.className="bird";
 
-for(let i=0;i<8;i++){
+    bird.innerHTML =
+    '<svg viewBox="0 0 64 32"><path d="M2 18 Q16 4 32 18 Q48 4 62 18 Q48 10 32 22 Q16 10 2 18Z"/></svg>';
 
-const bird=document.createElement("div");
-bird.className="bird";
+    bird.style.left=(window.innerWidth/2)+"px";
+    bird.style.bottom="40px";
 
-bird.innerHTML =
-'<svg viewBox="0 0 64 32"><path d="M2 18 Q16 4 32 18 Q48 4 62 18 Q48 10 32 22 Q16 10 2 18Z"/></svg>';
-
-bird.style.left=(window.innerWidth/2)+"px";
-bird.style.bottom="40px";
-
-document.body.appendChild(bird);
-
-setTimeout(()=>bird.remove(),8000);
-
+    document.body.appendChild(bird);
+    setTimeout(()=>bird.remove(),8000);
+  }
 }
 
-}
-  
- function supportEni(){
+// --- SUPPORT ---
 
-const hero=document.querySelector(".hero");
+function supportEni(){
 
-/* создаём золотую вспышку */
+  for(let i=0;i<40;i++){
+    const dust=document.createElement("div");
+    dust.className="dust-burst";
 
-for(let i=0;i<40;i++){
+    dust.style.left=(window.innerWidth/2)+"px";
+    dust.style.top=(window.innerHeight/2)+"px";
 
-const dust=document.createElement("div");
-dust.className="dust-burst";
+    dust.style.setProperty("--x",Math.random());
+    dust.style.setProperty("--y",Math.random());
 
-dust.style.left=(window.innerWidth/2)+"px";
+    document.body.appendChild(dust);
+    setTimeout(()=>dust.remove(),1800);
+  }
 
+  document.body.style.transition="1.6s";
+  document.body.style.opacity="0";
 
-
-
-
-  
-dust.style.top=(window.innerHeight/2)+"px";
-
-dust.style.setProperty("--x",Math.random());
-dust.style.setProperty("--y",Math.random());
-
-document.body.appendChild(dust);
-
-setTimeout(()=>dust.remove(),1800);
-
+  setTimeout(()=>{
+    window.location.href="support.html";
+  },1400);
 }
 
-/* мягкое затухание страницы */
-
-document.body.style.transition="1.6s";
-document.body.style.opacity="0";
-
-/* переход */
-
-setTimeout(()=>{
-window.location.href="support.html";
-},1400);
-
-}
-  
 </script>
-
-
-
