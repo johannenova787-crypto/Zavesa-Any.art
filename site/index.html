@@ -650,7 +650,9 @@ transform:translateY(-260px) scale(1.1) rotate(6deg);
 transform:translateY(-520px) scale(.9) rotate(10deg);
 opacity:0;
 }
-
+  
+bird.style.position = "absolute";
+  
 }
 .pdf-room{
 position:fixed;
@@ -1005,6 +1007,8 @@ transform:translate(-50%,-20px);
 <div class="page-turn" id="pageTurn"></div>
 
 
+document.addEventListener("DOMContentLoaded", function(){
+
 
 <script>
 
@@ -1333,3 +1337,5 @@ function supportEni(){
 }
 
 </script>
+
+  });
