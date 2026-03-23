@@ -1015,7 +1015,8 @@ document.body.style.opacity = "1";
 
   
 
-document.body.style.filter = "none";
+window.addEventListener("load", () => {
+  document.body.style.filter = "none";
 });
 
 
@@ -1260,6 +1261,8 @@ setTimeout(()=>{
 window.open("https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae", "_blank");
 },4200);
 
+ 
+
 /* возвращаем свет на странице (она ждёт) */
 setTimeout(()=>{
 document.body.style.opacity = "1";
@@ -1268,15 +1271,26 @@ document.body.style.filter = "none";
 
 }
 
+   
+  window.addEventListener("focus", () => {
+  document.body.style.transition = "1s";
+  document.body.style.opacity = "0";
 
-document.body.style.transition = "0.6s";
-document.body.style.opacity = "0";
+  setTimeout(()=>{
+    document.body.style.opacity = "1";
+  },400);
+});
 
-setTimeout(()=>{
-document.body.style.opacity = "1";
-},300);
+  
 
-}); 
+window.addEventListener("focus", () => {
+  document.body.style.transition = "0.6s";
+  document.body.style.opacity = "0";
+
+  setTimeout(()=>{
+    document.body.style.opacity = "1";
+  },300);
+});
 
 
 function createGoldDust(){
