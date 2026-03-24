@@ -1080,12 +1080,8 @@ function goDeeper(){
 }
 
 // --- ПОРТАЛ ---
-  
-  portal.classList.add("open");
 
-  portal.style.boxShadow = "0 0 120px rgba(255,220,140,0.8)";
-},7200);
-  
+
 document.getElementById("portal").addEventListener("click", function(){
   if(!this.classList.contains("open")) return;
 
@@ -1098,7 +1094,16 @@ document.getElementById("portal").addEventListener("click", function(){
     window.location.href="../world-map.html";
   },2200);
 });
-setTimeout(()=>{
+
+
+    
+  setTimeout(()=>{
+  
+  portal.classList.add("open");
+
+  portal.style.boxShadow = "0 0 120px rgba(255,220,140,0.8)";
+},7200);
+  
   
 
   
