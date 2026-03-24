@@ -653,7 +653,7 @@ opacity:0;
   
 
   
-}
+
 .pdf-room{
 position:fixed;
 left:0;
@@ -1068,15 +1068,24 @@ function goDeeper(){
   if(deeperStarted) return;
   deeperStarted = true;
 
+  // Мягкое затемнение — как вход
+  document.body.style.transition = "1.2s";
+  document.body.style.filter = "brightness(0.95)";
+
   createPageParticles();
 
   setTimeout(()=>{
     createBirds();
-  },400);
+  },300);
 }
 
 // --- ПОРТАЛ ---
+  
+  portal.classList.add("open");
 
+  portal.style.boxShadow = "0 0 120px rgba(255,220,140,0.8)";
+},7200);
+  
 document.getElementById("portal").addEventListener("click", function(){
   if(!this.classList.contains("open")) return;
 
@@ -1089,7 +1098,10 @@ document.getElementById("portal").addEventListener("click", function(){
     window.location.href="../world-map.html";
   },2200);
 });
+setTimeout(()=>{
+  
 
+  
 // --- ПТИЦЫ ---
 
 function createBirds(){
