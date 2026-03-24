@@ -4,6 +4,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -823,8 +824,9 @@ calc(-60px + 120px * var(--y))
 opacity:0;
 transform:translateY(20px);
 
-transition:1.6s ease;
-
+transition: opacity 1.6s ease, transform 1.6s ease;
+}
+  
 margin-top:40px;
 
 font-size:20px;
@@ -1207,8 +1209,17 @@ function createPageParticles(){
 function goBuy(){
 
   const msg = document.getElementById("buyMessage");
+
+  // показать
   msg.classList.add("show");
 
+  // через 8 секунд — исчезнуть
+  setTimeout(()=>{
+    msg.classList.remove("show");
+  },8000);
+
+
+  // остальная магия затемнения
   setTimeout(()=>{
     document.body.style.transition = "2s";
     document.body.style.filter = "blur(4px)";
