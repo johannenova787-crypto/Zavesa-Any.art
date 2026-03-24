@@ -820,16 +820,13 @@ calc(-60px + 120px * var(--y))
 }
 
 
-.buy-message.show{
-opacity:1;
-transform:translateY(0);
-}
+
 
 
 
   .buy-message{
 position:fixed;
-top:60%;
+top:55%;
 left:50%;
 transform:translate(-50%,0);
 
@@ -845,6 +842,7 @@ letter-spacing:0.08em;
 
 color:#8c6b2a;
 }
+  filter:blur(6px);
 
 .buy-message.show{
 opacity:1;
@@ -1195,16 +1193,26 @@ function goBuy(){
 
   const msg = document.getElementById("buyMessage");
 
-  // показать
-  msg.classList.add("show");
+  // сначала делаем подготовку (чуть невидимое состояние)
+  msg.style.transition = "none";
+  msg.style.opacity = "0";
+  msg.style.transform = "translate(-50%, 20px)";
 
-  // через 8 секунд — исчезнуть
+  // даём браузеру “поймать” состояние
+  setTimeout(()=>{
+
+    msg.style.transition = "1.8s ease";
+    msg.classList.add("show");
+
+  },50);
+
+  // мягкое исчезновение
   setTimeout(()=>{
     msg.classList.remove("show");
   },8000);
 
 
-  // остальная магия затемнения
+  // затемнение фона
   setTimeout(()=>{
     document.body.style.transition = "2s";
     document.body.style.filter = "blur(4px)";
@@ -1223,7 +1231,6 @@ function goBuy(){
     document.body.style.filter = "none";
   },5200);
 }
-
 // --- FOCUS (ОДИН, ЧИСТЫЙ) ---
 
 window.addEventListener("focus", () => {
