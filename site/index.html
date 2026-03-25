@@ -127,35 +127,27 @@ body {
 
   
 .button{
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;
+  letter-spacing:0.22em;
+  padding:14px 42px;
+  border-radius:80px;
+  border:1px solid rgba(200,160,90,0.35);
+  background:rgba(255,252,240,0.6);
+  color:#9b7a33;
+  cursor:pointer;
+  backdrop-filter:blur(6px);
 
-font-family:'Cormorant Garamond',serif;
+  transition:
+    all .8s cubic-bezier(.2,.8,.2,1),
+    box-shadow 1.2s ease;
 
-font-size:16px;
-letter-spacing:0.22em;
+  box-shadow:
+    0 0 0 rgba(255,220,140,0);
 
-padding:14px 42px;
-
-border-radius:80px;
-
-border:1px solid rgba(200,160,90,0.35);
-
-background:rgba(255,252,240,0.6);
-
-color:#9b7a33;
-
-cursor:pointer;
-
-backdrop-filter:blur(6px);
-
-transition:
-all .8s cubic-bezier(.2,.8,.2,1),
-box-shadow 1.2s ease;
-
-box-shadow:
-0 0 0 rgba(255,220,140,0);
-
+  position:relative;   /* ← ВОТ СЮДА */
+  overflow:hidden;     /* ← ВОТ СЮДА */
 }
-
 /* мягкое свечение при наведении */
 
 .button:hover{
@@ -204,9 +196,7 @@ transition:opacity 1s ease;
 opacity:1;
 }
   
-position:relative;
-overflow:hidden;
-  
+
 /* О книге */
 .about-book {
   min-height: 100vh;
