@@ -936,7 +936,7 @@ animation:messageBreath 4s ease-in-out infinite;
 Не бойся.<br>
 Дверь останется открытой.<br><br>
 
-И ты сможешь вернуться.
+Ты всегда сможешь вернуться.
 </div>
 
 
@@ -1016,13 +1016,8 @@ window.addEventListener("load", () => {
   document.body.style.filter = "none";
 
   // --- ПРАВКА 3: таймер портала обёрнут в load, чтобы не выполнился до готовности DOM ---
-  // --- ПРАВКА 2 (вариант A): портал открывается ТОЛЬКО через createBirds(),
-  //     но оставляем fallback-таймер внутри load, чтобы не пропасть совсем ---
-  // Если goDeeper() не был вызван, портал всё равно мягко появится через 7.2с
-  setTimeout(()=>{
-    portal.classList.add("open");
-    portal.style.boxShadow = "0 0 120px rgba(255,220,140,0.8)";
-  }, 7200);
+  // --- fallback убран: портал открывается только после ритуала "Нырнуть глубже" ---
+  // нет действия → нет портала; есть шаг → появляется мир
 });
 
 // --- СЛАЙДЕР ---
@@ -1241,15 +1236,19 @@ function goBuy(){
     document.body.style.transition = "";
   }, 10000);
 }
-// --- FOCUS (ОДИН, ЧИСТЫЙ) ---
+
+// --- FOCUS: осознанное возвращение — мир «собирается» вокруг тебя ---
 
 window.addEventListener("focus", () => {
-  document.body.style.transition = "0.6s";
-  document.body.style.opacity = "0";
+  document.body.style.transition = "0.8s";
+
+  document.body.style.filter = "blur(6px)";
+  document.body.style.opacity = "0.7";
 
   setTimeout(()=>{
+    document.body.style.filter = "none";
     document.body.style.opacity = "1";
-  }, 300);
+  }, 400);
 });
 
 // --- ПЫЛЬ ---
@@ -1269,9 +1268,16 @@ function createScrollDust(){
   setTimeout(()=>dust.remove(), 3000);
 }
 
-// --- КУРСОР ---
+// --- КУРСОР: ограничение частоты для плавности на слабых устройствах ---
+
+let lastGlow = 0;
 
 document.addEventListener("mousemove", (e)=>{
+  const now = Date.now();
+  if(now - lastGlow < 40) return; // ограничение ~25 раз в секунду
+
+  lastGlow = now;
+
   const glow = document.createElement("div");
   glow.className = "cursor-glow";
 
