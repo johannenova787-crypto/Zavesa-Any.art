@@ -503,6 +503,13 @@ transform:translate(-50%,-50%);
 font-size:18px;
 letter-spacing:0.2em;
 color:#8c6b2a;
+cursor:pointer;
+transition:.5s;
+}
+
+.portal-text:hover{
+transform:translate(-50%,-50%) scale(1.08);
+text-shadow:0 0 20px rgba(255,220,140,0.8);
 }
 
   /* слово ЭНИ внутри портала */
@@ -889,7 +896,7 @@ filter:blur(0);
 ЭНИ
 </div>
 
-<div class="portal-text">
+<div class="portal-text" id="portalBtn">
 Переступить Завесу
 </div>
 </div>
@@ -1061,9 +1068,11 @@ function goDeeper(){
   }, 4000);
 }
 
-// --- ПРАВКА 5: используем глобальную переменную portal вместо getElementById ---
-portal.addEventListener("click", function(){
-  if(!this.classList.contains("open")) return;
+// --- ПРАВКА 5: клик только на текст "Переступить Завесу", не на весь контейнер ---
+document.getElementById("portalBtn").addEventListener("click", (e)=>{
+  e.stopPropagation(); // защита от двойного клика
+
+  if(!portal.classList.contains("open")) return;
 
   releaseFinalBirds();
 
@@ -1170,47 +1179,46 @@ function createPageParticles(){
   }
 }
 
-// --- ПОКУПКА ---
+// --- ПОКУПКА — ритуал: текст → пауза → исчезновение → переход ---
 
 function goBuy(){
 
   const msg = document.getElementById("buyMessage");
 
-  msg.style.transition = "none";
-  msg.style.opacity = "0";
-  msg.style.transform = "translate(-50%, 20px)";
+  // появление текста
+  msg.classList.add("show");
 
-  setTimeout(()=>{
-    msg.style.transition = "1.8s ease";
-    msg.classList.add("show");
-  }, 50);
-
-  setTimeout(()=>{
-    msg.classList.remove("show");
-  }, 8000);
-
+  // затемнение фона
   setTimeout(()=>{
     document.body.style.transition = "2s";
     document.body.style.filter = "blur(4px)";
-  }, 2500);
+  }, 1200);
 
+  // лёгкое затухание страницы
   setTimeout(()=>{
-    document.body.style.opacity = "0.4";
-  }, 3800);
+    document.body.style.opacity = "0.5";
+  }, 2200);
 
+  // исчезновение текста перед переходом
   setTimeout(()=>{
-    window.open("https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae", "_blank");
+    msg.classList.remove("show");
   }, 4200);
 
+  // сам переход
+  setTimeout(()=>{
+    window.open("https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae", "_blank");
+  }, 4800);
+
+  // возврат
   setTimeout(()=>{
     document.body.style.opacity = "1";
     document.body.style.filter = "none";
-  }, 5200);
+  }, 6500);
 
-  // --- ПРАВКА 6: убираем "дёргание" — сбрасываем transition после завершения ---
+  // --- сброс transition чтобы не было дёргания ---
   setTimeout(()=>{
     document.body.style.transition = "";
-  }, 6000);
+  }, 7500);
 }
 
 // --- FOCUS (ОДИН, ЧИСТЫЙ) ---
