@@ -1,452 +1,982 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Эни — Акт I</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold-light: #c6a048;
-            --gold-dark: #8c6b2a;
-            --bg-creme: #f2e6cf;
-        }
 
-        html, body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Cormorant Garamond', serif;
-            color: #5a4723;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            background: radial-gradient(circle at 50% 0%, #fffdf9, #f2e6cf);
-            background-size: 120% 120%;
-            animation: goldenBreath 18s ease-in-out infinite;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        @keyframes goldenBreath {
-            0%, 100% { background-position: 50% 0%; }
-            50% { background-position: 52% 6%; }
-        }
+<title>Эни — Акт I</title>
 
-        body {
-            opacity: 0;
-            animation: fadeIn 2.5s ease forwards;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 
-        @keyframes fadeIn { to { opacity: 1; } }
+<style>
 
-        /* HERO */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 60px 20px;
-            position: relative;
-        }
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Cormorant Garamond', serif;
+  color: #5a4723;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background: radial-gradient(circle at 50% 0%, #fffdf9, #f2e6cf);
+  background-size: 120% 120%;
+  animation: goldenBreath 18s ease-in-out infinite;
+}
 
-        .title {
-            position: relative;
-            font-size: clamp(48px, 8vw, 96px);
-            letter-spacing: 0.14em;
-            font-weight: 600;
-            color: var(--gold-light);
-            text-shadow: 0 0 30px rgba(255,215,150,0.4), 0 0 60px rgba(255,215,150,0.2);
-            margin-bottom: 10px;
-        }
+@keyframes goldenBreath {
+  0%   { background-position: 50% 0%; }
+  50%  { background-position: 52% 6%; }
+  100% { background-position: 50% 0%; }
+}
 
-        .title::after {
-            content: "";
-            display: block;
-            width: 140px;
-            height: 1px;
-            margin: 20px auto 0;
-            background: linear-gradient(to right, transparent, rgba(200,160,80,0.8), transparent);
-        }
+body {
+  opacity: 0;
+  animation: fadeIn 2.5s ease forwards;
+}
 
-        .subtitle {
-            font-size: clamp(18px, 2.5vw, 24px);
-            letter-spacing: 0.25em;
-            opacity: 0.7;
-            margin-bottom: 40px;
-        }
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
 
-        /* Слайдер */
-        .slider-container {
-            position: relative;
-            width: 100%;
-            max-width: 420px;
-            margin-bottom: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  position: relative; /* FIX: нужен для position:absolute портала */
+}
 
-        .slider {
-            width: 100%;
-            aspect-ratio: 2/3;
-            position: relative;
-            perspective: 1200px;
-            z-index: 5;
-        }
+.title {
+  position: relative;
+  font-size: clamp(64px, 6vw, 96px);
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: #c6a048;
+  text-shadow:
+    0 0 30px rgba(255,215,150,0.4),
+    0 0 60px rgba(255,215,150,0.2);
+  margin-bottom: 20px;
+}
 
-        .slide {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 30px 80px rgba(180,140,60,0.35);
-            backface-visibility: hidden;
-            transition: transform 2s ease, opacity 2s ease;
-        }
+.title::after {
+  content: "";
+  display: block;
+  width: 140px;
+  height: 1px;
+  margin: 28px auto 0;
+  background: linear-gradient(to right, transparent, rgba(200,160,80,0.8), transparent);
+}
 
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 1.6s ease;
-        }
+.subtitle {
+  font-size: 24px;
+  letter-spacing: 0.25em;
+  opacity: 0.7;
+  margin-bottom: 80px;
+}
 
-        .slide img.loaded { opacity: 1; }
-        .slide.active { z-index: 2; }
-        .slide.flip { transform: rotateY(-180deg); opacity: 0; }
+/* Слайдер */
+.slider {
+  width: 420px;
+  aspect-ratio: 2/3;
+  position: relative;
+  perspective: 1200px;
+  margin-bottom: 60px;
+  overflow: visible;
+}
 
-        /* Кнопки */
-        .buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            z-index: 10;
-        }
+.slide {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(180,140,60,0.35);
+  backface-visibility: hidden;
+  transform-origin: left;
+  transform-style: preserve-3d;
+  transition: transform 2s ease, opacity 2s ease;
+}
 
-        .button {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 18px;
-            letter-spacing: 0.12em;
-            padding: 14px 36px;
-            border-radius: 60px;
-            border: 1px solid rgba(190,150,80,0.4);
-            background: rgba(255,248,230,0.9);
-            color: var(--gold-dark);
-            cursor: pointer;
-            transition: all .6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
 
-        .button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(255,220,160,0.5);
-            background: #fff;
-        }
+.slide img.loaded {
+  opacity: 1;
+}
 
-        .button:disabled { opacity: 0.5; cursor: default; }
+.slide.active { z-index: 2; }
 
-        /* ПОРТАЛ */
-        .portal {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            opacity: 0;
-            pointer-events: none;
-            filter: blur(15px);
-            transform: translate(-50%, -50%) scale(0.6);
-            transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 50;
-        }
+.slide.flip {
+  transform: rotateY(-180deg);
+  opacity: 0;
+}
 
-        .portal.open {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translate(-50%, -50%) scale(1);
-            filter: blur(0px);
-        }
+/* Кнопки */
+.buttons {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-        .portal-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,230,150,0.8) 0%, rgba(255,220,150,0.2) 50%, transparent 70%);
-            box-shadow: 0 0 60px rgba(255,220,140,0.6), 0 0 120px rgba(255,220,140,0.3);
-            animation: portalSpin 10s linear infinite;
-        }
+.button {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  letter-spacing: 0.18em;
+  padding: 16px 46px;
+  border-radius: 60px;
+  border: 1px solid rgba(190,150,80,0.5);
+  background: rgba(255,248,230,0.9);
+  color: #8c6b2a;
+  cursor: pointer;
+  transition: all .6s ease;
+}
 
-        @keyframes portalSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.button:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 40px rgba(255,220,160,0.6);
+}
 
-        .portal-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 20px;
-            letter-spacing: 0.2em;
-            color: var(--gold-dark);
-            cursor: pointer;
-            white-space: nowrap;
-            text-shadow: 0 0 10px white;
-            font-weight: 600;
-            transition: all 0.5s ease;
-        }
+/* О книге */
+.about-book {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  background: linear-gradient(to bottom, #f2e6cf, #fffdf9);
+}
 
-        .portal-text:hover { transform: translate(-50%, -50%) scale(1.1); text-shadow: 0 0 15px rgba(255,220,140,1); }
+.about-inner {
+  max-width: 900px;
+  text-align: center;
+}
 
-        .eni-word {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.5);
-            font-size: 72px;
-            letter-spacing: 0.3em;
-            color: #e7c36a;
-            opacity: 0;
-            transition: 2s ease;
-            z-index: 60;
-            pointer-events: none;
-        }
+.about-title {
+  font-size: 48px;
+  letter-spacing: .15em;
+  margin-bottom: 40px;
+  color: #b98a2d;
+}
 
-        .eni-word.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.about-book p {
+  font-size: 22px;
+  line-height: 1.9;
+  margin-bottom: 30px;
+  opacity: .85;
+}
 
-        /* ОСТАЛЬНЫЕ СЕКЦИИ */
-        .about-book { padding: 100px 20px; background: linear-gradient(to bottom, #f2e6cf, #fffdf9); text-align: center; }
-        .about-inner { max-width: 800px; margin: 0 auto; }
-        .about-title { font-size: 42px; color: #b98a2d; margin-bottom: 30px; letter-spacing: 0.1em; }
-        .about-book p { font-size: 20px; line-height: 1.8; margin-bottom: 20px; }
+.about-meta {
+  margin-top: 50px;
+  font-size: 18px;
+  opacity: .7;
+  line-height: 1.8;
+}
 
-        /* ЭФФЕКТЫ */
-        .scroll-dust {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: gold;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 100;
-            animation: dustFloat 3s linear forwards;
-        }
+/* Отрывок */
+.excerpt-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #fffdf9, #f7ecd8);
+  padding: 120px 20px;
+}
 
-        @keyframes dustFloat {
-            to { transform: translateY(-100px) translateX(20px); opacity: 0; }
-        }
+.excerpt-inner {
+  max-width: 800px;
+  text-align: center;
+  position: relative;
+}
 
-        .bird {
-            position: absolute;
-            width: 50px;
-            height: 30px;
-            z-index: 100;
-            pointer-events: none;
-        }
+.excerpt-title {
+  font-size: 48px;
+  letter-spacing: .15em;
+  margin-bottom: 50px;
+  color: #b98a2d;
+}
 
-        .bird svg { fill: var(--gold-light); animation: wingFlap 0.6s infinite; }
-        @keyframes wingFlap { 50% { transform: scaleY(0.6); } }
+.excerpt-toggle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  letter-spacing: .2em;
+  padding: 14px 40px;
+  border-radius: 60px;
+  border: 1px solid rgba(190,150,80,.5);
+  background: rgba(255,248,230,.9);
+  color: #8c6b2a;
+  cursor: pointer;
+  transition: all .6s ease;
+}
 
-        /* PDF и Сообщения */
-        .pdf-room {
-            position: fixed; inset: 0; background: rgba(255,253,249,0.98);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: 1s; z-index: 1000;
-        }
-        .pdf-room.open { opacity: 1; pointer-events: auto; }
-        .pdf-room iframe { width: 80vw; height: 85vh; border: none; border-radius: 10px; box-shadow: 0 0 50px rgba(0,0,0,0.1); }
+.excerpt-toggle:hover {
+  box-shadow: 0 0 30px rgba(255,215,140,.6);
+  transform: scale(1.05);
+}
 
-        .buy-message {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            text-align: center; opacity: 0; pointer-events: none; transition: 1.5s;
-            font-size: 22px; color: var(--gold-dark); z-index: 2000;
-        }
-        .buy-message.show { opacity: 1; }
+.excerpt-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1.8s ease, opacity 1.4s ease;
+  opacity: 0;
+  margin-top: 0;
+}
 
-    </style>
+.excerpt-wrapper.open {
+  max-height: 800px;
+  opacity: 1;
+  margin-top: 60px;
+}
+
+.excerpt-text {
+  font-size: 22px;
+  line-height: 1.9;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255,255,255,.6);
+  box-shadow: 0 0 40px rgba(210,170,90,.2);
+  transform-origin: top center;
+  transition: transform 1.5s ease;
+}
+
+.excerpt-wrapper.open .excerpt-text {
+  transform: rotateX(3deg);
+}
+
+/* Пыль */
+.gold-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, gold 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float 2s ease forwards;
+}
+
+@keyframes float {
+  from { transform: translateY(0);       opacity: 1; }
+  to   { transform: translateY(-120px);  opacity: 0; }
+}
+
+.scroll-dust {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  background: radial-gradient(circle, gold 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: dustFloat 3s ease-out forwards;
+  z-index: 999;
+}
+
+@keyframes dustFloat {
+  from { transform: translateY(0) scale(1);    opacity: 1; }
+  to   { transform: translateY(-120px) scale(.4); opacity: 0; }
+}
+
+.cursor-glow {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,220,140,.8) 0%, rgba(255,220,140,0) 70%);
+  transform: translate(-50%, -50%);
+  animation: glowFade .8s ease-out forwards;
+  z-index: 9999;
+}
+
+@keyframes glowFade {
+  from { opacity: .9; transform: translate(-50%,-50%) scale(1);   }
+  to   { opacity: 0;  transform: translate(-50%,-50%) scale(2.5); }
+}
+
+/* ПОРТАЛ */
+.portal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  filter: blur(10px);
+  transform: translate(-50%, -50%) scale(0.6);
+  transition: opacity 1.6s ease, transform 1.6s ease, filter 1.6s ease;
+  z-index: 20;
+}
+
+.portal.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+  filter: blur(0px);
+}
+
+.portal-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(255,230,150,0.9) 0%,
+    rgba(255,220,150,0.4) 40%,
+    transparent 70%
+  );
+  box-shadow:
+    0 0 60px rgba(255,220,140,0.8),
+    0 0 140px rgba(255,220,140,0.4);
+  animation: portalGlow 4s ease-in-out infinite, portalSpin 14s linear infinite;
+}
+
+@keyframes portalSpin {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes portalGlow {
+  0%   { box-shadow: 0 0 60px  rgba(255,220,140,0.6); }
+  50%  { box-shadow: 0 0 120px rgba(255,220,140,1);   }
+  100% { box-shadow: 0 0 60px  rgba(255,220,140,0.6); }
+}
+
+.portal-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  letter-spacing: 0.2em;
+  color: #8c6b2a;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -40%) scale(0.9);
+  transition: opacity 1.4s ease, transform 1.4s ease, text-shadow .5s ease;
+}
+
+.portal.open .portal-text {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.portal-text:hover {
+  text-shadow: 0 0 20px rgba(255,220,140,0.8);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* ЭНИ */
+.eni-word {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  font-size: 64px;
+  letter-spacing: 0.28em;
+  color: #e7c36a;
+  text-shadow:
+    0 0 30px rgba(255,220,150,0.8),
+    0 0 80px rgba(255,220,150,0.5);
+  opacity: 0;
+  transition: opacity 1.8s ease, transform 1.8s ease;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.eni-word.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Частицы страниц */
+.page-particle {
+  position: absolute;
+  z-index: 9;
+  width: 10px;
+  height: 14px;
+  background: linear-gradient(to bottom, rgba(255,240,200,0.9), rgba(255,210,120,0.3));
+  border-radius: 2px;
+  animation: pageRise 3s ease forwards;
+}
+
+@keyframes pageRise {
+  0%   { transform: translateY(0) rotate(0deg);       opacity: 1; }
+  100% { transform: translateY(-200px) rotate(360deg); opacity: 0; }
+}
+
+/* Птицы */
+.bird {
+  position: absolute;
+  z-index: 10;
+  width: 80px;
+  height: 60px;
+  animation: birdFly 10s ease-out forwards;
+}
+
+.bird svg {
+  width: 100%;
+  height: 100%;
+  fill: rgba(255,220,150,0.95);
+  filter:
+    drop-shadow(0 0 10px rgba(255,220,150,0.9))
+    drop-shadow(0 0 25px rgba(255,220,150,0.5));
+  animation: wingFlap 0.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes wingFlap {
+  0%   { transform: scaleY(1);    }
+  50%  { transform: scaleY(0.75); }
+  100% { transform: scaleY(1);    }
+}
+
+@keyframes birdFly {
+  0%   { transform: translateY(0)      scale(.7) rotate(-6deg);  opacity: 1; }
+  30%  { transform: translateY(-120px) scale(1);                              }
+  60%  { transform: translateY(-260px) scale(1.1) rotate(6deg);               }
+  100% { transform: translateY(-520px) scale(.9)  rotate(10deg); opacity: 0;  }
+}
+
+/* PDF-комната */
+.pdf-room {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #fffdf9, #f2e6cf);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s ease;
+  z-index: 9999;
+}
+
+.pdf-room.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.close-pdf {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  letter-spacing: 0.15em;
+  padding: 10px 22px;
+  border-radius: 40px;
+  border: 1px solid rgba(190,150,80,.5);
+  background: rgba(255,248,230,.9);
+  color: #8c6b2a;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.close-pdf:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,220,140,.6);
+  background: #000;
+  color: #fff;
+}
+
+.pdf-room iframe {
+  width: 70vw;
+  height: 85vh;
+  border: none;
+  border-radius: 14px;
+  box-shadow:
+    0 0 80px rgba(255,210,120,0.25),
+    0 0 160px rgba(255,200,90,0.15);
+  animation: bookBreath 7s ease-in-out infinite;
+}
+
+@keyframes bookBreath {
+  0%   { box-shadow: 0 0 60px  rgba(255,210,120,0.15), 0 0 120px rgba(255,200,90,0.08); }
+  50%  { box-shadow: 0 0 100px rgba(255,220,140,0.35), 0 0 220px rgba(255,210,110,0.2); }
+  100% { box-shadow: 0 0 60px  rgba(255,210,120,0.15), 0 0 120px rgba(255,200,90,0.08); }
+}
+
+.page-turn {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to left, #fffdf9 0%, #f6ead2 40%, #e8d7b0 70%, #d9c38f 100%);
+  transform: rotateY(90deg);
+  transform-origin: right;
+  transition: transform 1.4s ease;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+.page-turn.open {
+  transform: rotateY(0deg);
+}
+
+/* Взрыв пыли */
+.dust-burst {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, gold 0%, transparent 70%);
+  pointer-events: none;
+  animation: dustBurst 1.8s ease forwards;
+}
+
+@keyframes dustBurst {
+  0%   { opacity: 1; transform: translate(0,0) scale(1); }
+  100% {
+    opacity: 0;
+    transform: translate(
+      calc(-60px + 120px * var(--x)),
+      calc(-60px + 120px * var(--y))
+    ) scale(0.4);
+  }
+}
+
+/* Сообщение о покупке */
+.buy-message {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  max-width: 600px;
+  text-align: center;
+  opacity: 0;
+  transition: 1.6s ease;
+  font-size: 20px;
+  line-height: 1.8;
+  letter-spacing: 0.08em;
+  color: #8c6b2a;
+  filter: blur(6px);
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.buy-message.show {
+  opacity: 1;
+  transform: translate(-50%, -20px);
+  filter: blur(0);
+  animation: messageBreath 4s ease-in-out infinite;
+}
+
+@keyframes messageBreath {
+  0%   { transform: translate(-50%, -20px) scale(1);    }
+  50%  { transform: translate(-50%, -22px) scale(1.02); }
+  100% { transform: translate(-50%, -20px) scale(1);    }
+}
+
+</style>
+<link rel="stylesheet" href="/style-mobile.css">
 </head>
+
 <body>
 
 <section class="hero">
-    <div class="title">Эни</div>
-    <div class="subtitle">Акт I — Сквозь Тени</div>
 
-    <div class="slider-container">
-        <div class="slider" id="slider">
-            <div class="slide active"><img src="../covers/cover1.jpg" alt=""></div>
-            <div class="slide"><img src="../covers/cover2.jpg" alt=""></div>
-            <div class="slide"><img src="../covers/cover3.jpg" alt=""></div>
-            <div class="slide"><img src="../covers/cover4.jpg" alt=""></div>
-        </div>
+  <div class="title">Эни</div>
+  <div class="subtitle">Акт I — Сквозь Тени</div>
 
-        <div class="eni-word" id="eniWord">ЭНИ</div>
-        
-        <div class="portal" id="portal">
-            <div class="portal-ring"></div>
-            <div class="portal-text" id="portalBtn">Переступить Завесу</div>
-        </div>
-    </div>
+  <div class="slider" id="slider">
+    <div class="slide active"><img src="../covers/cover1.jpg" loading="lazy"></div>
+    <div class="slide"><img src="../covers/cover2.jpg" loading="lazy"></div>
+    <div class="slide"><img src="../covers/cover3.jpg" loading="lazy"></div>
+    <div class="slide"><img src="../covers/cover4.jpg" loading="lazy"></div>
+    <div class="slide"><img src="../covers/cover5.jpg" loading="lazy"></div>
+    <div class="slide"><img src="../covers/cover6.jpg" loading="lazy"></div>
+  </div>
 
-    <div class="buttons">
-        <button class="button" onclick="supportEni(this)">Поддержать Эни</button>
-        <button class="button" id="deepBtn" onclick="goDeeper(this)">Нырнуть глубже</button>
-        <button class="button" onclick="goBuy(this)">Взять книгу с собой</button>
-    </div>
+  <div class="portal" id="portal">
+    <div class="portal-ring"></div>
+    <div class="eni-word" id="eniWord">ЭНИ</div>
+    <div class="portal-text" id="portalBtn">Переступить Завесу</div>
+  </div>
 
-    <div class="buy-message" id="buyMessage">
-        Чтобы взять книгу с собой, тебе понадобится сделать шаг во внешний мир.<br>
-        Дверь останется открытой. Ты сможешь вернуться.
-    </div>
+  <div class="buttons">
+    <button class="button" onclick="supportEni()">Поддержать Эни</button>
+    <button class="button" onclick="goDeeper()">Нырнуть глубже</button>
+    <button class="button" onclick="goBuy()">Взять книгу с собой</button>
+  </div>
+
+  <div class="buy-message" id="buyMessage">
+    Чтобы взять книгу с собой,<br>
+    тебе понадобится сделать один шаг во внешний мир.<br><br>
+    Не бойся.<br>
+    Дверь останется открытой.<br><br>
+    Ты всегда сможешь вернуться.
+  </div>
+
 </section>
 
 <section class="about-book" id="about">
-    <div class="about-inner">
-        <div class="about-title">О книге</div>
-        <p>«Эни. Акт I — Сквозь Тени» — история о границе между светом и тем, что остаётся за пределами видимого.</p>
-        <div class="about-meta" style="opacity: 0.6; margin-top: 40px;">
-            Цифровая книга (PDF) • 121 страница
-        </div>
-        <button class="button" style="margin-top: 40px;" onclick="openExcerpt()">Читать отрывок</button>
+  <div class="about-inner">
+    <div class="about-title">О книге</div>
+    <p>«Эни. Акт I — Сквозь Тени» — история о границе между светом и тем, что остаётся за пределами видимого.</p>
+    <p>Здесь тени — не враги. Они память, глубина, отражение.</p>
+    <div class="about-meta">
+      Жанр: мистическая проза<br>
+      Формат: цифровая книга (PDF)<br>
+      Объём: 121 страница
     </div>
+  </div>
+</section>
+
+<section class="excerpt-section">
+  <div class="excerpt-inner">
+    <div class="excerpt-title">Бесплатный отрывок</div>
+    <button class="excerpt-toggle" onclick="openExcerpt()">
+      Открыть бесплатный отрывок
+    </button>
+  </div>
 </section>
 
 <div class="pdf-room" id="pdfRoom">
-    <button class="button" style="position: absolute; top: 20px; right: 20px;" onclick="closeExcerpt()">Закрыть</button>
-    <iframe id="pdfFrame"></iframe>
+  <button class="close-pdf" onclick="closeExcerpt()">Закрыть</button>
+  <iframe id="pdfFrame"></iframe>
 </div>
 
+<div class="page-turn" id="pageTurn"></div>
+
+
 <script>
-    // --- СЛАЙДЕР ---
-    const slides = document.querySelectorAll(".slide");
-    let current = 0;
-    
-    function nextSlide() {
-        const currentSlide = slides[current];
-        current = (current + 1) % slides.length;
-        const nextSlide = slides[current];
 
-        currentSlide.classList.add("flip");
-        setTimeout(() => {
-            currentSlide.classList.remove("active", "flip");
-            nextSlide.classList.add("active");
-        }, 1000);
+// ── ГЛОБАЛЬНЫЕ ССЫЛКИ ────────────────────────────────────────────────────────
+const portal    = document.getElementById("portal");
+const eni       = document.getElementById("eniWord");
+const portalBtn = document.getElementById("portalBtn");
+
+// ── ФЛАГИ ЗАЩИТЫ ОТ ДВОЙНОГО КЛИКА ──────────────────────────────────────────
+let deeperStarted  = false;
+let buyStarted     = false;
+let supportStarted = false;
+
+// ── PAGESHOW: сброс при возврате через кнопку "назад" ────────────────────────
+window.addEventListener("pageshow", () => {
+  document.body.style.transition = "";
+  document.body.style.filter     = "none";
+  document.body.style.opacity    = "1";
+});
+
+// ── LOAD ─────────────────────────────────────────────────────────────────────
+window.addEventListener("load", () => {
+  document.body.style.filter  = "none";
+  document.body.style.opacity = "1";
+
+  // Картинки — если уже в кэше, сразу показываем
+  document.querySelectorAll(".slide img").forEach(img => {
+    if (img.complete) {
+      img.classList.add("loaded");
+    } else {
+      img.addEventListener("load", () => img.classList.add("loaded"));
     }
-    setInterval(nextSlide, 6000);
+  });
+});
 
-    // Предзагрузка изображений
-    document.querySelectorAll(".slide img").forEach(img => {
-        if (img.complete) img.classList.add("loaded");
-        else img.onload = () => img.classList.add("loaded");
+// ── СЛАЙДЕР ──────────────────────────────────────────────────────────────────
+const slides = document.querySelectorAll(".slide");
+let current     = 0;
+let isAnimating = false;
+
+function nextSlide() {
+  if (isAnimating) return;
+  isAnimating = true;
+
+  const currentSlide  = slides[current];
+  const nextIndex     = (current + 1) % slides.length;
+  const upcomingSlide = slides[nextIndex];
+
+  currentSlide.classList.add("flip");
+
+  setTimeout(() => {
+    currentSlide.classList.remove("active", "flip");
+    upcomingSlide.classList.add("active");
+    current     = nextIndex;
+    isAnimating = false;
+    setTimeout(nextSlide, 7000);
+  }, 2000);
+}
+
+setTimeout(nextSlide, 7000);
+
+// ── НЫРНУТЬ ГЛУБЖЕ ───────────────────────────────────────────────────────────
+function goDeeper() {
+  if (deeperStarted) return;
+  deeperStarted = true;
+
+  document.body.style.transition = "1.2s";
+  document.body.style.filter     = "brightness(0.95)";
+
+  createPageParticles();
+  setTimeout(() => createBirds(), 300);
+
+  setTimeout(() => {
+    document.body.style.filter = "none";
+  }, 4000);
+}
+
+// ── ПОРТАЛ: клик «Переступить Завесу» ────────────────────────────────────────
+portalBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (!portal.classList.contains("open")) return;
+
+  releaseFinalBirds();
+
+  document.body.style.transition = "3s";
+  document.body.style.filter     = "brightness(2) blur(20px)";
+  document.body.style.opacity    = "0";
+
+  setTimeout(() => {
+    window.location.href = "../world-map.html";
+  }, 2500);
+});
+
+// ── ПТИЦЫ ────────────────────────────────────────────────────────────────────
+function createBirds() {
+  const slider  = document.getElementById("slider");
+  const sliderW = slider.offsetWidth || 420; // FIX: fallback если offsetWidth = 0
+  const center  = sliderW / 2;
+  const birds   = [];
+
+  for (let i = 0; i < 16; i++) {
+    const bird     = document.createElement("div");
+    bird.className = "bird";
+    bird.innerHTML = '<svg viewBox="0 0 64 32"><path d="M2 18 Q16 4 32 18 Q48 4 62 18 Q48 10 32 22 Q16 10 2 18Z"/></svg>';
+    bird.style.left   = center + "px";
+    bird.style.bottom = "60px";
+    slider.appendChild(bird);
+    birds.push(bird);
+  }
+
+  // Разлёт по кругу
+  setTimeout(() => {
+    birds.forEach((b, i) => {
+      const angle = (i / 16) * Math.PI * 2;
+      const r     = 160;
+      b.style.transition = "2.6s ease";
+      b.style.left       = (center + Math.cos(angle) * r) + "px";
+      b.style.bottom     = (180   + Math.sin(angle) * r) + "px";
     });
+  }, 600);
 
-    // --- РИТУАЛ (Нырнуть глубже) ---
-    function goDeeper(btn) {
-        btn.disabled = true;
-        createBirds();
-        
-        // Слово появляется через 3 секунды после птиц
-        setTimeout(() => {
-            document.getElementById("eniWord").classList.add("show");
-        }, 3000);
-
-        // Портал появляется через 6 секунд
-        setTimeout(() => {
-            document.getElementById("eniWord").classList.remove("show");
-            document.getElementById("portal").classList.add("open");
-        }, 6000);
-    }
-
-    function createBirds() {
-        const container = document.querySelector(".slider-container");
-        for(let i = 0; i < 12; i++) {
-            setTimeout(() => {
-                const bird = document.createElement("div");
-                bird.className = "bird";
-                bird.innerHTML = `<svg viewBox="0 0 64 32"><path d="M2 18 Q16 4 32 18 Q48 4 62 18 Q48 10 32 22 Q16 10 2 18Z"/></svg>`;
-                bird.style.left = "50%";
-                bird.style.top = "50%";
-                
-                const angle = Math.random() * Math.PI * 2;
-                const dist = 200 + Math.random() * 300;
-                
-                container.appendChild(bird);
-                
-                bird.animate([
-                    { transform: 'translate(-50%, -50%) scale(0)', opacity: 0 },
-                    { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px) scale(1.5)`, opacity: 1 },
-                    { transform: `translate(${Math.cos(angle)*dist*1.5}px, ${Math.sin(angle)*dist - 500}px) scale(0)`, opacity: 0 }
-                ], { duration: 4000, easing: 'ease-out' });
-
-                setTimeout(() => bird.remove(), 4000);
-            }, i * 200);
-        }
-    }
-
-    // --- ПЕРЕХОД ---
-    document.getElementById("portalBtn").addEventListener("click", () => {
-        document.body.style.transition = "3s";
-        document.body.style.filter = "brightness(2) blur(20px)";
-        document.body.style.opacity = "0";
-        setTimeout(() => {
-            window.location.href = "world-map.html"; // Укажи верную ссылку
-        }, 2500);
+  // Стая
+  setTimeout(() => {
+    const pos = [
+      [-150,0],[-110,-30],[-70,0],[-110,30],
+      [-20,-30],[-20,30],[20,-30],[20,30],
+      [70,-30],[110,-30],[90,0],[70,30],[110,30]
+    ];
+    birds.forEach((b, i) => {
+      if (!pos[i]) return;
+      b.style.transition = "2s";
+      b.style.left       = (center + pos[i][0]) + "px";
+      b.style.bottom     = (300   + pos[i][1]) + "px";
     });
+  }, 3200);
 
-    // --- ПОКУПКА ---
-    function goBuy(btn) {
-        const msg = document.getElementById("buyMessage");
-        msg.classList.add("show");
-        document.querySelector(".hero").style.filter = "blur(5px)";
-        
-        setTimeout(() => {
-            window.open("https://boosty.to/slovojanice", "_blank");
-            msg.classList.remove("show");
-            document.querySelector(".hero").style.filter = "none";
-        }, 5000);
-    }
+  // Слово ЭНИ
+  setTimeout(() => eni.classList.add("show"), 4400);
 
-    // --- ОТКРЫТИЕ PDF ---
-    function openExcerpt() {
-        document.getElementById("pdfFrame").src = "excerpt.pdf"; // Укажи верный путь
-        document.getElementById("pdfRoom").classList.add("open");
-    }
-    function closeExcerpt() {
-        document.getElementById("pdfRoom").classList.remove("open");
-        document.getElementById("pdfFrame").src = "";
-    }
-
-    // --- ЭФФЕКТ ПЫЛИ ПРИ СКРОЛЛЕ ---
-    window.addEventListener("scroll", () => {
-        if(Math.random() > 0.1) return;
-        const dust = document.createElement("div");
-        dust.className = "scroll-dust";
-        dust.style.left = Math.random() * window.innerWidth + "px";
-        dust.style.top = window.scrollY + window.innerHeight - 20 + "px";
-        document.body.appendChild(dust);
-        setTimeout(() => dust.remove(), 3000);
+  // Взрыв пыли, птицы исчезают
+  setTimeout(() => {
+    birds.forEach(b => {
+      for (let i = 0; i < 8; i++) {
+        const d = document.createElement("div");
+        d.className = "dust-burst";
+        d.style.left   = b.style.left;
+        d.style.bottom = b.style.bottom;
+        d.style.setProperty("--x", Math.random());
+        d.style.setProperty("--y", Math.random());
+        slider.appendChild(d);
+        setTimeout(() => d.remove(), 1800);
+      }
+      b.remove();
     });
+  }, 5200);
 
-    // --- КУРСОР ---
-    document.addEventListener("mousemove", (e) => {
-        if(Math.random() > 0.2) return;
-        const spark = document.createElement("div");
-        spark.className = "scroll-dust";
-        spark.style.width = "2px";
-        spark.style.height = "2px";
-        spark.style.left = e.clientX + "px";
-        spark.style.top = e.clientY + window.scrollY + "px";
-        document.body.appendChild(spark);
-        setTimeout(() => spark.remove(), 1000);
-    });
+  // Скрыть ЭНИ
+  setTimeout(() => eni.classList.remove("show"), 6200);
 
-    // --- ПОДДЕРЖКА ---
-    function supportEni(btn) {
-        btn.innerHTML = "Благодарю...";
-        setTimeout(() => {
-            window.location.href = "support.html";
-        }, 1500);
-    }
+  // Портал — только здесь, только после ритуала
+  setTimeout(() => portal.classList.add("open"), 7800);
+}
+
+// ── ЧАСТИЦЫ СТРАНИЦ ──────────────────────────────────────────────────────────
+function createPageParticles() {
+  const slider = document.getElementById("slider");
+  for (let i = 0; i < 20; i++) {
+    const p        = document.createElement("div");
+    p.className    = "page-particle";
+    p.style.left   = Math.random() * 100 + "%";
+    p.style.bottom = "40px";
+    slider.appendChild(p);
+    setTimeout(() => p.remove(), 3000);
+  }
+}
+
+// ── ПОКУПКА ──────────────────────────────────────────────────────────────────
+function goBuy() {
+  if (buyStarted) return; // FIX: защита от повторного клика
+  buyStarted = true;
+
+  const msg = document.getElementById("buyMessage");
+  msg.classList.add("show");
+
+  setTimeout(() => {
+    document.body.style.transition = "2s";
+    document.body.style.filter     = "blur(3px)";
+  }, 1800);
+
+  setTimeout(() => {
+    document.body.style.opacity = "0.6";
+  }, 3200);
+
+  setTimeout(() => {
+    msg.classList.remove("show");
+  }, 7000);
+
+  setTimeout(() => {
+    window.open(
+      "https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae",
+      "_blank"
+    );
+  }, 7600);
+
+  setTimeout(() => {
+    document.body.style.opacity = "1";
+    document.body.style.filter  = "none";
+  }, 9200);
+
+  // Сброс: кнопка снова работает после завершения
+  setTimeout(() => {
+    document.body.style.transition = "";
+    buyStarted = false;
+  }, 10000);
+}
+
+// ── FOCUS: мир собирается вокруг, когда возвращаешься ────────────────────────
+// FIX: не вмешивается в анимации покупки и перехода
+window.addEventListener("focus", () => {
+  if (buyStarted || supportStarted) return;
+
+  document.body.style.transition = "0.8s";
+  document.body.style.filter     = "blur(6px)";
+  document.body.style.opacity    = "0.7";
+
+  setTimeout(() => {
+    document.body.style.filter  = "none";
+    document.body.style.opacity = "1";
+  }, 400);
+});
+
+// ── ПЫЛЬ ПРИ ПРОКРУТКЕ ───────────────────────────────────────────────────────
+window.addEventListener("scroll", createScrollDust);
+
+function createScrollDust() {
+  if (Math.random() > 0.25) return;
+  const dust     = document.createElement("div");
+  dust.className = "scroll-dust";
+  dust.style.left = Math.random() * window.innerWidth  + "px";
+  dust.style.top  = window.scrollY + window.innerHeight * Math.random() + "px";
+  document.body.appendChild(dust);
+  setTimeout(() => dust.remove(), 3000);
+}
+
+// ── КУРСОР ───────────────────────────────────────────────────────────────────
+let lastGlow = 0;
+
+document.addEventListener("mousemove", (e) => {
+  const now = Date.now();
+  if (now - lastGlow < 40) return;
+  lastGlow = now;
+
+  const glow     = document.createElement("div");
+  glow.className = "cursor-glow";
+  glow.style.left = e.clientX + "px";
+  glow.style.top  = e.clientY + "px";
+  document.body.appendChild(glow);
+  setTimeout(() => glow.remove(), 800);
+});
+
+// ── PDF ──────────────────────────────────────────────────────────────────────
+function openExcerpt() {
+  const page  = document.getElementById("pageTurn");
+  const room  = document.getElementById("pdfRoom");
+  const frame = document.getElementById("pdfFrame");
+
+  page.classList.add("open");
+
+  setTimeout(() => {
+    frame.src = "../excerpt/excerpt.pdf#view=FitH";
+    room.classList.add("open");
+  }, 1500);
+}
+
+function closeExcerpt() {
+  const room  = document.getElementById("pdfRoom");
+  const frame = document.getElementById("pdfFrame");
+  const page  = document.getElementById("pageTurn");
+
+  room.classList.remove("open");
+  page.classList.remove("open");
+  frame.src = "";
+}
+
+// ── ФИНАЛЬНЫЕ ПТИЦЫ ──────────────────────────────────────────────────────────
+function releaseFinalBirds() {
+  for (let i = 0; i < 8; i++) {
+    const bird     = document.createElement("div");
+    bird.className = "bird";
+    bird.innerHTML = '<svg viewBox="0 0 64 32"><path d="M2 18 Q16 4 32 18 Q48 4 62 18 Q48 10 32 22 Q16 10 2 18Z"/></svg>';
+    bird.style.left   = (window.innerWidth  / 2) + "px";
+    bird.style.bottom = "40px";
+    document.body.appendChild(bird);
+    setTimeout(() => bird.remove(), 8000);
+  }
+}
+
+// ── ПОДДЕРЖАТЬ ЭНИ ───────────────────────────────────────────────────────────
+function supportEni() {
+  if (supportStarted) return; // FIX: защита от повторного клика
+  supportStarted = true;
+
+  for (let i = 0; i < 40; i++) {
+    const dust     = document.createElement("div");
+    dust.className = "dust-burst";
+    dust.style.left = (window.innerWidth  / 2) + "px";
+    dust.style.top  = (window.innerHeight / 2) + "px";
+    dust.style.setProperty("--x", Math.random());
+    dust.style.setProperty("--y", Math.random());
+    document.body.appendChild(dust);
+    setTimeout(() => dust.remove(), 1800);
+  }
+
+  document.body.style.transition = "1.6s";
+  document.body.style.opacity    = "0";
+
+  setTimeout(() => {
+    window.location.href = "support.html";
+  }, 1400);
+}
+
 </script>
-
 </body>
 </html>
