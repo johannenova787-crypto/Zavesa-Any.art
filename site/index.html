@@ -468,9 +468,6 @@ filter:blur(6px);
 }
 
 
-.portal.open{
-filter:blur(0);
-}
 
   
 .portal.open{
@@ -651,6 +648,8 @@ transform:translateY(-260px) scale(1.1) rotate(6deg);
 transform:translateY(-520px) scale(.9) rotate(10deg);
 opacity:0;
 }
+
+}
   
 
   
@@ -824,7 +823,7 @@ calc(-60px + 120px * var(--y))
 
 
 
-  .buy-message{
+.buy-message{
 position:fixed;
 top:55%;
 left:50%;
@@ -841,12 +840,14 @@ line-height:1.8;
 letter-spacing:0.08em;
 
 color:#8c6b2a;
+
+filter:blur(6px);
 }
-  filter:blur(6px);
 
 .buy-message.show{
 opacity:1;
 transform:translate(-50%,-20px);
+filter:blur(0);
 }
   
 
@@ -997,6 +998,8 @@ transform:translate(-50%,-20px);
 
 <script>
 
+  const portal = document.getElementById("portal");
+  
 // --- БАЗОВЫЕ СОБЫТИЯ ---
 
 window.addEventListener("pageshow", () => {
@@ -1024,6 +1027,10 @@ function nextSlide(){
   const nextIndex = (current+1) % slides.length;
   const upcomingSlide = slides[nextIndex];
 
+  
+const portal = document.getElementById("portal");
+const eni = document.getElementById("eniWord");
+  
   currentSlide.classList.add("flip");
 
   setTimeout(()=>{
@@ -1193,26 +1200,19 @@ function goBuy(){
 
   const msg = document.getElementById("buyMessage");
 
-  // сначала делаем подготовку (чуть невидимое состояние)
   msg.style.transition = "none";
   msg.style.opacity = "0";
   msg.style.transform = "translate(-50%, 20px)";
 
-  // даём браузеру “поймать” состояние
   setTimeout(()=>{
-
     msg.style.transition = "1.8s ease";
     msg.classList.add("show");
-
   },50);
 
-  // мягкое исчезновение
   setTimeout(()=>{
     msg.classList.remove("show");
   },8000);
 
-
-  // затемнение фона
   setTimeout(()=>{
     document.body.style.transition = "2s";
     document.body.style.filter = "blur(4px)";
