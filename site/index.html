@@ -588,7 +588,7 @@ body {
 }
 
 </style>
-<link rel="stylesheet" href="/style-mobile.css">
+<link rel="stylesheet" href="../style-mobile.css">
 </head>
 
 <body>
@@ -897,6 +897,8 @@ function createScrollDust() {
   const dust     = document.createElement("div");
   dust.className = "scroll-dust";
   dust.style.left = Math.random() * window.innerWidth  + "px";
+
+
   dust.style.top  = window.scrollY + window.innerHeight * Math.random() + "px";
   document.body.appendChild(dust);
   setTimeout(() => dust.remove(), 3000);
