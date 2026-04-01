@@ -666,9 +666,20 @@ body {
 <script>
 
 // ── ГЛОБАЛЬНЫЕ ССЫЛКИ ────────────────────────────────────────────────────────
+const portalBtn = document.getElementById("portalBtn");
 const portal    = document.getElementById("portal");
 const eni       = document.getElementById("eniWord");
-const portalBtn = document.getElementById("portalBtn");
+
+portalBtn.addEventListener("click", () => {
+  // Анимация портала и слова ЭНИ
+  portal.classList.add("open");
+  eni.classList.add("show");
+
+  // Через 1.6 секунды (или подбери под длительность анимации)
+  setTimeout(() => {
+    window.location.href = "docs/world-map.html"; // Переход на карту
+  }, 1600);
+});
 
 // ── ФЛАГИ ЗАЩИТЫ ОТ ДВОЙНОГО КЛИКА ──────────────────────────────────────────
 let deeperStarted  = false;
