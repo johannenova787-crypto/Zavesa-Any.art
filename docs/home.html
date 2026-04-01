@@ -765,21 +765,7 @@ function goDeeper() {
   }, 4000);
 }
 
-// ── ПОРТАЛ: клик «Переступить Завесу» ────────────────────────────────────────
-portalBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  if (!portal.classList.contains("open")) return;
 
-  releaseFinalBirds();
-
-  document.body.style.transition = "3s";
-  document.body.style.filter     = "brightness(2) blur(20px)";
-  document.body.style.opacity    = "0";
-
-  setTimeout(() => {
-  window.location.href = world-map.html";
-  }, 2500);
-});
 
 // ── ПТИЦЫ ────────────────────────────────────────────────────────────────────
 function createBirds() {
