@@ -665,20 +665,35 @@ body {
 
 <script>
 
-// ── ГЛОБАЛЬНЫЕ ССЫЛКИ ────────────────────────────────────────────────────────
+// ── Портал к карте (GitHub Pages готовый) ──────────────────────────────
+
+// Получаем элементы
 const portalBtn = document.getElementById("portalBtn");
 const portal    = document.getElementById("portal");
 const eni       = document.getElementById("eniWord");
 
+// Обработчик клика на кнопку "Переступить Завесу"
 portalBtn.addEventListener("click", () => {
-  // Анимация портала и слова ЭНИ
+  // Показываем портал и слово ЭНИ
   portal.classList.add("open");
   eni.classList.add("show");
 
-  // Через 1.6 секунды (или подбери под длительность анимации)
+  // Через 1.6 секунды переходим на карту
   setTimeout(() => {
-    window.location.href = "docs/world-map.html"; // Переход на карту
+    // Путь относительно index.html в корне: карта лежит в папке docs/
+    window.location.href = "docs/world-map.html";
   }, 1600);
+});
+
+// ── Дополнительно: анимация при наведении (если нужно) ──────────────
+portalBtn.addEventListener("mouseenter", () => {
+  portalBtn.style.transform = "scale(1.08)";
+  portalBtn.style.textShadow = "0 0 20px rgba(255,220,140,0.8)";
+});
+
+portalBtn.addEventListener("mouseleave", () => {
+  portalBtn.style.transform = "scale(1)";
+  portalBtn.style.textShadow = "none";
 });
 
 // ── ФЛАГИ ЗАЩИТЫ ОТ ДВОЙНОГО КЛИКА ──────────────────────────────────────────
