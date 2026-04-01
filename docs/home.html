@@ -762,7 +762,7 @@ portalBtn.addEventListener("click", (e) => {
   document.body.style.opacity    = "0";
 
   setTimeout(() => {
-    window.location.href = "../world-map.html";
+  window.location.href = "./world-map.html";
   }, 2500);
 });
 
@@ -966,6 +966,8 @@ function releaseFinalBirds() {
     bird.className = "bird";
     bird.innerHTML = '<svg viewBox="0 0 64 32"><path d="M2 18 Q16 4 32 18 Q48 4 62 18 Q48 10 32 22 Q16 10 2 18Z"/></svg>';
     bird.style.left   = (window.innerWidth  / 2) + "px";
+
+    
     bird.style.bottom = "40px";
     document.body.appendChild(bird);
     setTimeout(() => bird.remove(), 8000);
