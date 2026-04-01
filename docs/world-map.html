@@ -377,13 +377,17 @@ checkSecrets()
 
 const links=document.querySelectorAll('.node a')
 
-links.forEach(l=>{
-
-l.addEventListener('click',()=>{
-mark(l.getAttribute('href'))
-})
-
-})
+links.forEach(l => {
+  l.addEventListener('click', e => {
+    e.preventDefault(); // не открываем сразу
+    const href = l.getAttribute('href');
+    mark(href);          // отмечаем посещение
+    setTimeout(() => {
+      // Плавный переход после анимации
+      window.location.href = href;
+    }, 200); // задержка для эффекта светящейся линии, можно увеличить
+  });
+});
 
 /* секрет кота */
 
