@@ -368,36 +368,51 @@ body {
 }
 
 .portal-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
-  letter-spacing: 0.2em;
+position: absolute;
+top: 50%;
+left: 50%;
+font-family: 'Cormorant Garamond', serif;
+font-size: 18px;
+letter-spacing: 0.2em;
 
-  color: #7a5a1f; /* темное золото */
+color: #7a5a1f;
 
-  text-shadow:
-    0 0 6px rgba(255,240,180,0.9),
-    0 0 12px rgba(255,220,140,0.6),
-    0 0 20px rgba(255,220,140,0.4);
+text-shadow:
+0 0 6px rgba(255,240,180,0.9),
+0 0 12px rgba(255,220,140,0.6),
+0 0 20px rgba(255,220,140,0.4);
 
-  cursor: pointer;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translate(-50%, -40%) scale(0.9);
-  transition: opacity 1.4s ease, transform 1.4s ease, text-shadow .5s ease;
+cursor: pointer;
+white-space: nowrap;
+
+opacity: 0;
+
+/* ВАЖНО: фикс центра */
+transform: translate(-50%, -50%) scale(0.9);
+
+transition:
+opacity 1.4s ease,
+transform 1.4s ease,
+text-shadow .5s ease;
 }
-  
+
 .portal.open .portal-text {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+opacity: 1;
+transform: translate(-50%, -50%) scale(1);
 }
 
+/* ✅ hover БЕЗ ломания центра */
 .portal-text:hover {
-  text-shadow: 0 0 20px rgba(255,220,140,0.8);
-  transform: translate(-50%, -50%) scale(1.08);
+transform: translate(-50%, -50%) scale(1.08);
+
+text-shadow:
+0 0 10px rgba(255,240,180,1),
+0 0 20px rgba(255,220,140,0.9),
+0 0 40px rgba(255,220,140,0.7),
+0 0 60px rgba(255,220,140,0.5);
 }
+
+  
 
 /* ЭНИ */
 .eni-word {
@@ -706,16 +721,7 @@ portalBtn.addEventListener("click", () => {
   }, 1600);
 });
 
-// ── Дополнительно: анимация при наведении (если нужно) ──────────────
-portalBtn.addEventListener("mouseenter", () => {
-  portalBtn.style.transform = "scale(1.08)";
-  portalBtn.style.textShadow = "0 0 20px rgba(255,220,140,0.8)";
-});
 
-portalBtn.addEventListener("mouseleave", () => {
-  portalBtn.style.transform = "scale(1)";
-  portalBtn.style.textShadow = "none";
-});
 
 // ── ФЛАГИ ЗАЩИТЫ ОТ ДВОЙНОГО КЛИКА ──────────────────────────────────────────
 let deeperStarted  = false;
