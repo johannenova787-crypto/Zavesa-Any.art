@@ -859,58 +859,49 @@ function createPageParticles() {
 
 // ── ПОКУПКА ──────────────────────────────────────────────────────────────────
 function goBuy() {
-  if (buyStarted) return; // FIX: защита от повторного клика
+  if (buyStarted) return;
   buyStarted = true;
 
   const msg = document.getElementById("buyMessage");
+
+  // 1. Показ текста (один раз, спокойно)
   msg.classList.add("show");
 
+  // 2. НИЧЕГО не происходит 7 секунд — можно прочитать
+  // (тишина, без размытия)
+
+  // 3. Потом начинается мягкое растворение
   setTimeout(() => {
-    document.body.style.transition = "2s";
+    document.body.style.transition = "2.5s ease";
     document.body.style.filter     = "blur(3px)";
-  }, 1800);
+    document.body.style.opacity    = "0.7";
+  }, 7000);
 
+  // 4. Чуть позже текст исчезает
   setTimeout(() => {
-    document.body.style.opacity = "0.6";
-  }, 3200);
+    msg.classList.remove("show");
+  }, 9000);
 
-setTimeout(() => {
-  msg.classList.remove("show");
-}, 10000);
+  // 5. И только потом открывается страница
+  setTimeout(() => {
+    window.open(
+      "https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae",
+      "_blank"
+    );
+  }, 10000);
 
-setTimeout(() => {
-  window.open(
-    "https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae",
-    "_blank"
-  );
-}, 10600);
-
+  // 6. Возврат страницы в норму
   setTimeout(() => {
     document.body.style.opacity = "1";
     document.body.style.filter  = "none";
-  }, 9200);
+  }, 11000);
 
-  // Сброс: кнопка снова работает после завершения
+  // 7. Сброс флага
   setTimeout(() => {
     document.body.style.transition = "";
     buyStarted = false;
-  }, 10000);
+  }, 11500);
 }
-
-// ── FOCUS: мир собирается вокруг, когда возвращаешься ────────────────────────
-// FIX: не вмешивается в анимации покупки и перехода
-window.addEventListener("focus", () => {
-  if (buyStarted || supportStarted) return;
-
-  document.body.style.transition = "0.8s";
-  document.body.style.filter     = "blur(6px)";
-  document.body.style.opacity    = "0.7";
-
-  setTimeout(() => {
-    document.body.style.filter  = "none";
-    document.body.style.opacity = "1";
-  }, 400);
-});
 
 // ── ПЫЛЬ ПРИ ПРОКРУТКЕ ───────────────────────────────────────────────────────
 window.addEventListener("scroll", createScrollDust);
