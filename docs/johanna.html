@@ -19,12 +19,23 @@ background:#f8f5ee;
 font-family:"Cormorant Garamond", serif;
 
 display:flex;
-flex-direction:column;
 align-items:center;
 justify-content:center;
 
 overflow:hidden;
 cursor:none;
+}
+
+/* ✨ ЦЕНТРИРУЮЩИЙ КОНТЕЙНЕР */
+.page-center{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+position:relative;
+width:100%;
+height:100%;
 }
 
 .cursor-light{
@@ -112,9 +123,12 @@ pointer-events:none;
 100%{transform:translateX(120vw) translateY(-120px) scale(1); opacity:0;}
 }
 
+/* ✨ ССЫЛКА ВНИЗУ ПО ЦЕНТРУ */
 .preface-link{
 position:absolute;
 bottom:28px;
+left:50%;
+transform:translateX(-50%);
 font-size:14px;
 letter-spacing:1px;
 color:#a7966a;
@@ -142,7 +156,9 @@ animation:letterFade 1.8s ease forwards;
 </head>
 
 <body>
+
 <div class="page-center">
+
 <div class="cursor-light" id="cursor"></div>
 
 <h1>JOANNA NOVA</h1>
@@ -159,9 +175,11 @@ animation:letterFade 1.8s ease forwards;
 прочитать предисловие
 </a>
 
+</div>
+
 <script>
 
-/* свет курсора */
+/* курсор */
 const cursor=document.getElementById("cursor");
 
 document.addEventListener("mousemove",e=>{
@@ -201,7 +219,10 @@ window.location.href="home.html";
 }
 
 /* фоновые птицы */
+window.addEventListener("load", ()=>{
+
 const door=document.getElementById("door");
+const rect=door.getBoundingClientRect();
 
 for(let i=0;i<6;i++){
 
@@ -209,8 +230,6 @@ const bird=document.createElementNS("http://www.w3.org/2000/svg","svg");
 
 bird.setAttribute("viewBox","0 0 24 24");
 bird.classList.add("bird");
-
-const rect=door.getBoundingClientRect();
 
 bird.style.left=(rect.left + rect.width/2)+"px";
 bird.style.top=(rect.top + rect.height/2)+"px";
@@ -224,7 +243,9 @@ document.body.appendChild(bird);
 
 }
 
+});
+
 </script>
-</div>
+
 </body>
 </html>
