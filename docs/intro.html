@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -292,14 +293,10 @@ document.getElementById("door").classList.add("glow")
 
 btn.onclick=function(){
 
-// 🌑 отмечаем, что человек уже прошёл интро
-localStorage.setItem("eni_intro_seen", "true");
-
 const rect=this.getBoundingClientRect()
 
 for(let i=0;i<24;i++){
 
-```
 const s=document.createElement("div")
 s.className="spark"
 
@@ -312,20 +309,8 @@ s.style.setProperty("--y",Math.random())
 document.body.appendChild(s)
 
 setTimeout(()=>s.remove(),1400)
-```
 
 }
-
-setTimeout(()=>{
-document.body.style.opacity="0"
-},300)
-
-setTimeout(()=>{
-window.location.href="home.html"
-},1700)
-
-}
-
   
 
 setTimeout(()=>{
