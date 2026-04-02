@@ -31,7 +31,10 @@ pointer-events:none;
 
 @keyframes titleFade{to{opacity:1}}
 
-.map{position:relative;width:100vw;height:100vh}
+.map{
+position:absolute;
+inset:0;
+}
 
 .node{
 position:absolute;
@@ -168,7 +171,18 @@ text-shadow:0 0 30px rgba(255,230,160,0.6);
 </head>
 
 <body>
+  
 <div class="page-center">
+  
+.page-center{
+position:relative;
+width:100vw;
+height:100vh;
+overflow:hidden;
+}
+  
+
+  
 <h1>Мир Эни</h1>
 
 <div class="map">
