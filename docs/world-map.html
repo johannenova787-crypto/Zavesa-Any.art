@@ -1,8 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Мир Эни</title>
@@ -10,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-
 body{
 margin:0;
 font-family:'Cormorant Garamond',serif;
@@ -19,24 +16,18 @@ color:#e8ddc7;
 overflow:hidden;
 }
 
-/* РАСШИРЕННЫЙ, НО ЦЕНТРИРОВАННЫЙ МИР */
-
 .page-center{
 position:relative;
-width:140vw;
-height:120vh;
-margin-left:-20vw;
+width:100vw;
+height:100vh;
 overflow:hidden;
 }
-
-/* КАРТА ДЫШИТ ГОРИЗОНТАЛЬНО */
 
 .map{
 position:absolute;
 inset:0;
-transform:scale(1.15,1);
+transform:scale(1.08,1);
 transform-origin:center;
-left:-7.5%;
 }
 
 h1{
@@ -48,7 +39,6 @@ font-size:60px;
 letter-spacing:0.16em;
 animation:titleFade 3s forwards;
 opacity:0;
-pointer-events:none;
 }
 
 @keyframes titleFade{to{opacity:1}}
@@ -73,7 +63,12 @@ border-radius:50%;
 margin:auto;
 cursor:pointer;
 position:relative;
-transform:translateZ(0);
+}
+
+/* УВЕЛИЧЕННЫЙ ЦЕНТРАЛЬНЫЙ ПОРТАЛ */
+#housePortal{
+width:130px;
+height:130px;
 }
 
 .portal::before{
@@ -94,20 +89,19 @@ animation:portalPulseStrong 4s ease-in-out infinite, portalSpin 40s linear infin
 
 @keyframes portalPulse{
 0%{box-shadow:0 0 20px rgba(255,220,140,0.4)}
-50%{box-shadow:0 0 65px rgba(255,230,170,1)}
+50%{box-shadow:0 0 70px rgba(255,230,170,1)}
 100%{box-shadow:0 0 20px rgba(255,220,140,0.4)}
 }
 
 @keyframes portalPulseStrong{
 0%{box-shadow:0 0 30px rgba(255,220,140,0.6)}
-50%{box-shadow:0 0 120px rgba(255,240,180,1)}
+50%{box-shadow:0 0 140px rgba(255,240,180,1)}
 100%{box-shadow:0 0 30px rgba(255,220,140,0.6)}
 }
 
 .label{margin-top:16px;font-size:18px;letter-spacing:0.12em}
 
-/* линии */
-
+/* СОЗВЕЗДИЯ */
 .line{
 position:absolute;
 height:2px;
@@ -117,16 +111,30 @@ opacity:0.2;
 transition:1.4s;
 }
 
-.line.active{opacity:1}
+.line.active{
+opacity:1;
+box-shadow:0 0 12px rgba(255,230,160,0.8);
+}
 
-/* скрытые */
+/* ЗВЁЗДНОЕ НЕБО */
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+opacity:0.6;
+animation:twinkle 4s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+0%,100%{opacity:0.2}
+50%{opacity:1}
+}
 
 .hidden{opacity:0;pointer-events:none;transition:1.6s}
 .hidden.show{opacity:1;pointer-events:auto}
 
-/* текст */
-
-#whisper, #worldMemory{
+#whisper,#worldMemory{
 position:absolute;
 left:50%;
 transform:translate(-50%,-50%);
@@ -134,98 +142,53 @@ text-align:center;
 pointer-events:none;
 }
 
-#whisper{
-top:45%;
-font-size:28px;
-opacity:0;
-transition:3s;
-}
+#whisper{top:45%;font-size:28px;opacity:0;transition:3s}
+#worldMemory{top:50%;font-size:34px;opacity:0;transition:3s}
 
-#worldMemory{
-top:50%;
-font-size:34px;
-opacity:0;
-transition:3s;
-}
-
-/* назад */
-
-.back{
-position:absolute;
-bottom:40px;
-width:100%;
-text-align:center;
-}
-
+.back{position:absolute;bottom:40px;width:100%;text-align:center}
 </style>
 </head>
 
 <body>
-
 <div class="page-center">
-
 <h1>Мир Эни</h1>
 
 <div class="map">
-
-<!-- линии -->
 
 <div class="line" id="line1" style="top:55%;left:50%;width:28%;transform:rotate(-150deg)"></div>
 <div class="line" id="line2" style="top:55%;left:50%;width:28%;transform:rotate(150deg)"></div>
 <div class="line" id="line3" style="top:55%;left:50%;width:28%;transform:rotate(25deg)"></div>
 <div class="line" id="line4" style="top:55%;left:50%;width:28%;transform:rotate(-25deg)"></div>
 
-<!-- центр -->
-
 <div class="node" style="top:55%;left:50%">
-<a href="rooms/house-of-prudence/index.html">
-<div class="portal" id="housePortal"></div>
-</a>
+<a href="rooms/house-of-prudence/index.html"><div class="portal" id="housePortal"></div></a>
 <div class="label">Дом Благоразумия</div>
 </div>
 
-<!-- верх -->
-
 <div class="node" style="top:28%;left:50%">
-<a href="rooms/eni/room.html">
-<div class="portal"></div>
-</a>
+<a href="rooms/eni/room.html"><div class="portal"></div></a>
 <div class="label">Эни</div>
 </div>
 
-<!-- луны (расширены) -->
-
-<div class="node" style="top:38%;left:18%">
-<a href="rooms/angelika-jeremy/room.html">
-<div class="portal"></div>
-</a>
+<div class="node" style="top:38%;left:20%">
+<a href="rooms/angelika-jeremy/room.html"><div class="portal"></div></a>
 <div class="label">Анджелика и Джереми</div>
 </div>
 
-<div class="node" style="top:38%;left:82%">
-<a href="rooms/mirror-brother/room.html">
-<div class="portal"></div>
-</a>
+<div class="node" style="top:38%;left:80%">
+<a href="rooms/mirror-brother/room.html"><div class="portal"></div></a>
 <div class="label">Зеркальный Брат</div>
 </div>
 
-<!-- низ -->
-
-<div class="node" style="top:75%;left:20%">
-<a href="rooms/yut/room.html">
-<div class="portal"></div>
-</a>
+<div class="node" style="top:75%;left:22%">
+<a href="rooms/yut/room.html"><div class="portal"></div></a>
 <div class="label">Ют</div>
 </div>
 
-<div class="node" style="top:75%;left:80%">
-<a href="rooms/cat/room.html">
-<div class="portal" id="catPortal"></div>
-</a>
+<div class="node" style="top:75%;left:78%">
+<a href="rooms/cat/room.html"><div class="portal" id="catPortal"></div></a>
 <div class="label">Кот</div>
 </div>
-
-<!-- скрытые -->
 
 <div class="node hidden" id="yutNight" style="top:10%;left:20%">
 <a href="rooms/yut/night.html"><div class="portal"></div></a>
@@ -237,28 +200,30 @@ text-align:center;
 <div class="label">SI-EL</div>
 </div>
 
-<div class="node hidden" id="ael" style="top:85%;left:50%">
+<div class="node hidden" id="ael" style="top:88%;left:50%">
 <a href="rooms/hidden/ael-ra.html"><div class="portal"></div></a>
 <div class="label">AEL-RA</div>
 </div>
 
 </div>
 
-<div class="back">
-<a href="index.html">Вернуться к Завесе</a>
-</div>
+<div class="back"><a href="index.html">Вернуться к Завесе</a></div>
 
-<div id="whisper">
-Иногда карта — это не путь. Иногда она — память.
-</div>
-
-<div id="worldMemory">
-Мир запомнил, что ты был здесь.
-</div>
+<div id="whisper">Иногда карта — это не путь. Иногда она — память.</div>
+<div id="worldMemory">Мир запомнил, что ты был здесь.</div>
 
 </div>
 
 <script>
+/* ЗВЁЗДЫ */
+for(let i=0;i<180;i++){
+const s=document.createElement('div')
+s.className='star'
+s.style.left=Math.random()*100+'%'
+s.style.top=Math.random()*100+'%'
+s.style.animationDelay=Math.random()*4+'s'
+document.body.appendChild(s)
+}
 
 let visited=JSON.parse(localStorage.getItem('eniVisited')||'[]')
 
@@ -287,14 +252,8 @@ document.querySelectorAll('.node a').forEach(l=>{
 l.onclick=()=>mark(l.getAttribute('href'))
 })
 
-/* ночь */
-
 const hour=new Date().getHours()
-if(hour>=20||hour<=8){
-yutNight.classList.add('show')
-}
-
-/* шёпот */
+if(hour>=20||hour<=8){yutNight.classList.add('show')}
 
 if(!localStorage.getItem('eniWhisper')){
 setTimeout(()=>{
@@ -303,8 +262,6 @@ setTimeout(()=>whisper.style.opacity=0,6000)
 },2000)
 localStorage.setItem('eniWhisper','1')
 }
-
-/* пробуждение */
 
 if(visited.length>=6 && !localStorage.getItem('eniWorldAwakened')){
 setTimeout(()=>{
@@ -316,8 +273,8 @@ localStorage.setItem('eniWorldAwakened','1')
 
 activateLines()
 checkSecrets()
-
 </script>
 
 </body>
 </html>
+
