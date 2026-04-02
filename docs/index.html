@@ -251,14 +251,15 @@ const tctx=temp.getContext("2d");
 temp.width = canvas.width;
 temp.height = canvas.height;
 
-tctx.scale(dpr, dpr);
+tctx.setTransform(1, 0, 0, 1, 0, 0);
 
 tctx.fillStyle="white";
 tctx.font="bold 150px Cinzel";
 tctx.textAlign="center";
 tctx.textBaseline="middle";
+  
+tctx.fillText(text, canvas.width/2, canvas.height/2);
 
-tctx.fillText(text, window.innerWidth/2, window.innerHeight/2);
 
 const data=tctx.getImageData(0,0,canvas.width,canvas.height).data;
 
@@ -270,7 +271,7 @@ for(let x=0;x<canvas.width;x+=4){
 let i=(y*canvas.width+x)*4;
 
 if(data[i+3]>150){
-points.push({x:x/dpr,y:y/dpr});
+points.push({x,y});
 }
 
 }
