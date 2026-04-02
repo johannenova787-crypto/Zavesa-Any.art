@@ -1,3 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Joanna Nova</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+background:#f8f5ee;
+
+font-family:"Cormorant Garamond", serif;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+overflow:hidden;
+cursor:none;
+}
+
+.cursor-light{
+position:fixed;
+width:160px;
+height:160px;
+background:radial-gradient(circle,
+rgba(255,240,180,0.45),
+rgba(255,240,180,0) 70%);
+pointer-events:none;
+transform:translate(-50%,-50%);
+z-index:999;
+}
+
+h1{
+font-size:64px;
+letter-spacing:12px;
+font-weight:500;
+color:#a7966a;
+margin-bottom:30px;
+text-shadow:0 0 4px rgba(200,180,120,0.18);
+opacity:0;
+animation:fadeName 2.5s ease forwards;
+}
+
+.tagline{
+font-size:30px;
+font-style:italic;
+color:#cbbf9b;
+letter-spacing:1px;
+text-shadow:0 0 6px rgba(230,210,160,0.25);
+opacity:0;
+filter:blur(6px);
+animation:pageReveal 3.5s ease forwards;
+animation-delay:1.5s;
+}
+
+.enter{
+margin-top:60px;
+padding:14px 38px;
+border:1px solid #bfa96d;
+background:transparent;
+font-size:16px;
+letter-spacing:3px;
+color:#7a6638;
+cursor:pointer;
+opacity:0;
+animation:fadeButton 3s forwards;
+animation-delay:4s;
+transition:0.4s;
+}
+
+.enter:hover{
+background:#bfa96d;
+color:white;
+}
+
+.bird{
+position:absolute;
+width:36px;
+height:36px;
+fill:#7a6638;
+animation:fly 12s linear infinite;
+pointer-events:none;
+}
+
+@keyframes fadeName{
+0%{opacity:0; transform:translateY(20px);}
+100%{opacity:1; transform:translateY(0);}
+}
+
+@keyframes pageReveal{
+0%{opacity:0; filter:blur(8px); transform:translateY(10px);}
+60%{opacity:0.6; filter:blur(2px);}
+100%{opacity:1; filter:blur(0); transform:translateY(0);}
+}
+
+@keyframes fadeButton{
+0%{opacity:0;}
+100%{opacity:1;}
+}
+
+@keyframes fly{
+0%{transform:translateX(0) translateY(0) scale(0.8); opacity:1;}
+100%{transform:translateX(120vw) translateY(-120px) scale(1); opacity:0;}
+}
+
+.preface-link{
+position:absolute;
+bottom:28px;
+font-size:14px;
+letter-spacing:1px;
+color:#a7966a;
+opacity:0.35;
+text-decoration:none;
+transition:opacity 0.6s ease;
+}
+
+.preface-link:hover{
+opacity:0.8;
+}
+
+.light-letter{
+display:inline-block;
+animation:letterFade 1.8s ease forwards;
+}
+
+@keyframes letterFade{
+0%{opacity:1; transform:translateY(0); filter:blur(0);}
+100%{opacity:0; transform:translateY(-25px); filter:blur(6px);}
+}
+
+</style>
+<link rel="stylesheet" href="/style-mobile.css">
+</head>
+
+<body>
+<div class="page-center">
+<div class="cursor-light" id="cursor"></div>
+
+<h1>JOANNA NOVA</h1>
+
+<div class="tagline" id="tagline">
+Иногда книга — это <span id="door">дверь</span>
+</div>
+
+<button class="enter" onclick="openPortal()">
+Открыть книгу
+</button>
+
+<a class="preface-link" href="intro.html">
+прочитать предисловие
+</a>
+
 <script>
 
 /* свет курсора */
@@ -16,8 +177,7 @@ const rect = door.getBoundingClientRect();
 
 for(let i=0;i<16;i++){
 
-const bird=document.createElementNS(
-"http://www.w3.org/2000/svg","svg");
+const bird=document.createElementNS("http://www.w3.org/2000/svg","svg");
 
 bird.setAttribute("viewBox","0 0 24 24");
 bird.classList.add("bird");
@@ -27,7 +187,7 @@ bird.style.top=(rect.top + rect.height/2)+"px";
 
 bird.style.animationDelay=(Math.random()*2)+"s";
 
-bird.innerHTML=
+bird.innerHTML =
 '<path d="M2 12c4-4 8-4 10 0 2-4 6-4 10 0-4-2-8-2-10 2-2-4-6-4-10-2z"/>';
 
 document.body.appendChild(bird);
@@ -40,13 +200,12 @@ window.location.href="https://johannenova787-crypto.github.io/Zavesa-Any.art/ind
 
 }
 
-/* лёгкие фоновые птицы */
+/* фоновые птицы */
 const door=document.getElementById("door");
 
 for(let i=0;i<6;i++){
 
-const bird=document.createElementNS(
-"http://www.w3.org/2000/svg","svg");
+const bird=document.createElementNS("http://www.w3.org/2000/svg","svg");
 
 bird.setAttribute("viewBox","0 0 24 24");
 bird.classList.add("bird");
@@ -66,3 +225,6 @@ document.body.appendChild(bird);
 }
 
 </script>
+</div>
+</body>
+</html>
