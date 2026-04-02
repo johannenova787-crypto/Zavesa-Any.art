@@ -82,7 +82,7 @@ color:white;
 
 </style>
 
-<link rel="stylesheet" href="./style-mobile.css">
+<link rel="stylesheet" href="/Zavesa-Any.art/style-mobile.css">
 </head>
 
 <body>
@@ -108,6 +108,8 @@ color:white;
 
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
+
+let animationId;
 
 function resize(){
 canvas.width=window.innerWidth;
@@ -221,7 +223,7 @@ ctx.shadowBlur=0;
 
 }
 
-requestAnimationFrame(draw);
+animationId = requestAnimationFrame(draw);
 
 }
 
@@ -234,34 +236,28 @@ currentText=text;
 const temp=document.createElement("canvas");
 const tctx=temp.getContext("2d");
 
-temp.width=900;
-temp.height=400;
+temp.width=canvas.width;
+temp.height=canvas.height;
 
 tctx.fillStyle="white";
 tctx.font="bold 150px Cinzel";
 tctx.textAlign="center";
 tctx.textBaseline="middle";
 
-tctx.fillText(text,450,200);
+tctx.fillText(text,canvas.width/2,canvas.height/2);
 
-const data=tctx.getImageData(0,0,900,400).data;
+const data=tctx.getImageData(0,0,canvas.width,canvas.height).data;
 
 let points=[];
 
-for(let y=0;y<400;y+=3){
-for(let x=0;x<900;x+=3){
+for(let y=0;y<canvas.height;y+=4){
+for(let x=0;x<canvas.width;x+=4){
 
-let i=(y*900+x)*4;
+let i=(y*canvas.width+x)*4;
 
 if(data[i+3]>150){
 
-const offsetX = (canvas.width - temp.width) / 2;
-const offsetY = (canvas.height - temp.height) / 2;
-
-points.push({
-x: x + offsetX,
-y: y + offsetY
-});
+points.push({x,y});
 
 }
 
@@ -278,13 +274,8 @@ p.ty=point.y;
 
 forming=true;
 
-setTimeout(()=>{
-glowLetters=true;
-},1500);
-
-setTimeout(()=>{
-glowLetters=false;
-},3500);
+setTimeout(()=>{glowLetters=true;},1500);
+setTimeout(()=>{glowLetters=false;},3500);
 
 }
 
@@ -315,7 +306,8 @@ formText("JOANNA NOVA");
 },9000);
 
 setTimeout(()=>{
-window.location.href="./intro.html";
+cancelAnimationFrame(animationId);
+window.location.href="/Zavesa-Any.art/intro.html";
 },12000);
 
 }
@@ -325,3 +317,4 @@ window.location.href="./intro.html";
 </div>
 </body>
 </html>
+
