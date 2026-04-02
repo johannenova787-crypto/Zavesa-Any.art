@@ -363,14 +363,21 @@ body {
   font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
   letter-spacing: 0.2em;
-  color: #8c6b2a;
+
+  color: #7a5a1f; /* темное золото */
+
+  text-shadow:
+    0 0 6px rgba(255,240,180,0.9),
+    0 0 12px rgba(255,220,140,0.6),
+    0 0 20px rgba(255,220,140,0.4);
+
   cursor: pointer;
   white-space: nowrap;
   opacity: 0;
   transform: translate(-50%, -40%) scale(0.9);
   transition: opacity 1.4s ease, transform 1.4s ease, text-shadow .5s ease;
 }
-
+  
 .portal.open .portal-text {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
@@ -867,16 +874,16 @@ function goBuy() {
     document.body.style.opacity = "0.6";
   }, 3200);
 
-  setTimeout(() => {
-    msg.classList.remove("show");
-  }, 7000);
+setTimeout(() => {
+  msg.classList.remove("show");
+}, 10000);
 
-  setTimeout(() => {
-    window.open(
-      "https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae",
-      "_blank"
-    );
-  }, 7600);
+setTimeout(() => {
+  window.open(
+    "https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae",
+    "_blank"
+  );
+}, 10600);
 
   setTimeout(() => {
     document.body.style.opacity = "1";
