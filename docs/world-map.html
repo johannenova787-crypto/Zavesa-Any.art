@@ -144,7 +144,7 @@ text-shadow:0 0 30px rgba(255,230,160,0.6);
 }
   
 </style>
-  <link rel="stylesheet" href="/style-mobile.css">
+<link rel="stylesheet" href="style-mobile.css">
 </head>
 
 <body>
@@ -378,14 +378,9 @@ checkSecrets()
 const links=document.querySelectorAll('.node a')
 
 links.forEach(l => {
-  l.addEventListener('click', e => {
-    e.preventDefault(); // не открываем сразу
+  l.addEventListener('click', () => {
     const href = l.getAttribute('href');
-    mark(href);          // отмечаем посещение
-    setTimeout(() => {
-      // Плавный переход после анимации
-      window.location.href = href;
-    }, 200); // задержка для эффекта светящейся линии, можно увеличить
+    mark(href);
   });
 });
 
@@ -435,10 +430,8 @@ localStorage.setItem('eniWhisper','1')
 
 }
 
-  if(visited.length>=6 && !localStorage.getItem('eniWorldAwakened')){
-    
-localStorage.removeItem('eniWorldAwakened')
-    
+if(visited.length>=6 && !localStorage.getItem('eniWorldAwakened')){
+
 setTimeout(worldAwakening,1200)
 
 localStorage.setItem('eniWorldAwakened','1')
