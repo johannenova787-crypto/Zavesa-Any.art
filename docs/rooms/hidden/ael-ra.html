@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AEL-RA</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+font-family:'Cormorant Garamond',serif;
+background:radial-gradient(circle at center,#1a0f2a,#07040f 70%);
+color:#e8d9c8;
+}
+
+/* звезда */
+
+.star{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:140px;
+height:140px;
+border-radius:50%;
+
+background:
+radial-gradient(circle,
+#ffd6a3,
+#ffb97c,
+#ff8a5a,
+#c3473c,
+transparent 70%);
+
+box-shadow:
+0 0 40px #ffb97c,
+0 0 120px #ff7a50;
+
+animation:pulse 6s ease-in-out infinite;
+transition:2s;
+}
+
+@keyframes pulse{
+0%{transform:translate(-50%,-50%) scale(1)}
+50%{transform:translate(-50%,-50%) scale(1.12)}
+100%{transform:translate(-50%,-50%) scale(1)}
+}
+
+/* чёрное ядро */
+
+.black{
+background:radial-gradient(circle,#000,#120010 60%,transparent);
+box-shadow:
+0 0 30px #000,
+0 0 120px #5a0018;
+}
+
+/* частицы */
+
+.particle{
+position:absolute;
+width:3px;
+height:3px;
+background:#ffe7c9;
+border-radius:50%;
+opacity:0.8;
+pointer-events:none;
+}
+
+/* текст */
+
+.text{
+position:absolute;
+width:100%;
+text-align:center;
+font-size:26px;
+opacity:0;
+letter-spacing:0.08em;
+}
+
+.t1{top:18%;animation:fade 4s forwards;animation-delay:2s;}
+.t2{top:22%;animation:fade 4s forwards;animation-delay:6s;}
+.t3{top:26%;animation:fade 4s forwards;animation-delay:10s;}
+.t4{top:30%;animation:fade 4s forwards;animation-delay:14s;}
+.t5{top:34%;animation:fade 4s forwards;animation-delay:18s;}
+.t6{top:38%;animation:fade 4s forwards;animation-delay:22s;}
+.t7{top:42%;animation:fade 4s forwards;animation-delay:28s;}
+
+@keyframes fade{
+to{opacity:0.9}
+}
+
+/* финальная строка */
+
+.final{
+position:absolute;
+bottom:18%;
+width:100%;
+text-align:center;
+font-size:28px;
+opacity:0;
+transition:3s;
+color:#ffb2a0;
+}
+
+/* назад */
+
+.back{
+position:absolute;
+bottom:40px;
+width:100%;
+text-align:center;
+font-size:18px;
+opacity:0.6;
+}
+
+.back a{
+color:#e8d9c8;
+text-decoration:none;
+}
+
+</style>
+<link rel="stylesheet" href="/style-mobile.css">
+</head>
+
+<body>
+
+<div class="star" id="star"></div>
+
+<div class="text t1">Здесь тебя любят.</div>
+<div class="text t2">Здесь тебя принимают.</div>
+<div class="text t3">Здесь можно раствориться.</div>
+<div class="text t4">Ты можешь отдать всё.</div>
+<div class="text t5">Твою боль.</div>
+<div class="text t6">Твою память.</div>
+<div class="text t7">Твоё имя.</div>
+
+<div class="final" id="final">
+Любовь Ael-Ra безгранична.<br>
+Она принимает всё.<br>
+И ничего не возвращает.
+</div>
+
+<div class="back">
+<a href="../../world-map.html">Вернуться к карте</a>
+</div>
+
+<script>
+
+const star=document.getElementById("star")
+
+/* частицы */
+
+let particles=[]
+
+for(let i=0;i<120;i++){
+
+let p=document.createElement("div")
+p.className="particle"
+
+let angle=Math.random()*Math.PI*2
+let radius=200+Math.random()*400
+
+particles.push({el:p,angle:angle,radius:radius})
+
+document.body.appendChild(p)
+
+}
+
+/* движение частиц */
+
+function animate(){
+
+particles.forEach(p=>{
+
+p.radius*=0.997
+p.angle+=0.002
+
+let x=window.innerWidth/2+Math.cos(p.angle)*p.radius
+let y=window.innerHeight/2+Math.sin(p.angle)*p.radius
+
+p.el.style.left=x+"px"
+p.el.style.top=y+"px"
+
+})
+
+requestAnimationFrame(animate)
+
+}
+
+animate()
+
+/* усиление гравитации мышью */
+
+document.addEventListener("mousemove",()=>{
+
+particles.forEach(p=>{
+p.radius*=0.985
+})
+
+})
+
+/* превращение в чёрную дыру */
+
+setTimeout(()=>{
+
+star.classList.add("black")
+
+},26000)
+
+/* финальная фраза */
+
+setTimeout(()=>{
+
+document.getElementById("final").style.opacity=1
+
+},32000)
+
+</script>
+
+</body>
+</html>

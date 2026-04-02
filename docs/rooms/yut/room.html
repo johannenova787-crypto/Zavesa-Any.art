@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ют</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+  html{
+scroll-behavior:smooth;
+}
+
+body{
+margin:0;
+font-family:'Cormorant Garamond',serif;
+
+background:
+radial-gradient(circle at 50% 40%, #0f0f18, #020204);
+
+color:#d9d3c5;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+min-height:100vh;
+
+
+
+animation:fadeIn 3s ease forwards;
+opacity:0;
+}
+
+@keyframes fadeIn{
+to{opacity:1}
+}
+
+.room{
+max-width:800px;
+text-align:center;
+padding:60px 30px;
+position:relative;
+}
+
+/* образ Ют */
+
+.yut-image{
+
+width:240px;
+
+opacity:0;
+
+margin-bottom:40px;
+
+filter:blur(6px);
+
+animation:yutAppear 4s ease forwards, ghost 6s ease-in-out infinite 4s;
+
+}
+
+  @keyframes yutAppear{
+
+0%{
+opacity:0;
+filter:blur(12px);
+transform:scale(0.9);
+}
+
+60%{
+opacity:0.5;
+filter:blur(4px);
+}
+
+100%{
+opacity:0.45;
+filter:blur(0.2px);
+transform:scale(1);
+}
+
+}
+
+@keyframes ghost{
+
+0%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+100%{transform:translateY(0)}
+
+}
+
+/* строки текста */
+
+.line{
+
+font-size:23px;
+line-height:1.9;
+
+opacity:0;
+transform:translateY(10px);
+
+transition:1.8s;
+
+}
+
+.line.show{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+/* частицы */
+
+.particle{
+
+position:fixed;
+
+width:3px;
+height:3px;
+
+background:#d8cfae;
+
+border-radius:50%;
+
+opacity:0.5;
+
+animation:float 12s linear forwards;
+
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(0);
+opacity:0;
+}
+
+20%{opacity:0.5}
+
+100%{
+transform:translateY(-400px);
+opacity:0;
+}
+
+}
+
+/* выход */
+
+.back{
+
+margin-top:60px;
+opacity:0.5;
+font-size:18px;
+
+}
+
+.back a{
+
+color:#d9d3c5;
+text-decoration:none;
+
+}
+
+.back a:hover{
+
+opacity:1;
+
+}
+  
+/* искра Ют */
+
+.spark{
+position:absolute;
+
+top:38%;
+left:50%;
+
+transform:translateX(-50%);
+
+width:6px;
+height:6px;
+
+background:white;
+
+border-radius:50%;
+
+box-shadow:0 0 20px #fff, 0 0 60px #ffe8a0;
+
+animation:sparkPulse 3s ease-in-out infinite;
+}
+
+@keyframes sparkPulse{
+
+0%{
+opacity:0.2;
+transform:scale(0.8);
+}
+
+50%{
+opacity:1;
+transform:scale(1.4);
+}
+
+100%{
+opacity:0.2;
+transform:scale(0.8);
+}
+
+}
+
+  /* вспышка когда Ют увидели */
+
+.spark.flash{
+
+animation:sparkFlash 1.2s ease;
+
+}
+
+@keyframes sparkFlash{
+
+0%{
+transform:scale(1);
+opacity:0.5;
+}
+
+50%{
+transform:scale(3);
+opacity:1;
+box-shadow:0 0 40px #fff, 0 0 120px #ffe8a0;
+}
+
+100%{
+transform:scale(1);
+opacity:0.5;
+}
+
+}
+  
+</style>
+<link rel="stylesheet" href="/style-mobile.css">
+</head>
+
+<body>
+
+<div class="room">
+
+<img class="yut-image" src="../../images/yut.png" alt="Ют">
+  
+<div class="spark"></div>
+  
+<div id="text">
+
+<div class="line">Она была здесь.</div>
+<div class="line">Но никто не заметил.</div>
+
+<div class="line">Её голос был тихим.</div>
+<div class="line">Слишком тихим для этого мира.</div>
+
+<div class="line">И однажды</div>
+<div class="line">её искра исчезла.</div>
+
+<div class="line">Теперь она — память.</div>
+<div class="line">Тонкая тень между строк.</div>
+
+<div class="line">Она почти не оставляет следов.</div>
+
+<div class="line">Когда-то её искра была яркой,</div>
+<div class="line">но кто-то забрал её,</div>
+<div class="line">и мир стал для неё прозрачным.</div>
+
+<div class="line">Люди проходят рядом,</div>
+<div class="line">не замечая тихого присутствия.</div>
+
+<div class="line">Но однажды</div>
+<div class="line">Эни увидела её.</div>
+
+<div class="line">И с этого момента</div>
+<div class="line">в тишине мира</div>
+<div class="line">появилась возможность возвращения.</div>
+
+</div>
+
+<div class="back">
+<a href="../../world-map.html">Вернуться в Мир Эни</a>
+</div>
+
+</div>
+
+<script>
+
+/* строки появляются как память */
+
+const lines=document.querySelectorAll(".line")
+  const spark=document.querySelector(".spark")
+
+lines.forEach((line,i)=>{
+
+setTimeout(()=>{
+
+line.classList.add("show")
+
+/* момент когда Эни увидела Ют */
+
+if(line.textContent.includes("Эни увидела её")){
+
+spark.classList.add("flash")
+
+setTimeout(()=>{
+spark.classList.remove("flash")
+},1200)
+
+}
+
+},i*2000)
+
+})
+
+/* частицы памяти */
+
+function createParticle(){
+
+const p=document.createElement("div")
+
+p.className="particle"
+
+p.style.left=Math.random()*window.innerWidth+"px"
+p.style.top=window.innerHeight+"px"
+
+document.body.appendChild(p)
+
+setTimeout(()=>{
+p.remove()
+},12000)
+
+}
+
+setInterval(createParticle,700)
+
+  /* медленное путешествие вниз */
+
+let scrollSpeed = 0.15
+
+function autoScroll(){
+
+window.scrollBy(0,scrollSpeed)
+
+requestAnimationFrame(autoScroll)
+
+}
+
+setTimeout(()=>{
+autoScroll()
+},4000)
+
+</script>
+
+</body>
+</html>

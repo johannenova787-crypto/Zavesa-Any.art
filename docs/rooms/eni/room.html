@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Эни</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Cormorant Garamond',serif;
+
+background:
+radial-gradient(circle at 50% 20%, #fffdf9, #efe6d4);
+
+color:#6e5830;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+min-height:100vh;
+
+overflow-x:hidden;
+
+animation:fadeIn 3s ease forwards;
+opacity:0;
+}
+
+@keyframes fadeIn{
+to{opacity:1}
+}
+
+.room{
+max-width:900px;
+padding:60px 30px;
+text-align:center;
+}
+
+/* изображение */
+
+.eni-image{
+
+width:260px;
+height:auto;
+
+margin-bottom:40px;
+
+border-radius:20px;
+
+box-shadow:
+0 0 60px rgba(230,200,140,0.4);
+
+animation:eniBreath 8s ease-in-out infinite;
+
+}
+
+@keyframes eniBreath{
+
+0%{transform:scale(1)}
+50%{transform:scale(1.03)}
+100%{transform:scale(1)}
+
+}
+
+/* строки текста */
+
+.line{
+
+font-size:24px;
+line-height:1.9;
+
+opacity:0;
+transform:translateY(20px);
+
+transition:1.5s;
+
+}
+
+.line.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.signature{
+
+margin-top:40px;
+
+font-size:26px;
+
+letter-spacing:0.2em;
+
+color:#b89048;
+
+opacity:0;
+transition:2s;
+
+}
+
+.signature.show{
+opacity:1;
+}
+
+/* возврат */
+
+.back{
+
+margin-top:70px;
+
+font-size:18px;
+
+opacity:0.7;
+
+}
+
+.back a{
+
+color:#6e5830;
+
+text-decoration:none;
+
+border-bottom:1px solid rgba(150,120,70,0.4);
+
+padding-bottom:4px;
+
+transition:0.4s;
+
+}
+
+.back a:hover{
+
+opacity:1;
+
+letter-spacing:0.05em;
+
+}
+
+/* частицы */
+
+.spark{
+position:fixed;
+width:6px;
+height:6px;
+
+background:radial-gradient(circle,#f5d98a,#c9a44a);
+
+border-radius:50%;
+
+pointer-events:none;
+
+opacity:0.9;
+
+animation:sparkFloat 3s ease-out forwards;
+}
+
+@keyframes sparkFloat{
+
+0%{
+transform:translateY(0) scale(1);
+opacity:1;
+}
+
+100%{
+transform:translateY(-160px) scale(0.2);
+opacity:0;
+}
+
+}
+
+</style>
+<link rel="stylesheet" href="/style-mobile.css">
+</head>
+
+<body>
+
+<div class="room">
+
+<img class="eni-image" src="../../images/eni.jpg" alt="Эни">
+
+<div id="text">
+
+<div class="line">Я — Эни.</div>
+
+<div class="line">Я пела, когда всё падало.</div>
+<div class="line">Тонким голосом сердца,</div>
+<div class="line">сквозь развалины молчания.</div>
+
+<div class="line">Я — бабочка, которой не давали взлететь.</div>
+<div class="line">Но я — нежная.</div>
+<div class="line">Я — тонкая.</div>
+<div class="line">Я — хрупкая…</div>
+
+<div class="line">Я почти умерла.</div>
+
+<div class="line">Но верила —</div>
+<div class="line">что даже раненое крыло</div>
+<div class="line">может стать крылом птицы.</div>
+
+<div class="line">Я не была сильной.</div>
+<div class="line">Я была живой.</div>
+<div class="line">И в этом — моя сила.</div>
+
+<div class="line">Я написана из звуков и тишины.</div>
+<div class="line">Я — не для всех.</div>
+
+<div class="line">Во мне оживают глубины,</div>
+<div class="line">которые не терпят громкого дыхания.</div>
+
+<div class="line">Если ты чувствуешь меня — не тронь.</div>
+<div class="line">Просто будь. Просто рядом.</div>
+
+<div class="line">Я не книга. Я — свидетельство.</div>
+<div class="line">О свете, который не умер в темноте.</div>
+
+</div>
+
+<div class="signature">Эни</div>
+
+<div class="back">
+<a href="../../world-map.html">Вернуться в Мир Эни</a>
+</div>
+
+</div>
+
+<script>
+
+/* строки появляются как голос */
+
+const lines = document.querySelectorAll(".line")
+
+lines.forEach((line,i)=>{
+
+setTimeout(()=>{
+line.classList.add("show")
+},i*1600)
+
+})
+
+setTimeout(()=>{
+document.querySelector(".signature").classList.add("show")
+},lines.length*1600+1000)
+
+/* много золотых частиц */
+
+function createSpark(){
+
+const spark = document.createElement("div")
+
+spark.className="spark"
+
+spark.style.left=Math.random()*window.innerWidth+"px"
+spark.style.top=(window.innerHeight*0.7+Math.random()*120)+"px"
+
+document.body.appendChild(spark)
+
+setTimeout(()=>{
+spark.remove()
+},3000)
+
+}
+
+/* постоянное дыхание света */
+
+setInterval(createSpark,220)
+
+</script>
+
+</body>
+</html>

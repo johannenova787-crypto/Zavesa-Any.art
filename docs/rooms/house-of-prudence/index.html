@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Дом Благоразумия</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+background:linear-gradient(#07090c,#1a1f26);
+font-family:'Cormorant Garamond',serif;
+color:#e8e8e8;
+overflow-x:hidden;
+}
+
+/* туман */
+
+.fog{
+position:fixed;
+width:200%;
+height:200%;
+background:radial-gradient(circle at 40% 40%,rgba(255,255,255,0.06),transparent 60%);
+animation:fogMove 90s linear infinite;
+pointer-events:none;
+}
+
+@keyframes fogMove{
+0%{transform:translate(0,0)}
+50%{transform:translate(-200px,-100px)}
+100%{transform:translate(0,0)}
+}
+
+/* контейнер */
+
+.container{
+max-width:900px;
+margin:auto;
+padding:80px 30px;
+position:relative;
+z-index:2;
+}
+
+/* заголовок */
+
+h1{
+text-align:center;
+font-size:56px;
+letter-spacing:2px;
+margin-bottom:50px;
+opacity:0;
+animation:fadeIn 3s forwards;
+}
+
+/* текст */
+
+.text p{
+font-size:22px;
+line-height:1.7;
+margin-bottom:28px;
+opacity:0;
+transform:translateY(20px);
+animation:lineFade 2s forwards;
+}
+
+.text p:nth-child(1){animation-delay:1s}
+.text p:nth-child(2){animation-delay:3s}
+.text p:nth-child(3){animation-delay:5s}
+.text p:nth-child(4){animation-delay:7s}
+.text p:nth-child(5){animation-delay:9s}
+.text p:nth-child(6){animation-delay:11s}
+.text p:nth-child(7){animation-delay:13s}
+.text p:nth-child(8){animation-delay:15s}
+
+/* исчезающая искра */
+
+.spark{
+animation:sparkFade 10s infinite;
+}
+
+@keyframes sparkFade{
+0%{opacity:1}
+40%{opacity:1}
+50%{opacity:0}
+60%{opacity:1}
+100%{opacity:1}
+}
+
+/* вопрос */
+
+.question{
+margin-top:40px;
+font-size:26px;
+text-align:center;
+color:#f0d8a8;
+opacity:0;
+animation:fadeIn 3s forwards;
+animation-delay:17s;
+}
+
+/* картинка */
+
+.house-image{
+width:100%;
+margin-top:50px;
+opacity:0;
+transform:scale(1.05);
+animation:imageAppear 5s forwards;
+animation-delay:6s;
+}
+
+/* мерцание окон */
+
+.house-image:hover{
+filter:brightness(1.2);
+}
+
+/* змея */
+
+.snake{
+position:fixed;
+bottom:-200px;
+left:-200px;
+font-size:140px;
+opacity:0.15;
+animation:snakeMove 40s linear infinite;
+}
+
+@keyframes snakeMove{
+0%{transform:translate(0,0)}
+50%{transform:translate(120vw,-20vh)}
+100%{transform:translate(0,0)}
+}
+
+/* кнопка */
+
+a.back{
+display:block;
+text-align:center;
+margin-top:70px;
+text-decoration:none;
+color:#d9c8a0;
+font-size:20px;
+opacity:0;
+animation:fadeIn 3s forwards;
+animation-delay:20s;
+}
+
+a.back:hover{
+opacity:1;
+}
+
+@keyframes fadeIn{
+to{opacity:1}
+}
+
+@keyframes lineFade{
+to{
+opacity:0.95;
+transform:translateY(0);
+}
+}
+
+@keyframes imageAppear{
+to{
+opacity:0.9;
+transform:scale(1);
+}
+}
+
+</style>
+<link rel="stylesheet" href="/style-mobile.css">
+</head>
+
+<body>
+
+<div class="fog"></div>
+
+<div class="container">
+
+<h1>Дом Благоразумия</h1>
+
+<div class="text">
+
+<p>Иногда мир становится слишком громким.</p>
+
+<p>Мысли путаются, чувства вспыхивают слишком ярко,
+а сердце устаёт от собственной силы.</p>
+
+<p>Для таких душ существует Дом Благоразумия.</p>
+
+<p>Он стоит у тихой воды среди старых деревьев,
+где время течёт медленнее и каждый шаг
+словно растворяется в мягком тумане.</p>
+
+<p class="spark">
+Сюда приходят те, чьи искры стали слишком беспокойными —
+чтобы успокоиться, восстановиться
+и вновь обрести равновесие.
+</p>
+
+<p>В Доме Благоразумия всё устроено для тишины.
+Длинные коридоры, мягкий свет в окнах,
+спокойные голоса смотрителей.</p>
+
+<p>Говорят, в глубине дома живут древние хранители — змеи.</p>
+
+<p>Они чувствуют слишком яркие искры
+и умеют мягко касаться их.</p>
+
+<div class="question">
+Но что именно гаснет в этих стенах — боль… или свет?
+</div>
+
+</div>
+
+<img src="../../images/house-prudence.jpg" class="house-image">
+
+<a class="back" href="../../world-map.html">← Вернуться в мир Эни</a>
+
+</div>
+
+<div class="snake">🐍</div>
+
+</body>
+</html>
+

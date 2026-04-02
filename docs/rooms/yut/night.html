@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Ют — Ночная комната</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Cormorant Garamond',serif;
+background:radial-gradient(circle at 50% 30%, #0e0d17, #020106 80%);
+color:#e8ddc7;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow-x:hidden;
+overflow-y:auto;
+}
+
+/* звезды */
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+opacity:0.6;
+animation:twinkle 4s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+0%,100%{opacity:0.2}
+50%{opacity:0.9}
+}
+
+/* туман */
+
+.mist{
+position:absolute;
+width:200%;
+height:200%;
+background:radial-gradient(circle,rgba(255,255,255,0.04),transparent 70%);
+animation:mistMove 40s linear infinite;
+z-index:0;
+transition:transform 6s ease;
+}
+
+@keyframes mistMove{
+0%{transform:translate(-10%,-10%)}
+50%{transform:translate(10%,10%)}
+100%{transform:translate(-10%,-10%)}
+}
+
+/* контейнер */
+
+.room{
+max-width:700px;
+text-align:center;
+padding:60px 40px;
+position:relative;
+z-index:2;
+}
+
+/* арт */
+
+.art{
+margin-bottom:40px;
+}
+
+.art img{
+width:100%;
+max-width:420px;
+border-radius:6px;
+opacity:0;
+filter:brightness(0.9) contrast(1.05);
+box-shadow:0 0 40px rgba(0,0,0,0.8);
+animation:fadeArt 4s ease forwards;
+animation-delay:2s;
+}
+
+@keyframes fadeArt{
+to{opacity:0.92}
+}
+
+/* строки */
+
+.lines{
+margin-top:20px;
+}
+
+.line{
+font-size:28px;
+line-height:1.9;
+opacity:0;
+margin-bottom:18px;
+animation:fadeLine 2s forwards;
+}
+
+/* появление строго по очереди */
+
+.lines .line:nth-child(1){animation-delay:6s}
+.lines .line:nth-child(2){animation-delay:9s}
+.lines .line:nth-child(3){animation-delay:12s}
+.lines .line:nth-child(4){animation-delay:15s}
+
+@keyframes fadeLine{
+to{opacity:1}
+}
+
+/* кнопка назад */
+
+.back{
+margin-top:50px;
+font-size:18px;
+opacity:0.7;
+}
+
+.back a{
+color:#e8ddc7;
+text-decoration:none;
+}
+
+</style>
+<link rel="stylesheet" href="/style-mobile.css">
+</head>
+
+<body>
+
+<div class="mist"></div>
+
+<div class="room">
+
+<div class="art">
+<img src="yut-night.jpg" alt="Ют в ночном лесу">
+</div>
+
+<div class="lines">
+
+<div class="line">
+Ночью Ют почти не говорит.
+</div>
+
+<div class="line">
+Она слушает.
+</div>
+
+<div class="line">
+Иногда кажется,
+что ночь слушает её.
+</div>
+
+<div class="line">
+И тогда тишина становится глубже,
+чем пространство.
+</div>
+
+</div>
+
+<div class="back">
+<a href="../../world-map.html">Вернуться к карте</a>
+</div>
+
+</div>
+
+<script>
+
+/* создаём звезды */
+
+for(let i=0;i<140;i++){
+
+const s=document.createElement('div')
+
+s.className='star'
+
+s.style.left=Math.random()*100+'%'
+s.style.top=Math.random()*100+'%'
+
+s.style.animationDelay=Math.random()*4+'s'
+
+document.body.appendChild(s)
+
+}
+
+/* движение тумана */
+
+const mist=document.querySelector('.mist')
+
+document.addEventListener('mousemove',e=>{
+
+let x=(e.clientX/window.innerWidth-0.5)*20
+let y=(e.clientY/window.innerHeight-0.5)*20
+
+mist.style.transform=`translate(${x}px,${y}px)`
+
+})
+
+</script>
+
+</body>
+</html>

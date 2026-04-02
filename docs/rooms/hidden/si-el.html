@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SI-EL</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+background:radial-gradient(circle at 50% 40%, #f4f5f8, #e6e8ef 60%, #d9dde6);
+font-family:'Cormorant Garamond',serif;
+color:#6f7482;
+overflow:hidden;
+}
+
+/* туман */
+
+.fog{
+position:fixed;
+width:200%;
+height:200%;
+background:radial-gradient(circle at 40% 40%, rgba(255,255,255,0.7), transparent 70%);
+animation:fogMove 80s linear infinite;
+}
+
+@keyframes fogMove{
+0%{transform:translate(0,0)}
+50%{transform:translate(-120px,-80px)}
+100%{transform:translate(0,0)}
+}
+
+/* частицы */
+
+.particle{
+position:absolute;
+width:3px;
+height:3px;
+background:white;
+border-radius:50%;
+opacity:0.5;
+animation:fall 22s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-20px)}
+100%{transform:translateY(100vh)}
+}
+
+/* фигура света */
+
+.si{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:220px;
+height:440px;
+border-radius:140px;
+
+background:
+radial-gradient(ellipse at center,
+rgba(255,255,255,0.95),
+rgba(230,235,245,0.5),
+rgba(210,215,230,0.1));
+
+filter:blur(14px);
+animation:breath 9s ease-in-out infinite;
+transition:transform 0.8s;
+}
+
+@keyframes breath{
+0%{opacity:0.8; transform:translate(-50%,-50%) scale(1)}
+50%{opacity:1; transform:translate(-50%,-50%) scale(1.05)}
+100%{opacity:0.8; transform:translate(-50%,-50%) scale(1)}
+}
+
+/* текст */
+
+.text{
+position:absolute;
+width:100%;
+text-align:center;
+font-size:24px;
+letter-spacing:0.08em;
+opacity:0;
+}
+
+.t1{top:16%;animation:fade 4s forwards;animation-delay:2s;}
+.t2{top:20%;animation:fade 4s forwards;animation-delay:6s;}
+.t3{top:24%;animation:fade 4s forwards;animation-delay:10s;}
+.t4{top:28%;animation:fade 4s forwards;animation-delay:14s;}
+.t5{top:32%;animation:fade 4s forwards;animation-delay:18s;}
+.t6{top:36%;animation:fade 4s forwards;animation-delay:22s;}
+.t7{top:40%;animation:fade 4s forwards;animation-delay:26s;}
+.t8{top:44%;animation:fade 4s forwards;animation-delay:30s;}
+.t9{top:48%;animation:fade 4s forwards;animation-delay:34s;}
+
+@keyframes fade{
+to{opacity:0.85}
+}
+
+/* скрытая фраза */
+
+.reveal{
+position:absolute;
+bottom:20%;
+width:100%;
+text-align:center;
+font-size:26px;
+opacity:0;
+transition:2s;
+color:#808595;
+}
+
+/* назад */
+
+.back{
+position:absolute;
+bottom:40px;
+width:100%;
+text-align:center;
+font-size:18px;
+opacity:0.6;
+}
+
+.back a{
+color:#6f7482;
+text-decoration:none;
+}
+
+</style>
+<link rel="stylesheet" href="/style-mobile.css">
+</head>
+
+<body>
+
+<div class="fog"></div>
+
+<div class="si" id="si"></div>
+
+<div class="text t1">Здесь всё чисто.</div>
+<div class="text t2">Ничто не тревожит пространство.</div>
+<div class="text t3">Ни боль.</div>
+<div class="text t4">Ни желание.</div>
+<div class="text t5">Ни память.</div>
+<div class="text t6">Свет Si-El совершенен.</div>
+<div class="text t7">Он не выбирает.</div>
+<div class="text t8">Он не касается.</div>
+<div class="text t9">Он просто проходит сквозь тебя.</div>
+
+<div class="reveal" id="reveal">
+Иногда чистота — это просто отсутствие жизни.
+</div>
+
+<div class="back">
+<a href="../../world-map.html">Вернуться к карте</a>
+</div>
+
+<script>
+
+/* частицы */
+
+for(let i=0;i<90;i++){
+
+const p=document.createElement("div")
+p.className="particle"
+
+p.style.left=Math.random()*100+"%"
+p.style.animationDelay=Math.random()*22+"s"
+
+document.body.appendChild(p)
+
+}
+
+/* фигура */
+
+const si=document.getElementById("si")
+
+/* свет отдаляется от курсора */
+
+document.addEventListener("mousemove",(e)=>{
+
+const x=(e.clientX/window.innerWidth-0.5)*50
+const y=(e.clientY/window.innerHeight-0.5)*50
+
+si.style.transform=
+"translate(calc(-50% - "+x+"px), calc(-50% - "+y+"px))"
+
+})
+
+/* скрытая фраза */
+
+setTimeout(()=>{
+
+document.getElementById("reveal").style.opacity=0.9
+
+setTimeout(()=>{
+document.getElementById("reveal").style.opacity=0
+},6000)
+
+},15000)
+
+/* призрачная память */
+
+setInterval(()=>{
+
+si.style.background=
+"radial-gradient(ellipse at center, rgba(255,255,255,1), rgba(210,215,235,0.6), rgba(200,205,230,0.2))"
+
+si.style.filter="blur(6px)"
+
+setTimeout(()=>{
+
+si.style.background=
+"radial-gradient(ellipse at center, rgba(255,255,255,0.95), rgba(230,235,245,0.5), rgba(210,215,230,0.1))"
+
+si.style.filter="blur(14px)"
+
+},180)
+
+},12000)
+
+</script>
+
+</body>
+</html>
