@@ -65,7 +65,6 @@ cursor:pointer;
 position:relative;
 }
 
-/* УВЕЛИЧЕННЫЙ ЦЕНТРАЛЬНЫЙ ПОРТАЛ */
 #housePortal{
 width:130px;
 height:130px;
@@ -101,19 +100,19 @@ animation:portalPulseStrong 4s ease-in-out infinite, portalSpin 40s linear infin
 
 .label{margin-top:16px;font-size:18px;letter-spacing:0.12em}
 
-/* СОЗВЕЗДИЯ */
+/* СОЗВЕЗДИЯ — чуть мягче */
 .line{
 position:absolute;
 height:2px;
-background:linear-gradient(to right,transparent,rgba(255,220,150,0.8),transparent);
+background:linear-gradient(to right,transparent,rgba(255,220,150,0.65),transparent);
 transform-origin:left center;
-opacity:0.2;
+opacity:0.15;
 transition:1.4s;
 }
 
 .line.active{
-opacity:1;
-box-shadow:0 0 12px rgba(255,230,160,0.8);
+opacity:0.85;
+box-shadow:0 0 8px rgba(255,230,160,0.6);
 }
 
 /* ЗВЁЗДНОЕ НЕБО */
@@ -145,7 +144,27 @@ pointer-events:none;
 #whisper{top:45%;font-size:28px;opacity:0;transition:3s}
 #worldMemory{top:50%;font-size:34px;opacity:0;transition:3s}
 
-.back{position:absolute;bottom:40px;width:100%;text-align:center}
+/* КНОПКА — теперь аккуратная */
+.back{
+position:absolute;
+bottom:40px;
+width:100%;
+text-align:center;
+font-size:20px;
+letter-spacing:0.08em;
+}
+
+.back a{
+color:#e8ddc7;
+text-decoration:none;
+opacity:0.8;
+transition:0.4s;
+}
+
+.back a:hover{
+opacity:1;
+text-shadow:0 0 12px rgba(255,230,160,0.6);
+}
 </style>
 </head>
 
@@ -215,7 +234,6 @@ pointer-events:none;
 </div>
 
 <script>
-/* ЗВЁЗДЫ */
 for(let i=0;i<180;i++){
 const s=document.createElement('div')
 s.className='star'
