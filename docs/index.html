@@ -113,19 +113,16 @@ let animationId;
 
 function resize(){
 
-const dpr = window.devicePixelRatio || 1;
-
-canvas.width = window.innerWidth * dpr;
-canvas.height = window.innerHeight * dpr;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 canvas.style.width = window.innerWidth + "px";
 canvas.style.height = window.innerHeight + "px";
 
 ctx.setTransform(1, 0, 0, 1, 0, 0);
-ctx.scale(dpr, dpr);
 
 }
-resize();
+  
 window.addEventListener("resize",resize);
 
 let dust=[];
@@ -227,7 +224,7 @@ ctx.lineWidth=2;
 ctx.shadowColor="rgba(255,255,255,0.8)";
 ctx.shadowBlur=25;
 
-ctx.strokeText(currentText,window.innerWidth/2,window.innerHeight/2);
+ctx.strokeText(currentText,canvas.width/2,canvas.height/2);
 
 ctx.shadowBlur=0;
 
