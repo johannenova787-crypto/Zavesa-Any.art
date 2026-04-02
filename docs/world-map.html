@@ -14,7 +14,14 @@ position:relative;
 width:100vw;
 height:120vh; /* было 100vh */
 overflow:hidden;
+  
 }
+
+ .page-center{
+width:140vw;
+height:120vh;
+left:-20vw;
+} 
   
 body{
 margin:0;
@@ -42,6 +49,12 @@ pointer-events:none;
 position:absolute;
 inset:0;
 }
+  
+.map{
+transform:scale(1.15, 1); /* растяжение по горизонтали */
+transform-origin:center;
+}
+  
 
 .node{
 position:absolute;
