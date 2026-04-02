@@ -324,15 +324,16 @@ formText("JOANNA NOVA");
 
 setTimeout(()=>{
 
-if(localStorage.getItem("joannaIntroRead")){
+const seen = localStorage.getItem("eni_intro_seen");
 
-window.location.href="johanna.html";
+if (!seen) {
+// Первый раз → идём в intro
+window.location.href = "intro.html";
+} else {
+// Все последующие → сразу Johanna
+window.location.href = "johanna.html";
+}
 
-}else{
-
-localStorage.setItem("joannaIntroRead","yes");
-
-window.location.href="intro.html";
 
 }
 
