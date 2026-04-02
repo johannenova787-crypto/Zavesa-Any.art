@@ -307,18 +307,24 @@ body {
 }
 
 /* ПОРТАЛ */
+  
 .portal {
   position: absolute;
   top: 50%;
   left: 50%;
+
   width: 260px;
   height: 260px;
+
+  transform: translate(-50%, -50%) scale(0.6);
+
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
   filter: blur(10px);
-  transform: translate(-50%, -50%) scale(0.6);
+
   transition: opacity 1.6s ease, transform 1.6s ease, filter 1.6s ease;
+
   z-index: 20;
 }
 
@@ -334,15 +340,20 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+
   background: radial-gradient(circle,
-    rgba(255,230,150,0.9) 0%,
-    rgba(255,220,150,0.4) 40%,
+    rgba(255,230,150,1) 0%,
+    rgba(255,220,150,0.5) 40%,
     transparent 70%
   );
+
   box-shadow:
-    0 0 60px rgba(255,220,140,0.8),
-    0 0 140px rgba(255,220,140,0.4);
-  animation: portalGlow 4s ease-in-out infinite, portalSpin 14s linear infinite;
+    0 0 80px rgba(255,220,140,1),
+    0 0 160px rgba(255,220,140,0.6),
+    0 0 240px rgba(255,220,140,0.3);
+
+  animation: portalGlow 4s ease-in-out infinite,
+             portalSpin 14s linear infinite;
 }
 
 @keyframes portalSpin {
@@ -616,9 +627,7 @@ body {
 
 </div>
   
-</div>
 
-  <div class="portal" id="portal">
     <div class="portal-ring"></div>
     <div class="eni-word" id="eniWord">ЭНИ</div>
     <div class="portal-text" id="portalBtn">Переступить Завесу</div>
