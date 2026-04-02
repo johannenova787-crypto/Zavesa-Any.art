@@ -48,7 +48,7 @@ text-align:center;
 }
 
 /* ✦ ПОРТАЛ — без конфликта transform */
-
+  
 .portal{
 width:100px;
 height:100px;
@@ -59,22 +59,12 @@ margin:auto;
 cursor:pointer;
 transition:0.6s;
 
+/* ключевая правка */
 transform-origin:center;
-
-/* вращение вынесено в отдельный слой */
-animation:portalPulse 6s ease-in-out infinite;
+animation:portalPulse 6s ease-in-out infinite, portalSpin 36s linear infinite;
 }
 
-/* отдельный слой вращения */
-.portal::before{
-content:"";
-position:absolute;
-inset:0;
-border-radius:50%;
-animation:portalSpin 36s linear infinite;
-}
-
-/* hover больше НЕ ломает позицию */
+/* ❌ УБРАЛИ transform (он ломал позиционирование) */
 .portal:hover{
 filter:brightness(1.25);
 box-shadow:0 0 70px rgba(255,230,160,1);
