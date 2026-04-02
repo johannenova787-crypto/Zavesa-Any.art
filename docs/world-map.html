@@ -1,34 +1,42 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Мир Эни</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
-.page-center{
-position:relative;
-width:100vw;
-height:120vh; /* было 100vh */
-overflow:hidden;
-  
-}
-
- .page-center{
-width:140vw;
-height:120vh;
-left:-20vw;
-} 
-  
 body{
 margin:0;
 font-family:'Cormorant Garamond',serif;
 background:radial-gradient(circle at 50% 40%, #1c1b28, #05040a 70%);
 color:#e8ddc7;
 overflow:hidden;
+}
+
+/* РАСШИРЕННЫЙ, НО ЦЕНТРИРОВАННЫЙ МИР */
+
+.page-center{
+position:relative;
+width:140vw;
+height:120vh;
+margin-left:-20vw;
+overflow:hidden;
+}
+
+/* КАРТА ДЫШИТ ГОРИЗОНТАЛЬНО */
+
+.map{
+position:absolute;
+inset:0;
+transform:scale(1.15,1);
+transform-origin:center;
+left:-7.5%;
 }
 
 h1{
@@ -45,17 +53,6 @@ pointer-events:none;
 
 @keyframes titleFade{to{opacity:1}}
 
-.map{
-position:absolute;
-inset:0;
-}
-  
-.map{
-transform:scale(1.15, 1); /* растяжение по горизонтали */
-transform-origin:center;
-}
-  
-
 .node{
 position:absolute;
 transform:translate(-50%,-50%);
@@ -69,21 +66,16 @@ animation:floatNode 12s ease-in-out infinite;
 100%{transform:translate(-50%,-50%) translateY(0)}
 }
 
-
-  
 .portal{
 width:100px;
 height:100px;
 border-radius:50%;
 margin:auto;
 cursor:pointer;
-transition:0.6s;
 position:relative;
-
-/* ВАЖНО */
 transform:translateZ(0);
 }
-  
+
 .portal::before{
 content:"";
 position:absolute;
@@ -91,28 +83,11 @@ inset:0;
 border-radius:50%;
 background:radial-gradient(circle,#f6e6b0,#a07c3a);
 box-shadow:0 0 30px rgba(255,220,140,0.6),0 0 80px rgba(255,210,120,0.2);
-
-/* ВСЯ МАГИЯ ПЕРЕНЕСЕНА СЮДА */
 animation:portalPulse 6s ease-in-out infinite, portalSpin 36s linear infinite;
-
-transform-origin:center;
 }
-  
-/* усиленное дыхание центрального портала */
 
 #housePortal::before{
 animation:portalPulseStrong 4s ease-in-out infinite, portalSpin 40s linear infinite;
-}
-
-@keyframes portalPulseStrong{
-0%{box-shadow:0 0 30px rgba(255,220,140,0.6),0 0 90px rgba(255,210,120,0.4)}
-50%{box-shadow:0 0 110px rgba(255,240,180,1),0 0 160px rgba(255,230,160,0.8)}
-100%{box-shadow:0 0 30px rgba(255,220,140,0.6),0 0 90px rgba(255,210,120,0.4)}
-}
-
-.portal:hover::before{
-transform:scale(1.22);
-box-shadow:0 0 70px rgba(255,230,160,1);
 }
 
 @keyframes portalSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
@@ -123,9 +98,15 @@ box-shadow:0 0 70px rgba(255,230,160,1);
 100%{box-shadow:0 0 20px rgba(255,220,140,0.4)}
 }
 
+@keyframes portalPulseStrong{
+0%{box-shadow:0 0 30px rgba(255,220,140,0.6)}
+50%{box-shadow:0 0 120px rgba(255,240,180,1)}
+100%{box-shadow:0 0 30px rgba(255,220,140,0.6)}
+}
+
 .label{margin-top:16px;font-size:18px;letter-spacing:0.12em}
 
-/* линии судьбы */
+/* линии */
 
 .line{
 position:absolute;
@@ -138,78 +119,63 @@ transition:1.4s;
 
 .line.active{opacity:1}
 
-.star{position:absolute;width:2px;height:2px;background:white;opacity:0.6;animation:twinkle 4s infinite ease-in-out}
-
-@keyframes twinkle{0%,100%{opacity:0.2}50%{opacity:0.95}}
-
-.bird{position:absolute;font-size:16px;animation:birdFly 2.4s ease-out forwards}
-
-@keyframes birdFly{0%{transform:translate(0,0);opacity:0.9}100%{transform:translate(140px,-100px);opacity:0}}
+/* скрытые */
 
 .hidden{opacity:0;pointer-events:none;transition:1.6s}
 .hidden.show{opacity:1;pointer-events:auto}
 
-.back{position:absolute;bottom:40px;width:100%;text-align:center;font-size:18px;opacity:0.7}
-.back a{color:#e8ddc7;text-decoration:none}
+/* текст */
 
-  /* шёпот карты */
+#whisper, #worldMemory{
+position:absolute;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+pointer-events:none;
+}
 
 #whisper{
-position:absolute;
 top:45%;
-left:50%;
-transform:translate(-50%,-50%);
 font-size:28px;
-letter-spacing:0.12em;
 opacity:0;
 transition:3s;
-pointer-events:none;
-text-align:center;
-color:#f2e7c8;
 }
-  
 
-  
-
-  #worldMemory{
-position:absolute;
+#worldMemory{
 top:50%;
-left:50%;
-transform:translate(-50%,-50%);
 font-size:34px;
-letter-spacing:0.14em;
 opacity:0;
 transition:3s;
-pointer-events:none;
-text-align:center;
-color:#f5e9c9;
-text-shadow:0 0 30px rgba(255,230,160,0.6);
 }
-  
+
+/* назад */
+
+.back{
+position:absolute;
+bottom:40px;
+width:100%;
+text-align:center;
+}
+
 </style>
-<link rel="stylesheet" href="style-mobile.css">
 </head>
 
 <body>
-  
+
 <div class="page-center">
-  
 
-  
-
-  
 <h1>Мир Эни</h1>
 
 <div class="map">
 
-<!-- линии судьбы которые загораются -->
+<!-- линии -->
 
 <div class="line" id="line1" style="top:55%;left:50%;width:28%;transform:rotate(-150deg)"></div>
 <div class="line" id="line2" style="top:55%;left:50%;width:28%;transform:rotate(150deg)"></div>
 <div class="line" id="line3" style="top:55%;left:50%;width:28%;transform:rotate(25deg)"></div>
 <div class="line" id="line4" style="top:55%;left:50%;width:28%;transform:rotate(-25deg)"></div>
 
-<!-- Дом Благоразумия -->
+<!-- центр -->
 
 <div class="node" style="top:55%;left:50%">
 <a href="rooms/house-of-prudence/index.html">
@@ -218,7 +184,7 @@ text-shadow:0 0 30px rgba(255,230,160,0.6);
 <div class="label">Дом Благоразумия</div>
 </div>
 
-<!-- Эни -->
+<!-- верх -->
 
 <div class="node" style="top:28%;left:50%">
 <a href="rooms/eni/room.html">
@@ -227,65 +193,53 @@ text-shadow:0 0 30px rgba(255,230,160,0.6);
 <div class="label">Эни</div>
 </div>
 
-<!-- Анджелика и Джереми -->
+<!-- луны (расширены) -->
 
-<div class="node" style="top:38%;left:22%">
+<div class="node" style="top:38%;left:18%">
 <a href="rooms/angelika-jeremy/room.html">
 <div class="portal"></div>
 </a>
 <div class="label">Анджелика и Джереми</div>
 </div>
 
-<!-- Зеркальный брат -->
-
-<div class="node" style="top:38%;left:78%">
+<div class="node" style="top:38%;left:82%">
 <a href="rooms/mirror-brother/room.html">
 <div class="portal"></div>
 </a>
 <div class="label">Зеркальный Брат</div>
 </div>
 
-<!-- Ют -->
+<!-- низ -->
 
-<div class="node" style="top:75%;left:24%">
+<div class="node" style="top:75%;left:20%">
 <a href="rooms/yut/room.html">
 <div class="portal"></div>
 </a>
 <div class="label">Ют</div>
 </div>
 
-<!-- Кот -->
-
-<div class="node" style="top:75%;left:76%">
+<div class="node" style="top:75%;left:80%">
 <a href="rooms/cat/room.html">
 <div class="portal" id="catPortal"></div>
 </a>
 <div class="label">Кот</div>
 </div>
 
-<!-- ночная комната Ют -->
+<!-- скрытые -->
 
 <div class="node hidden" id="yutNight" style="top:10%;left:20%">
-<a href="rooms/yut/night.html">
-<div class="portal"></div>
-</a>
+<a href="rooms/yut/night.html"><div class="portal"></div></a>
 <div class="label">Ют — Ночная Комната</div>
 </div>
 
-<!-- тайные -->
-
 <div class="node hidden" id="si" style="top:8%;left:80%">
-<a href="rooms/hidden/si-el.html">
-<div class="portal"></div>
-</a>
-<div class="label">SI‑EL</div>
+<a href="rooms/hidden/si-el.html"><div class="portal"></div></a>
+<div class="label">SI-EL</div>
 </div>
 
-<div class="node hidden" id="ael" style="top:92%;left:50%">
-<a href="rooms/hidden/ael-ra.html">
-<div class="portal"></div>
-</a>
-<div class="label">AEL‑RA</div>
+<div class="node hidden" id="ael" style="top:85%;left:50%">
+<a href="rooms/hidden/ael-ra.html"><div class="portal"></div></a>
+<div class="label">AEL-RA</div>
 </div>
 
 </div>
@@ -294,212 +248,76 @@ text-shadow:0 0 30px rgba(255,230,160,0.6);
 <a href="index.html">Вернуться к Завесе</a>
 </div>
 
-<script>
-
-  function worldAwakening(){
-
-const text=document.getElementById("worldMemory")
-
-/* вспыхивают линии */
-
-document.querySelectorAll('.line').forEach(l=>{
-l.style.opacity=1
-l.style.boxShadow="0 0 20px rgba(255,230,160,0.9)"
-})
-
-/* порталы усиливают свет */
-
-document.querySelectorAll('.portal').forEach(p=>{
-p.style.scale="1.35"
-p.style.boxShadow="0 0 120px rgba(255,240,180,1)"
-})
-
-/* появляется строка */
-
-setTimeout(()=>{
-text.style.opacity=1
-},600)
-
-/* затем всё мягко возвращается */
-
-setTimeout(()=>{
-
-text.style.opacity=0
-
-document.querySelectorAll('.portal').forEach(p=>{
-p.style.scale="1"
-p.style.boxShadow=""
-})
-
-},6000)
-
-}
-  
-/* звезды */
-
-for(let i=0;i<200;i++){
-const s=document.createElement('div')
-s.className='star'
-s.style.left=Math.random()*100+'%'
-s.style.top=Math.random()*100+'%'
-s.style.animationDelay=Math.random()*4+'s'
-document.body.appendChild(s)
-}
-
-/* птицы */
-
-const portals=document.querySelectorAll('.portal')
-
-portals.forEach(p=>{
-
-p.addEventListener('mouseenter',()=>{
-
-for(let i=0;i<4;i++){
-
-const b=document.createElement('div')
-b.className='bird'
-b.innerHTML='🕊'
-
-const r=p.getBoundingClientRect()
-
-b.style.left=(r.left+50)+'px'
-b.style.top=(r.top+50)+'px'
-
-b.style.animationDelay=Math.random()*0.4+'s'
-
-document.body.appendChild(b)
-
-setTimeout(()=>b.remove(),2400)
-
-}
-
-})
-
-})
-
-/* посещения */
-
-let visited=JSON.parse(localStorage.getItem('eniVisited')||'[]')
-
-function mark(room){
-
-if(!visited.includes(room)){
-visited.push(room)
-localStorage.setItem('eniVisited',JSON.stringify(visited))
-}
-
-activateLines()
-checkSecrets()
-
-}
-
-/* загорание линий судьбы */
-
-function activateLines(){
-
-if(visited.length>=1) document.getElementById('line1').classList.add('active')
-if(visited.length>=2) document.getElementById('line2').classList.add('active')
-if(visited.length>=3) document.getElementById('line3').classList.add('active')
-if(visited.length>=4) document.getElementById('line4').classList.add('active')
-
-}
-
-/* секреты */
-
-function checkSecrets(){
-
-if(visited.length>=3){
-document.getElementById('si').classList.add('show')
-}
-
-if(visited.length>=5){
-document.getElementById('ael').classList.add('show')
-}
-
-}
-
-activateLines()
-checkSecrets()
-  
-
-/* переходы */
-
-const links=document.querySelectorAll('.node a')
-
-links.forEach(l => {
-  l.addEventListener('click', () => {
-    const href = l.getAttribute('href');
-    mark(href);
-  });
-});
-
-/* секрет кота */
-
-let catClicks=0
-
-const cat=document.getElementById('catPortal')
-
-cat.addEventListener('click',()=>{
-
-catClicks++
-
-if(catClicks===3){
-
-document.getElementById('si').classList.add('show')
-
-}
-
-})
-
-/* ночная комната Ют */
-
-const hour = new Date().getHours()
-
-if(hour >= 20 || hour <= 8){
-document.getElementById('yutNight').classList.add('show')
-}
-
-
-/* шёпот карты */
-
-if(!localStorage.getItem('eniWhisper')){
-
-setTimeout(()=>{
-const w=document.getElementById('whisper')
-  
-w.style.opacity=1
-
-setTimeout(()=>{
-w.style.opacity=0
-},6000)
-
-},2200)
-
-localStorage.setItem('eniWhisper','1')
-
-}
-
-if(visited.length>=6 && !localStorage.getItem('eniWorldAwakened')){
-
-setTimeout(worldAwakening,1200)
-
-localStorage.setItem('eniWorldAwakened','1')
-
-}
-
-</script>
-  
-
 <div id="whisper">
 Иногда карта — это не путь. Иногда она — память.
 </div>
 
-
-</div>
-  <div id="worldMemory">
+<div id="worldMemory">
 Мир запомнил, что ты был здесь.
 </div>
+
+</div>
+
+<script>
+
+let visited=JSON.parse(localStorage.getItem('eniVisited')||'[]')
+
+function mark(room){
+if(!visited.includes(room)){
+visited.push(room)
+localStorage.setItem('eniVisited',JSON.stringify(visited))
+}
+activateLines()
+checkSecrets()
+}
+
+function activateLines(){
+if(visited.length>=1) line1.classList.add('active')
+if(visited.length>=2) line2.classList.add('active')
+if(visited.length>=3) line3.classList.add('active')
+if(visited.length>=4) line4.classList.add('active')
+}
+
+function checkSecrets(){
+if(visited.length>=3) si.classList.add('show')
+if(visited.length>=5) ael.classList.add('show')
+}
+
+document.querySelectorAll('.node a').forEach(l=>{
+l.onclick=()=>mark(l.getAttribute('href'))
+})
+
+/* ночь */
+
+const hour=new Date().getHours()
+if(hour>=20||hour<=8){
+yutNight.classList.add('show')
+}
+
+/* шёпот */
+
+if(!localStorage.getItem('eniWhisper')){
+setTimeout(()=>{
+whisper.style.opacity=1
+setTimeout(()=>whisper.style.opacity=0,6000)
+},2000)
+localStorage.setItem('eniWhisper','1')
+}
+
+/* пробуждение */
+
+if(visited.length>=6 && !localStorage.getItem('eniWorldAwakened')){
+setTimeout(()=>{
+worldMemory.style.opacity=1
+setTimeout(()=>worldMemory.style.opacity=0,6000)
+},1200)
+localStorage.setItem('eniWorldAwakened','1')
+}
+
+activateLines()
+checkSecrets()
+
+</script>
+
 </body>
 </html>
-
-
