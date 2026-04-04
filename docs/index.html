@@ -246,6 +246,14 @@ glowLetters=false;
 setTimeout(()=>glowLetters=true,1200);
 }
 
+  <script>
+
+/* 🔑 ОПРЕДЕЛЯЕМ СРАЗУ ПРИ ЗАГРУЗКЕ */
+let isFirstVisit = !localStorage.getItem("eni_intro_seen");
+
+</script>
+  
+
 document.querySelector(".open").addEventListener("click", openVeil);
 
 function openVeil(){
@@ -279,9 +287,10 @@ formText("JOANNA NOVA");
 },9500);
 
 /* ПЕРЕХОД */
+
 setTimeout(()=>{
 
-if(!seen){
+if(isFirstVisit){
 localStorage.setItem("eni_intro_seen","true");
 window.location.href="intro.html";
 }else{
@@ -290,7 +299,6 @@ window.location.href="johanna.html";
 
 },14000);
 
-}
 
 </script>
 
