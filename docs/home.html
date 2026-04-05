@@ -967,17 +967,35 @@ document.addEventListener("mousemove", (e) => {
 function openExcerpt() {
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-  // 📱 Если телефон — открываем отдельно
-  if (isMobile) {
-    window.open("excerpt/excerpt.pdf", "_blank");
-    return;
-  }
-
-  // 💻 Если ПК — оставляем красивую анимацию
   const page  = document.getElementById("pageTurn");
   const room  = document.getElementById("pdfRoom");
   const frame = document.getElementById("pdfFrame");
 
+  // 📱 МОБИЛКА — делаем иллюзию перехода
+  if (isMobile) {
+
+    // мягкое затемнение
+    document.body.style.transition = "1.4s ease";
+    document.body.style.filter     = "blur(2px) brightness(0.9)";
+
+    // перелистывание страницы
+    page.classList.add("open");
+
+    // даём почувствовать переход
+    setTimeout(() => {
+      window.open("excerpt/excerpt.pdf", "_blank");
+    }, 1200);
+
+    // возвращаем состояние
+    setTimeout(() => {
+      document.body.style.filter = "none";
+      page.classList.remove("open");
+    }, 2500);
+
+    return;
+  }
+
+  // 💻 ПК — как у тебя (идеально)
   page.classList.add("open");
 
   setTimeout(() => {
