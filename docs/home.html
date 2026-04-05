@@ -956,6 +956,15 @@ document.addEventListener("mousemove", (e) => {
 
 // ── PDF ──────────────────────────────────────────────────────────────────────
 function openExcerpt() {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  // 📱 Если телефон — открываем отдельно
+  if (isMobile) {
+    window.open("excerpt/excerpt.pdf", "_blank");
+    return;
+  }
+
+  // 💻 Если ПК — оставляем красивую анимацию
   const page  = document.getElementById("pageTurn");
   const room  = document.getElementById("pdfRoom");
   const frame = document.getElementById("pdfFrame");
@@ -963,19 +972,9 @@ function openExcerpt() {
   page.classList.add("open");
 
   setTimeout(() => {
-    frame.src = "excerpt/excerpt.pdf#view=FitH";
+    frame.src = "excerpt/excerpt.pdf";
     room.classList.add("open");
   }, 1500);
-}
-
-function closeExcerpt() {
-  const room  = document.getElementById("pdfRoom");
-  const frame = document.getElementById("pdfFrame");
-  const page  = document.getElementById("pageTurn");
-
-  room.classList.remove("open");
-  page.classList.remove("open");
-  frame.src = "";
 }
 
 // ── ФИНАЛЬНЫЕ ПТИЦЫ ──────────────────────────────────────────────────────────
