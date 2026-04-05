@@ -904,9 +904,13 @@ function goBuy() {
 
   const msg = document.getElementById("buyMessage");
 
-  // ✅ Открываем пустую вкладку СРАЗУ
-  const newWindow = window.open("", "_blank");
+  // ✅ СРАЗУ открываем ссылку (главное изменение)
+  window.open(
+    "https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae",
+    "_blank"
+  );
 
+  // дальше — только визуал
   msg.classList.add("show");
 
   setTimeout(() => {
@@ -915,16 +919,7 @@ function goBuy() {
     document.body.style.opacity    = "0.7";
   }, 7000);
 
-  setTimeout(() => {
-    msg.classList.remove("show");
-  }, 9000);
-
-  // ✅ А вот сюда уже вставляем ссылку
-  setTimeout(() => {
-    if (newWindow) {
-      newWindow.location.href = "https://boosty.to/slovojanice/posts/5322408f-0975-4138-8f6e-72458c770dae";
-    }
-  }, 10000);
+  setTimeout(() => msg.classList.remove("show"), 9000);
 
   setTimeout(() => {
     document.body.style.opacity = "1";
