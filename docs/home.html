@@ -6,7 +6,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Эни — Акт I</title>
+<title>Эни
+  
+  — Акт I</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 
@@ -700,6 +702,22 @@ text-shadow:
 
 
 <script>
+  
+function closeExcerpt() {
+  const page  = document.getElementById("pageTurn");
+  const room  = document.getElementById("pdfRoom");
+  const frame = document.getElementById("pdfFrame");
+
+  // Закрываем комнату
+  room.classList.remove("open");
+
+  // Чуть позже убираем перелистывание
+  setTimeout(() => {
+    page.classList.remove("open");
+    frame.src = ""; // очищаем PDF (важно для повторного открытия)
+  }, 600);
+}
+  
 
 // ── Портал к карте (GitHub Pages готовый) ──────────────────────────────
 
